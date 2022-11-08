@@ -1,0 +1,18 @@
+# Request:
+# POST http://localhost:8080/v1/api/security/username
+# Content-Type: application/json
+# Accept: application/json
+
+# {
+#     "username":"jperez"
+# }
+
+# Request:
+POST http://localhost:8080/v1/api/security/auth 
+Content-Type: application/json
+Accept: application/json
+
+{
+    "username":"jperez",
+    "password":"123456"
+}
