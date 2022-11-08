@@ -8,7 +8,7 @@
 # }
 
 # Request:
-POST http://localhost:8080/v1/api/security/auth 
+POST http://localhost:7777/v1/api/security/auth 
 Content-Type: application/json
 Accept: application/json
 

@@ -12,7 +12,7 @@ import com.auth0.jwt.exceptions.JWTCreationException;
 
 @RestController
 @RequestMapping(path="/v1/api/security")
-public class SecurityApi {
+public class TestSecurityApi {
 
     @PostMapping (path="/username")
     public Map<String,String> validateUsername( @RequestBody  Map<String,String> body){

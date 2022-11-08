@@ -1,0 +1,10 @@
+server:
+  port: 7777
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/mr_jeff
+    username: postgres
+    password: secret
+    driver-class-name: org.postgresql.Driver
+
