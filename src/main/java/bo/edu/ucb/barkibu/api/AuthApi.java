@@ -25,7 +25,6 @@ public class AuthApi {
     //Test get user by id
     @GetMapping("/{userId}")
     public UserDto getUserByPk(@PathVariable(name = "userId") Integer userId) {
-        System.out.println("userId: " + userId);
         return securityBl.getUserByPk(userId);
     }
 

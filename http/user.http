@@ -1,0 +1,11 @@
+POST http://localhost:7777/api/v1/user
+Content-Type: application/json
+Accept: application/json
+
+{
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "jd@ucb.edu.bo",
+    "userName": "johndoe",
+    "password": "123456"
+}
