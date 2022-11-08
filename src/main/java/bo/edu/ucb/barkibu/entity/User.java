@@ -9,6 +9,7 @@ public class User {
     private String firstName;
     private String lastName;
     private String email;
+    private String userName;
     private String password;
     private String photoPath;
     private String description;
@@ -21,12 +22,13 @@ public class User {
     }
     
 
-    public User(Integer userId, Integer cityId, String firstName, String lastName, String email, String password, String photoPath, String description, String status, Date txDate, String txUser, String txHost) {
+    public User(Integer userId, Integer cityId, String firstName, String lastName, String email, String userName, String password, String photoPath, String description, String status, Date txDate, String txUser, String txHost) {
         this.userId = userId;
         this.cityId = cityId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.userName = userName;
         this.password = password;
         this.photoPath = photoPath;
         this.description = description;
@@ -74,6 +76,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getPassword() {

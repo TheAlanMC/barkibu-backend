@@ -6,18 +6,21 @@ public class UserDto {
     private String firstName;
     private String lastName;
     private String email;
+
+    private String userName;
     private String photoPath;
     private String description;
 
     public UserDto() {
     }
 
-    public UserDto(Integer userId, Integer cityId, String firstName, String lastName, String email, String photoPath, String description) {
+    public UserDto(Integer userId, Integer cityId, String firstName, String lastName, String email, String userName, String photoPath, String description) {
         this.userId = userId;
         this.cityId = cityId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.userName = userName;
         this.photoPath = photoPath;
         this.description = description;
     }
@@ -60,6 +63,14 @@ public class UserDto {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getPhotoPath() {
