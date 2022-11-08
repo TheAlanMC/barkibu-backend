@@ -3,7 +3,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/mr_jeff
+    url: jdbc:postgresql://localhost:5432/barkibu_bd
     username: postgres
     password: secret
     driver-class-name: org.postgresql.Driver
