@@ -24,12 +24,18 @@ public class SecurityBl {
     public AuthResDto authenticate(AuthReqDto credentials) {
         AuthResDto result = new AuthResDto();
         String currentPasswordInBCrypt = userDao.findByUserName(credentials.getUserName());
-        BCrypt.Result bcryptResult = BCrypt.verifyer().verify(credentials.getPassword().toCharArray(), currentPasswordInBCrypt);
-        if (bcryptResult.verified) {
-            result.setToken("123456789");
-            result.setRefreshToken("987654321");
+        if (currentPasswordInBCrypt != null) {
+            BCrypt.Result verifyResult = BCrypt.verifyer().verify(credentials.getPassword().toCharArray(), currentPasswordInBCrypt);
+            if (verifyResult.verified) {
+                result.setToken("123456789");
+                result.setRefreshToken("987654321");
+            } else {
+                //TODO: FIX THROWING EXCEPTION
+                throw new RuntimeException("Invalid credentials");
+            }
         } else {
-           throw new RuntimeException("Invalid credentials");
+            //TODO: FIX THROWING EXCEPTION
+            throw new RuntimeException("User not found");
         }
         return result;
     }
