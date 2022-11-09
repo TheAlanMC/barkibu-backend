@@ -8,6 +8,7 @@ import bo.edu.ucb.barkibu.dto.AuthResDto;
 import bo.edu.ucb.barkibu.dto.UserDto;
 import bo.edu.ucb.barkibu.entity.Role;
 import bo.edu.ucb.barkibu.entity.User;
+import bo.edu.ucb.barkibu.util.AuthUtil;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
@@ -17,7 +18,6 @@ import java.util.List;
 
 @Service
 public class SecurityBl {
-    final static String JWT_SECRET = "barkibu";
     private UserDao userDao;
     private RoleDao roleDao;
 
@@ -52,35 +52,10 @@ public class SecurityBl {
         return result;
     }
 
-    public User validateJwtToken(String token) {
-        User result = null;
-        try {
-            String userName = JWT.require(Algorithm.HMAC256(JWT_SECRET))
-                    .build()
-                    .verify(token)
-                    .getSubject();
-            result = userDao.findByUserName(userName);
-        } catch (Exception e) {
-           //TODO: FIX THROWING EXCEPTION
-            // TODO: EXCEPTION WHEN TOKEN HAS EXPIRED
-            throw new RuntimeException("Invalid token");
-        }
-        return result;
-    }
-
-    public boolean tokenHasRole(String jwt, String role) {
-        validateJwtToken(jwt);
-        List<String> roles = JWT.require(Algorithm.HMAC256(JWT_SECRET))
-                .build()
-                .verify(jwt)
-                .getClaim("roles")
-                .asList(String.class);
-        return roles.contains(role);
-    }
     private AuthResDto generateTokenJwt(String subject, int expirationTime, String [] roles) {
         AuthResDto result = new AuthResDto();
         try {
-            Algorithm algorithm = Algorithm.HMAC256(JWT_SECRET);
+            Algorithm algorithm = Algorithm.HMAC256(AuthUtil.JWT_SECRET);
             String token = JWT.create()
                     .withIssuer("ucb")
                     .withSubject(subject)

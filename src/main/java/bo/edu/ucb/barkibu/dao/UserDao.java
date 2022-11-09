@@ -3,7 +3,9 @@ package bo.edu.ucb.barkibu.dao;
 import bo.edu.ucb.barkibu.entity.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.stereotype.Component;
 
+@Component
 public interface UserDao {
 
     @Select("""

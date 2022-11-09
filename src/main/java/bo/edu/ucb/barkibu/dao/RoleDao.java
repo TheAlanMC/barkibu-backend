@@ -2,9 +2,11 @@ package bo.edu.ucb.barkibu.dao;
 
 import bo.edu.ucb.barkibu.entity.Role;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public interface RoleDao {
 
     @Select("""
