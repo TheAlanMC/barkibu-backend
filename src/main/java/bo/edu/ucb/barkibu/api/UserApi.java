@@ -1,10 +1,8 @@
 package bo.edu.ucb.barkibu.api;
 
-import bo.edu.ucb.barkibu.bl.SecurityBl;
 import bo.edu.ucb.barkibu.bl.UserBl;
 import bo.edu.ucb.barkibu.dto.CreateUserDto;
 import bo.edu.ucb.barkibu.dto.ResponseDto;
-import bo.edu.ucb.barkibu.dto.UserDto;
 import bo.edu.ucb.barkibu.util.AuthUtil;
 import bo.edu.ucb.barkibu.util.BarkibuException;
 import org.springframework.web.bind.annotation.*;
@@ -15,9 +13,8 @@ import java.util.Map;
 @RequestMapping("/v1/api/user")
 public class UserApi {
     private UserBl userBl;
-    private SecurityBl securityBl;
 
-    public UserApi(UserBl userBl, SecurityBl securityBl) {
+    public UserApi(UserBl userBl) {
         this.userBl = userBl;
     }
 
