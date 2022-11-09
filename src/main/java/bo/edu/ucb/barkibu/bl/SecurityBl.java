@@ -9,9 +9,11 @@ import bo.edu.ucb.barkibu.dto.UserDto;
 import bo.edu.ucb.barkibu.entity.Role;
 import bo.edu.ucb.barkibu.entity.User;
 import bo.edu.ucb.barkibu.util.AuthUtil;
+import bo.edu.ucb.barkibu.util.BarkibuException;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,12 +44,11 @@ public class SecurityBl {
                 String [] rolesAsArray = rolesAsString.toArray(new String[0]);
                 result = generateTokenJwt(credentials.getUserName(),300, rolesAsArray);
             } else {
-                //TODO: FIX THROWING EXCEPTION
-                throw new RuntimeException("Invalid credentials");
+                throw new BarkibuException("Invalid credentials", "SCTY-0003", HttpStatus.UNAUTHORIZED);
             }
         } else {
-            //TODO: FIX THROWING EXCEPTION
-            throw new RuntimeException("User not found");
+            throw new BarkibuException("User not found", "SCTY-0004", HttpStatus.NOT_FOUND);
+
         }
         return result;
     }
@@ -74,8 +75,7 @@ public class SecurityBl {
                     .sign(algorithm);
             result.setRefreshToken(refreshToken);
         } catch (JWTCreationException exception) {
-            //TODO: FIX THROWING EXCEPTION
-            throw new RuntimeException("Error generating token", exception);
+            throw new BarkibuException("Error generating token", "SCTY-0005", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return result;
     }

@@ -5,6 +5,8 @@ import bo.edu.ucb.barkibu.dto.CreateUserDto;
 import bo.edu.ucb.barkibu.dto.ResponseDto;
 import bo.edu.ucb.barkibu.util.AuthUtil;
 import bo.edu.ucb.barkibu.util.BarkibuException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -19,16 +21,17 @@ public class UserApi {
     }
 
     @PostMapping
-    public ResponseDto<String> createUser(@RequestHeader Map<String,String> headers, @RequestBody  CreateUserDto createUserDto) {
+    public ResponseEntity<ResponseDto<String>> createUser(@RequestHeader Map<String,String> headers, @RequestBody  CreateUserDto createUserDto) {
         try{
             String jwt = AuthUtil.getTokenFromHeader(headers);
             AuthUtil.verifyHasRole(jwt,"CREAR USUARIO");
             userBl.createUser(createUserDto);
-            return new ResponseDto<>("User Created", "SCTY-0000", null);
+            ResponseDto<String> responseDto = new ResponseDto<>("User Created", "SCTY-0000", null);
+            return new ResponseEntity<>(responseDto, HttpStatus.OK);
         }
         catch(BarkibuException e){
-            //TODO: implement code to log exception
-            return new ResponseDto<>(null, "SCTY-0001", e.getMessage());
+            ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
+            return new ResponseEntity<>(responseDto, e.getHttpStatus());
         }
     }
 /*
