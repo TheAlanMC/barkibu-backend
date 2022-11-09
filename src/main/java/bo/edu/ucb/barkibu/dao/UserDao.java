@@ -17,12 +17,22 @@ public interface UserDao {
     User findByPrimaryKey(Integer userId);
 
     @Select("""
+            SELECT user_id, city_id,first_name,last_name,email,
+                   user_name,password,photo_path,description,status,
+                   tx_date,tx_user,tx_host 
+            FROM "user" 
+            WHERE user_name = #{userName}
+            AND status = 'activo' 
+    """)
+    User findByUserName(String userName);
+
+    @Select("""
             SELECT password
             FROM "user" 
             WHERE user_name = #{userName}
             AND status = 'activo'
     """)
-    String findByUserName(String userName);
+    String findPasswordByUserName(String userName);
 
     @Insert("""
             INSERT INTO "user" 

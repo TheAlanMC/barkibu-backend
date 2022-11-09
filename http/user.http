@@ -1,11 +1,12 @@
 POST http://localhost:7777/api/v1/user
 Content-Type: application/json
 Accept: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhcGFuaXF1ZSIsInJvbGVzIjpbIkNSRUFSIENPTlNVTFRBIiwiTEVFUiBDT05TVUxUQSIsIkNSRUFSIFVTVUFSSU8iXSwiaXNzIjoidWNiIiwicmVmcmVzaCI6ZmFsc2UsImV4cCI6MTY2Nzk2MzkwNCwiaWF0IjoxNjY3OTYzNjA0fQ._rycqyiFnLKl7Came4Kg5Jy5CmyQBxSIDENs6GS3N1o
 
 {
     "firstName": "John",
     "lastName": "Doe",
-    "email": "jd@ucb.edu.bo",
-    "userName": "johndoe",
+    "email": "jd1@ucb.edu.bo",
+    "userName": "johndoe1",
     "password": "123456"
 }
