@@ -8,6 +8,8 @@ import bo.edu.ucb.barkibu.util.BarkibuException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import static bo.edu.ucb.barkibu.util.ValidationUtil.isEmailValid;
+
 @Service
 public class UserBl {
     private UserDao userDao;
@@ -22,7 +24,10 @@ public class UserBl {
         if (userDao.findUserIdByEmail(createUserDto.getEmail()) != null) {
             throw new BarkibuException("SCTY-1003", "Email already exists", HttpStatus.BAD_REQUEST);
         }
-
+        // Verificamos que el email tenga un formato valido
+        if (!isEmailValid(createUserDto.getEmail())) {
+            throw new BarkibuException("SCTY-1004", "Email format is invalid", HttpStatus.BAD_REQUEST);
+        }
         User user = new User();
         user.setFirstName(createUserDto.getFirstName());
         user.setLastName(createUserDto.getLastName());
