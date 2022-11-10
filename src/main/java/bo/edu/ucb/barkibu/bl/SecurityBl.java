@@ -27,14 +27,14 @@ public class SecurityBl {
         this.userDao = userDao;
         this.roleDao = roleDao;
     }
-    public UserDto getUserByPk (Integer userId) {
-        User user = userDao.findByPrimaryKey(userId);
-        UserDto userDto = new UserDto(user.getUserId(), user.getCityId(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getUserName(), user.getPhotoPath(), user.getDescription());
-        return userDto;
-    }
+    //public UserDto getUserByPk (Integer userId) {
+    //    User user = userDao.findByPrimaryKey(userId);
+    //    UserDto userDto = new UserDto(user.getUserId(), user.getCityId(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getUserName(), user.getPhotoPath(), user.getDescription());
+    //    return userDto;
+    //}
 
     public AuthResDto authenticate(AuthReqDto credentials) {
-        AuthResDto result = new AuthResDto();
+        AuthResDto result;
         String currentPasswordInBCrypt = userDao.findPasswordByUserName(credentials.getUserName());
         if (currentPasswordInBCrypt != null) {
             BCrypt.Result verifyResult = BCrypt.verifyer().verify(credentials.getPassword().toCharArray(), currentPasswordInBCrypt);
@@ -74,6 +74,7 @@ public class SecurityBl {
                     .withExpiresAt(java.util.Date.from(java.time.Instant.now().plusSeconds(expirationTime * 2)))
                     .sign(algorithm);
             result.setRefreshToken(refreshToken);
+            //TODO: INCLUDE GROUP?
         } catch (JWTCreationException exception) {
             throw new BarkibuException("Error generating token", "SCTY-4000", HttpStatus.INTERNAL_SERVER_ERROR);
         }

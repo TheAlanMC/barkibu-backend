@@ -35,4 +35,11 @@ public class AuthReqDto{
                 ", password='" + password + '\'' +
                 '}';
     }
+
+    public boolean validate() {
+        if(this.userName == null || this.userName.isEmpty() || this.password == null || this.password.isEmpty()) {
+            return false;
+        }
+        return true;
+    }
 }

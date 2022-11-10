@@ -22,7 +22,7 @@ public class AuthApi {
     //Autentication
     @PostMapping()
     public ResponseEntity<ResponseDto<AuthResDto>> authentication(@RequestBody AuthReqDto authReqDto) {
-        if (authReqDto != null && authReqDto.getUserName() != null && authReqDto.getPassword() != null && !authReqDto.getUserName().isEmpty() && !authReqDto.getPassword().isEmpty()) {
+        if (authReqDto.validate()) {
             try {
                 ResponseDto<AuthResDto> responseDto = new ResponseDto<>(securityBl.authenticate(authReqDto), "SCTY-0000", null);
                 return new ResponseEntity<>(responseDto, HttpStatus.OK);

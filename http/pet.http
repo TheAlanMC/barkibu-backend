@@ -1,0 +1,16 @@
+
+### Add new Pet Owner User
+POST http://localhost:7777/v1/api/pet
+Content-Type: application/json
+Accept: application/json
+
+{
+    "userId": "62",
+    "breedId": "1",
+    "name": "Bella",
+    "gender": "hembra",
+    "castrated": "true",
+    "bornDate": "2019-01-01",
+    "photoPath": "https://imageio.forbes.com/specials-images/dam/imageserve/1068867780/960x0.jpg?format=jpg&width=960",
+    "chipNumber": "123456789"
+}
