@@ -34,6 +34,25 @@ public class UserApi {
             return new ResponseEntity<>(responseDto, e.getHttpStatus());
         }
     }
+
+    // Registrar usuario dueño de mascota
+    @PostMapping("/pet-owner")
+    public ResponseEntity<ResponseDto<String>> createPetOwner(@RequestBody  CreateUserDto createUserDto) {
+        if (createUserDto.validate()) {
+            try {
+                userBl.createPetOwner(createUserDto);
+                ResponseDto<String> responseDto = new ResponseDto<>("Pet Owner User Created", "SCTY-0000", null);
+                return new ResponseEntity<>(responseDto, HttpStatus.OK);
+            } catch (BarkibuException e) {
+                ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
+                return new ResponseEntity<>(responseDto, e.getHttpStatus());
+            }
+        }
+        else {
+            ResponseDto<String> responseDto = new ResponseDto<>(null, "SCTY-1001", "At least one field is empty");
+            return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
+        }
+    }
 /*
     //Test
     @GetMapping

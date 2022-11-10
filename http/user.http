@@ -1,3 +1,4 @@
+### Add new user Test
 POST http://localhost:7777/v1/api/user
 Content-Type: application/json
 Accept: application/json
@@ -8,5 +9,18 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhcGFuaXF1Z
     "lastName": "Doe",
     "email": "jd2@ucb.edu.bo",
     "userName": "johndoe2",
+    "password": "123456"
+}
+
+### Add new Pet Owner User
+POST http://localhost:7777/v1/api/user/pet-owner
+Content-Type: application/json
+Accept: application/json
+
+{
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "jd4@ucb.edu.bo",
+    "userName": "johndoe4",
     "password": "123456"
 }

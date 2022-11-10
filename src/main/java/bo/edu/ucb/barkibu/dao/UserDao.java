@@ -59,5 +59,20 @@ public interface UserDao {
             AND status = 'activo' 
     """)
     String findEmail(String email);
+
+    @Select("""
+            SELECT user_id
+            FROM "user" 
+            WHERE user_name = #{userName}
+            AND status = 'activo' 
+    """)
+    Integer findUserIdByUserName(String userName);
+    @Insert("""
+            INSERT INTO user_group
+            (user_id, group_id, status, tx_date, tx_user, tx_host)
+            VALUES 
+            (#{userId}, 1, 'activo', now(), 'anonymus', 'localhost')
+            """)
+    void addPetOwnerGroup(int userId);
 }
 

@@ -68,4 +68,11 @@ public class CreateUserDto {
                 ", password='" + password + '\'' +
                 '}';
     }
+
+    public boolean validate() {
+        if (firstName == null || firstName.isEmpty() || lastName == null || lastName.isEmpty() || email == null || email.isEmpty() || userName == null || userName.isEmpty() || password == null || password.isEmpty()) {
+            return false;
+        }
+        return true;
+    }
 }
