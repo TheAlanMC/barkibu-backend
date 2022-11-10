@@ -1,6 +1,4 @@
 package bo.edu.ucb.barkibu.dto;
-//TODO: MAKE ERROR CODES DICTIOANRY
-//CODE=0 -> OK
 public class ResponseDto<T>{
     private T result;
     private String statusCode;

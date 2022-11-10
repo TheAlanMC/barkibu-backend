@@ -44,10 +44,10 @@ public class SecurityBl {
                 String [] rolesAsArray = rolesAsString.toArray(new String[0]);
                 result = generateTokenJwt(credentials.getUserName(),300, rolesAsArray);
             } else {
-                throw new BarkibuException("Invalid credentials", "SCTY-0003", HttpStatus.UNAUTHORIZED);
+                throw new BarkibuException("Invalid credentials", "SCTY-2000", HttpStatus.UNAUTHORIZED);
             }
         } else {
-            throw new BarkibuException("User not found", "SCTY-0004", HttpStatus.NOT_FOUND);
+            throw new BarkibuException("User not found", "SCTY-3000", HttpStatus.NOT_FOUND);
 
         }
         return result;
@@ -75,7 +75,7 @@ public class SecurityBl {
                     .sign(algorithm);
             result.setRefreshToken(refreshToken);
         } catch (JWTCreationException exception) {
-            throw new BarkibuException("Error generating token", "SCTY-0005", HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new BarkibuException("Error generating token", "SCTY-4000", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return result;
     }

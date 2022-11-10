@@ -22,8 +22,7 @@ public class AuthApi {
     //Autentication
     @PostMapping()
     public ResponseEntity<ResponseDto<AuthResDto>> authentication(@RequestBody AuthReqDto authReqDto) {
-        if (authReqDto != null && authReqDto.getUserName() != null && authReqDto.getPassword() != null
-                && !authReqDto.getUserName().isEmpty() && !authReqDto.getPassword().isEmpty()) {
+        if (authReqDto != null && authReqDto.getUserName() != null && authReqDto.getPassword() != null && !authReqDto.getUserName().isEmpty() && !authReqDto.getPassword().isEmpty()) {
             try {
                 ResponseDto<AuthResDto> responseDto = new ResponseDto<>(securityBl.authenticate(authReqDto), "SCTY-0000", null);
                 return new ResponseEntity<>(responseDto, HttpStatus.OK);
@@ -32,7 +31,7 @@ public class AuthApi {
                 return new ResponseEntity<>(responseDto, e.getHttpStatus());
             }
         } else {
-            ResponseDto<AuthResDto> responseDto = new ResponseDto<>(null, "SCTY-0002", "At least one field is empty");
+            ResponseDto<AuthResDto> responseDto = new ResponseDto<>(null, "SCTY-1001", "At least one field is empty");
             return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
         }
     }

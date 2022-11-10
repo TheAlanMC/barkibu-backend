@@ -1,12 +1,12 @@
-POST http://localhost:7777/api/v1/user
+POST http://localhost:7777/v1/api/user
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhcGFuaXF1ZSIsInJvbGVzIjpbIkNSRUFSIENPTlNVTFRBIiwiTEVFUiBDT05TVUxUQSIsIkNSRUFSIFVTVUFSSU8iXSwiaXNzIjoidWNiIiwicmVmcmVzaCI6ZmFsc2UsImV4cCI6MTY2Nzk2MzkwNCwiaWF0IjoxNjY3OTYzNjA0fQ._rycqyiFnLKl7Came4Kg5Jy5CmyQBxSIDENs6GS3N1o
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhcGFuaXF1ZSIsInJvbGVzIjpbIkNSRUFSIENPTlNVTFRBIiwiTEVFUiBDT05TVUxUQSIsIkNSRUFSIFVTVUFSSU8iXSwiaXNzIjoidWNiIiwicmVmcmVzaCI6ZmFsc2UsImV4cCI6MTY2ODA0Nzk5OSwiaWF0IjoxNjY4MDQ3Njk5fQ.q9qcuQjwa5jtZZmJx3sUfsRm2IRA5vycseB5R1msWdU
 
 {
     "firstName": "John",
     "lastName": "Doe",
-    "email": "jd1@ucb.edu.bo",
-    "userName": "johndoe1",
+    "email": "jd2@ucb.edu.bo",
+    "userName": "johndoe2",
     "password": "123456"
 }

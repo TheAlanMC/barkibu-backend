@@ -44,5 +44,20 @@ public interface UserDao {
             """)
     void createUser(User user);
 
+    @Select("""
+            SELECT user_name 
+            FROM "user" 
+            WHERE user_name = #{userName}
+            AND status = 'activo' 
+    """)
+    String findUserName(String userName);
+
+    @Select("""
+            SELECT email 
+            FROM "user" 
+            WHERE email = #{email}
+            AND status = 'activo' 
+    """)
+    String findEmail(String email);
 }
 
