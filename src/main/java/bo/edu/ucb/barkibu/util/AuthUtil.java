@@ -3,6 +3,7 @@ package bo.edu.ucb.barkibu.util;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import org.springframework.http.HttpStatus;
 
 import java.util.List;
@@ -45,7 +46,7 @@ public class AuthUtil {
         if (!roles.contains(role)) {
             throw new BarkibuException("User does not have permission to access this resource", "SCTY-2001", HttpStatus.FORBIDDEN);
         }}
-        catch (JWTCreationException exception)  {
+        catch (JWTVerificationException exception){
             throw new BarkibuException("Invalid token", "SCTY-2002", HttpStatus.UNAUTHORIZED);
         }
     }

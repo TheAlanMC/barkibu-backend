@@ -21,7 +21,7 @@ public class UserApi {
     }
 
     //Registar usuario veterinario
-    @PostMapping("/veteriarian")
+    @PostMapping("/veterinarian")
     public ResponseEntity<ResponseDto<String>> createVeterinarianUser(@RequestHeader Map<String,String> headers, @RequestBody  CreateUserDto createUserDto) {
         if (createUserDto.validate()) {
             try {
