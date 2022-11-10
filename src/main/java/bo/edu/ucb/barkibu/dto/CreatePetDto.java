@@ -1,7 +1,6 @@
 package bo.edu.ucb.barkibu.dto;
 
 import java.util.Date;
-
 public class CreatePetDto {
     private Integer userId;
     private Integer breedId;
@@ -94,8 +93,7 @@ public class CreatePetDto {
     }
 
     public boolean validate () {
-        //TODO: CHECK IF PHOTO PATH WILL BE NULL AND IF BOREDATE IS VALID
-        if(userId == null || breedId == null || name == null || name.isEmpty() || gender == null || gender.isEmpty() || bornDate == null || chipNumber == null || chipNumber.isEmpty()) {
+        if(userId == null || breedId == null || name == null || name.isEmpty() || gender == null || gender.isEmpty() || bornDate == null || photoPath == null || photoPath.isEmpty() ||  chipNumber == null || chipNumber.isEmpty()) {
             return false;
         }
         return true;

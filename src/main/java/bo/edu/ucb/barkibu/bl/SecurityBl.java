@@ -5,9 +5,7 @@ import bo.edu.ucb.barkibu.dao.RoleDao;
 import bo.edu.ucb.barkibu.dao.UserDao;
 import bo.edu.ucb.barkibu.dto.AuthReqDto;
 import bo.edu.ucb.barkibu.dto.AuthResDto;
-import bo.edu.ucb.barkibu.dto.UserDto;
 import bo.edu.ucb.barkibu.entity.Role;
-import bo.edu.ucb.barkibu.entity.User;
 import bo.edu.ucb.barkibu.util.AuthUtil;
 import bo.edu.ucb.barkibu.util.BarkibuException;
 import com.auth0.jwt.JWT;
@@ -47,8 +45,8 @@ public class SecurityBl {
                 throw new BarkibuException("Invalid credentials", "SCTY-2000", HttpStatus.UNAUTHORIZED);
             }
         } else {
+            //TODO: SECURITY SHOW THAT USER DOES NOT EXIST?
             throw new BarkibuException("User not found", "SCTY-3000", HttpStatus.NOT_FOUND);
-
         }
         return result;
     }

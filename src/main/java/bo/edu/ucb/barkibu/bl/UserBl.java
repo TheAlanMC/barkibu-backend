@@ -16,12 +16,13 @@ public class UserBl {
         this.userDao = userDao;
     }
     public void createUser(CreateUserDto createUserDto) {
-        if (userDao.findUserName(createUserDto.getUserName()) != null) {
+        if (userDao.findUserIdByUserName(createUserDto.getUserName()) != null) {
             throw new BarkibuException("SCTY-1002", "User name already exists", HttpStatus.BAD_REQUEST);
         }
-        if (userDao.findEmail(createUserDto.getEmail()) != null) {
+        if (userDao.findUserIdByEmail(createUserDto.getEmail()) != null) {
             throw new BarkibuException("SCTY-1003", "Email already exists", HttpStatus.BAD_REQUEST);
         }
+
         User user = new User();
         user.setFirstName(createUserDto.getFirstName());
         user.setLastName(createUserDto.getLastName());

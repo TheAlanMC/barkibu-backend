@@ -45,28 +45,21 @@ public interface UserDao {
     void createUser(User user);
 
     @Select("""
-            SELECT user_name 
-            FROM "user" 
-            WHERE user_name = #{userName}
-            AND status = 'activo' 
-    """)
-    String findUserName(String userName);
-
-    @Select("""
-            SELECT email 
-            FROM "user" 
-            WHERE email = #{email}
-            AND status = 'activo' 
-    """)
-    String findEmail(String email);
-
-    @Select("""
             SELECT user_id
             FROM "user" 
             WHERE user_name = #{userName}
             AND status = 'activo' 
     """)
     Integer findUserIdByUserName(String userName);
+
+    @Select("""
+            SELECT user_id
+            FROM "user" 
+            WHERE email = #{email}
+            AND status = 'activo' 
+    """)
+    Integer findUserIdByEmail(String email);
+
     @Insert("""
             INSERT INTO user_group
             (user_id, group_id, status, tx_date, tx_user, tx_host)

@@ -1,0 +1,8 @@
+### Add new user Test
+POST http://localhost:7777/v1/api/recovery-account
+Content-Type: application/json
+Accept: application/json
+
+{
+    "email": "a"
+}

@@ -30,7 +30,7 @@ public class BarkibuException extends RuntimeException {
         super(message, cause);
     }
 
-    public BarkibuException(String message, String statusCode, HttpStatus httpStatus) {
+    public BarkibuException(String statusCode, String message, HttpStatus httpStatus) {
         super(message);
         this.statusCode = statusCode;
         this.httpStatus = httpStatus;
