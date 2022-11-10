@@ -1,5 +1,5 @@
 ### Add new user Test
-POST http://localhost:7777/v1/api/user
+POST http://localhost:7777/v1/api/user/veterinarian
 Content-Type: application/json
 Accept: application/json
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhcGFuaXF1ZSIsInJvbGVzIjpbIkNSRUFSIENPTlNVTFRBIiwiTEVFUiBDT05TVUxUQSIsIkNSRUFSIFVTVUFSSU8iXSwiaXNzIjoidWNiIiwicmVmcmVzaCI6ZmFsc2UsImV4cCI6MTY2ODA0Nzk5OSwiaWF0IjoxNjY4MDQ3Njk5fQ.q9qcuQjwa5jtZZmJx3sUfsRm2IRA5vycseB5R1msWdU

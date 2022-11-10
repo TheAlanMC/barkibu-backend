@@ -39,6 +39,7 @@ public class UserBl {
     }
 
     public void createPetOwnerUser(CreateUserDto createUserDto) {
+        //TODO: CONFIRM PASSWORD
         createUser(createUserDto);
         // Obtenemos el id del usuario creado
         int userId = userDao.findUserIdByUserName(createUserDto.getUserName());

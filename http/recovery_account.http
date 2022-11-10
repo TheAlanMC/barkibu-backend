@@ -1,4 +1,4 @@
-### Add new user Test
+### Request Password Recovery Code
 POST http://localhost:7777/v1/api/recovery-account
 Content-Type: application/json
 Accept: application/json
@@ -6,3 +6,26 @@ Accept: application/json
 {
     "email": "apanique@gmail.com"
 }
+### Request Password Change
+POST http://localhost:7777/v1/api/recovery-account/hash-code
+Content-Type: application/json
+Accept: application/json
+
+{
+  "email": "apanique@gmail.com",
+  "hashCode": "618438"
+}
+### Request Password Update
+POST http://localhost:7777/v1/api/recovery-account/password
+Content-Type: application/json
+Accept: application/json
+
+{
+  "email": "apanique@gmail.com",
+  "hashCode": "618438",
+  "password": "123456",
+  "confirmPassword": "123456"
+}
+
+
+

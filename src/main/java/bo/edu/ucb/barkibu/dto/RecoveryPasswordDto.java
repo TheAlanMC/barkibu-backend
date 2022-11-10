@@ -59,7 +59,16 @@ public class RecoveryPasswordDto {
     }
 
     public boolean validate() {
-        if(this.email == null || this.email.isEmpty() || this.hashCode == null || this.hashCode.isEmpty() || this.password == null || this.password.isEmpty() || this.confirmPassword == null || this.confirmPassword.isEmpty()) {
+        if(this.email == null || this.email.isEmpty()){
+            return false;
+        }
+        if(this.hashCode == null || this.hashCode.isEmpty()){
+            return false;
+        }
+        if(this.password == null || this.password.isEmpty()){
+            return false;
+        }
+        if(this.confirmPassword == null || this.confirmPassword.isEmpty()){
             return false;
         }
         return true;

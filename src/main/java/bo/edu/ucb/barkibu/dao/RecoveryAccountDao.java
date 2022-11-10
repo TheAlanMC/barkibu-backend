@@ -12,7 +12,7 @@ public interface RecoveryAccountDao {
     @Insert("""
             INSERT INTO recovery_account
             (user_id, hash_code, expiration_date, status, tx_date, tx_user, tx_host)
-            VALUES (#{userId}, #{hash_code}, #{expiration_date}, 'activo', now(), 'anonymus', 'localhost')
+            VALUES (#{userId}, #{hashCode}, #{expirationDate}, 'activo', now(), 'anonymus', 'localhost')
             """)
     void createRecoveryAccount(RecoveryAccount recoveryAccount);
 

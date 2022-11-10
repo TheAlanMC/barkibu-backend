@@ -70,7 +70,19 @@ public class CreateUserDto {
     }
 
     public boolean validate() {
-        if (firstName == null || firstName.isEmpty() || lastName == null || lastName.isEmpty() || email == null || email.isEmpty() || userName == null || userName.isEmpty() || password == null || password.isEmpty()) {
+        if (firstName == null || firstName.isEmpty()){
+            return false;
+        }
+        if (lastName == null || lastName.isEmpty()){
+            return false;
+        }
+        if (email == null || email.isEmpty()){
+            return false;
+        }
+        if (userName == null || userName.isEmpty()){
+            return false;
+        }
+        if (password == null || password.isEmpty()){
             return false;
         }
         return true;

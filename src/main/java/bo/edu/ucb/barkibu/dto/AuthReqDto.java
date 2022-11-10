@@ -37,7 +37,10 @@ public class AuthReqDto{
     }
 
     public boolean validate() {
-        if(this.userName == null || this.userName.isEmpty() || this.password == null || this.password.isEmpty()) {
+        if(this.userName == null || this.userName.isEmpty())  {
+            return false;
+        }
+        if(this.password == null || this.password.isEmpty()) {
             return false;
         }
         return true;

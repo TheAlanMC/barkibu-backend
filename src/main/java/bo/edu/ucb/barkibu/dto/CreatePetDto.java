@@ -93,9 +93,27 @@ public class CreatePetDto {
     }
 
     public boolean validate () {
-        if(userId == null || breedId == null || name == null || name.isEmpty() || gender == null || gender.isEmpty() || bornDate == null || photoPath == null || photoPath.isEmpty() ||  chipNumber == null || chipNumber.isEmpty()) {
+        if(userId == null) {
             return false;
         }
-        return true;
+        if(breedId == null) {
+            return false;
+        }
+        if(name == null || name.isEmpty()) {
+            return false;
+        }
+        if(gender == null || gender.isEmpty()){
+            return false;
+        }
+        if(bornDate == null) {
+            return false;
+        }
+        if(photoPath == null || photoPath.isEmpty()) {
+            return false;
+        }
+        if(chipNumber == null || chipNumber.isEmpty()) {
+            return false;
+        }
+            return true;
     }
 }

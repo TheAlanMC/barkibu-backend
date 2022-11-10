@@ -21,6 +21,7 @@ public class PetBl {
         pet.setGender(createPetDto.getGender());
         pet.setBornDate(createPetDto.getBornDate());
         pet.setPhotoPath(createPetDto.getPhotoPath());
+        //TODO: GENERATE CHIP NUMBER
         pet.setChipNumber(createPetDto.getChipNumber());
         this.petDao.createPet(pet);
     }
