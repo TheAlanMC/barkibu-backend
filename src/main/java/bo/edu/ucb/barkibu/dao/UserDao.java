@@ -74,5 +74,13 @@ public interface UserDao {
             (#{userId}, 1, 'activo', now(), 'anonymus', 'localhost')
             """)
     void addPetOwnerGroup(int userId);
+
+    @Insert("""
+            INSERT INTO user_group
+            (user_id, group_id, status, tx_date, tx_user, tx_host)
+            VALUES 
+            (#{userId}, 2, 'activo', now(), 'anonymus', 'localhost')
+            """)
+    void addVeterinarianGroup(int userId);
 }
 

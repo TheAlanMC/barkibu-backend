@@ -32,26 +32,20 @@ public class UserBl {
         this.userDao.createUser(user);
     }
 
-    public void createPetOwner(CreateUserDto createUserDto) {
-        if (userDao.findUserName(createUserDto.getUserName()) != null) {
-            throw new BarkibuException("SCTY-1002", "User name already exists", HttpStatus.BAD_REQUEST);
-        }
-        if (userDao.findEmail(createUserDto.getEmail()) != null) {
-            throw new BarkibuException("SCTY-1003", "Email already exists", HttpStatus.BAD_REQUEST);
-        }
-        User user = new User();
-        user.setFirstName(createUserDto.getFirstName());
-        user.setLastName(createUserDto.getLastName());
-        user.setEmail(createUserDto.getEmail());
-        user.setUserName(createUserDto.getUserName());
-        String password = BCrypt.withDefaults().hashToString(12, createUserDto.getPassword().toCharArray());
-        user.setPassword(password);
-        // Creamos un usuario con grupo de dueño de mascota
-        this.userDao.createUser(user);
+    public void createPetOwnerUser(CreateUserDto createUserDto) {
+        createUser(createUserDto);
         // Obtenemos el id del usuario creado
-        user.setUserId(userDao.findUserIdByUserName(user.getUserName()));
+        int userId = userDao.findUserIdByUserName(createUserDto.getUserName());
         // Asignamos el grupo de dueño de mascota al usuario recien creado
-        this.userDao.addPetOwnerGroup(user.getUserId());
+        this.userDao.addPetOwnerGroup(userId);
+    }
+
+    public void createVeterinarianUser(CreateUserDto createUserDto) {
+        createUser(createUserDto);
+        // Obtenemos el id del usuario creado
+        int userId = userDao.findUserIdByUserName(createUserDto.getUserName());
+        // Asignamos el grupo de veterinario al usuario recien creado
+        this.userDao.addVeterinarianGroup(userId);
     }
 
 }

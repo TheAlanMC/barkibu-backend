@@ -20,27 +20,34 @@ public class UserApi {
         this.userBl = userBl;
     }
 
-    @PostMapping
-    public ResponseEntity<ResponseDto<String>> createUser(@RequestHeader Map<String,String> headers, @RequestBody  CreateUserDto createUserDto) {
-        try{
-            String jwt = AuthUtil.getTokenFromHeader(headers);
-            AuthUtil.verifyHasRole(jwt,"CREAR USUARIO");
-            userBl.createUser(createUserDto);
-            ResponseDto<String> responseDto = new ResponseDto<>("User Created", "SCTY-0000", null);
-            return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    //Registar usuario veterinario
+    @PostMapping("/veteriarian")
+    public ResponseEntity<ResponseDto<String>> createVeterinarianUser(@RequestHeader Map<String,String> headers, @RequestBody  CreateUserDto createUserDto) {
+        if (createUserDto.validate()) {
+            try {
+                // Verificamos que el usuario este autenticado
+                String jwt = AuthUtil.getTokenFromHeader(headers);
+                AuthUtil.verifyHasRole(jwt, "CREAR USUARIO");
+                userBl.createVeterinarianUser(createUserDto);
+                ResponseDto<String> responseDto = new ResponseDto<>("Veterinary User Created", "SCTY-0000", null);
+                return new ResponseEntity<>(responseDto, HttpStatus.OK);
+            } catch (BarkibuException e) {
+                ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
+                return new ResponseEntity<>(responseDto, e.getHttpStatus());
+            }
         }
-        catch(BarkibuException e){
-            ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
-            return new ResponseEntity<>(responseDto, e.getHttpStatus());
+        else {
+            ResponseDto<String> responseDto = new ResponseDto<>(null, "SCTY-1001", "At least one field is empty");
+            return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
         }
     }
 
     // Registrar usuario dueño de mascota
     @PostMapping("/pet-owner")
-    public ResponseEntity<ResponseDto<String>> createPetOwner(@RequestBody  CreateUserDto createUserDto) {
+    public ResponseEntity<ResponseDto<String>> createPetOwnerUser(@RequestBody  CreateUserDto createUserDto) {
         if (createUserDto.validate()) {
             try {
-                userBl.createPetOwner(createUserDto);
+                userBl.createPetOwnerUser(createUserDto);
                 ResponseDto<String> responseDto = new ResponseDto<>("Pet Owner User Created", "SCTY-0000", null);
                 return new ResponseEntity<>(responseDto, HttpStatus.OK);
             } catch (BarkibuException e) {
