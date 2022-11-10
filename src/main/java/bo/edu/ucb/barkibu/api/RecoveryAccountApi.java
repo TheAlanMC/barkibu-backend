@@ -2,6 +2,7 @@ package bo.edu.ucb.barkibu.api;
 
 import bo.edu.ucb.barkibu.bl.RecoveryAccountBl;
 import bo.edu.ucb.barkibu.dto.RecoveryAccountReqDto;
+import bo.edu.ucb.barkibu.dto.RecoveryPasswordDto;
 import bo.edu.ucb.barkibu.dto.ResponseDto;
 import bo.edu.ucb.barkibu.util.BarkibuException;
 import org.springframework.http.HttpStatus;
@@ -26,6 +27,23 @@ public class RecoveryAccountApi {
             try {
                 recoveryAccountBl.createRecoveryAccount(recoveryAccountReqDto);
                 ResponseDto<String> responseDto = new ResponseDto<>("Security code sent to your email", "SCTY-0000", null);
+                return new ResponseEntity<>(responseDto, HttpStatus.OK);
+            } catch (BarkibuException e) {
+                ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
+                return new ResponseEntity<>(responseDto, e.getHttpStatus());
+            }
+        } else {
+            ResponseDto<String> responseDto = new ResponseDto<>(null, "SCTY-1001", "At least one field is empty");
+            return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("/password")
+    public ResponseEntity<ResponseDto<String>> updatePassword(@RequestBody RecoveryPasswordDto recoveryPasswordDto) {
+        if (recoveryPasswordDto.validate()) {
+            try {
+                recoveryAccountBl.updatePassword(recoveryPasswordDto);
+                ResponseDto<String> responseDto = new ResponseDto<>("Password updated successfully", "SCTY-0000", null);
                 return new ResponseEntity<>(responseDto, HttpStatus.OK);
             } catch (BarkibuException e) {
                 ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());

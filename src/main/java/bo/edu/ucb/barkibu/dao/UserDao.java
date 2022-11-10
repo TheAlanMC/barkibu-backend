@@ -3,6 +3,7 @@ package bo.edu.ucb.barkibu.dao;
 import bo.edu.ucb.barkibu.entity.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -75,5 +76,13 @@ public interface UserDao {
             (#{userId}, 2, 'activo', now(), 'anonymus', 'localhost')
             """)
     void addVeterinarianGroup(int userId);
+
+    @Update("""
+            UPDATE "user"
+            SET password = #{password}
+            WHERE user_id = #{userId}
+            AND status = 'activo'
+            """)
+    void updatePassword(User user);
 }
 
