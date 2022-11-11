@@ -6,7 +6,7 @@
 # {
 #     "username":"jperez"
 # }
-
+# NOT WORKING, JUST USED FOR TESTING PURPOSES
 # Request:
 POST http://localhost:7777/v1/api/security/auth 
 Content-Type: application/json
