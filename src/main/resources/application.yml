@@ -3,8 +3,8 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/barkibu_bd
+    url: jdbc:postgresql://159.223.205.182:5432/barkibu_bd
     username: postgres
-    password: secret
+    password: XSUc$DP)gPah()UI
     driver-class-name: org.postgresql.Driver
 

@@ -16,14 +16,6 @@ public interface RecoveryAccountDao {
             """)
     void createRecoveryAccount(RecoveryAccount recoveryAccount);
 
-    @Select("""
-            SELECT status
-            FROM recovery_account
-            WHERE user_id = #{userId}
-            AND status = 'activo'
-            """)
-    String findStatusByUserId(Integer userId);
-
     @Update("""
             UPDATE recovery_account
             SET status = 'inactivo'

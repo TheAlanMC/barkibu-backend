@@ -40,9 +40,7 @@ public class RecoveryAccountBl {
         }
         int userId = userDao.findUserIdByEmail(recoveryAccountReqDto.getEmail());
         // Cambiamos el estado a inactivo de solicitudes anteriores
-        if (recoveryAccountDao.findStatusByUserId(userId) != null) {
-            recoveryAccountDao.updateStatusByUserId(userId);
-        }
+        recoveryAccountDao.updateStatusByUserId(userId);
         recoveryAccount.setUserId(userId);
         // Generamos un token aleatorio de 6 digitos
         int randomCode = (int) (Math.random() * 900000) + 100000;
@@ -110,6 +108,7 @@ public class RecoveryAccountBl {
         user.setPassword(password);
         user.setUserId(userId);
         userDao.updatePassword(user);
+        // Cambiamos el estado a inactivo de la solicitud ya que ya se utilizo
         recoveryAccountDao.updateStatusByUserId(userId);
     }
 }
