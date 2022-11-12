@@ -6,16 +6,18 @@ public class CreateUserDto {
     private String email;
     private String userName;
     private String password;
+    private String confirmPassword;
 
     public CreateUserDto() {
     }
 
-    public CreateUserDto(String firstName, String lastName, String email, String userName, String password) {
+    public CreateUserDto(String firstName, String lastName, String email, String userName, String password, String confirmPassword) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.userName = userName;
         this.password = password;
+        this.confirmPassword = confirmPassword;
     }
 
     public String getFirstName() {
@@ -58,6 +60,14 @@ public class CreateUserDto {
         this.password = password;
     }
 
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
+
     @Override
     public String toString() {
         return "CreateUserDto{" +
@@ -66,6 +76,7 @@ public class CreateUserDto {
                 ", email='" + email + '\'' +
                 ", userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
+                ", confirmPassword='" + confirmPassword + '\'' +
                 '}';
     }
 
@@ -83,6 +94,9 @@ public class CreateUserDto {
             return false;
         }
         if (password == null || password.isEmpty()){
+            return false;
+        }
+        if (confirmPassword == null || confirmPassword.isEmpty()){
             return false;
         }
         return true;

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public interface PetDao {
-
+    // Registro de mascota
     @Insert("""
             INSERT INTO pet
             (user_id, breed_id, name, gender, castrated, born_date, photo_path, chip_number, status, tx_date, tx_user, tx_host)

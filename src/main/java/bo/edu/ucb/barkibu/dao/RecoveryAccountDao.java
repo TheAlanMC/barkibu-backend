@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Update;
 import java.util.Date;
 
 public interface RecoveryAccountDao {
-
+    // Registro de solicitud de codigo de recuperación de cuenta
     @Insert("""
             INSERT INTO recovery_account
             (user_id, hash_code, expiration_date, status, tx_date, tx_user, tx_host)
@@ -16,6 +16,7 @@ public interface RecoveryAccountDao {
             """)
     void createRecoveryAccount(RecoveryAccount recoveryAccount);
 
+    // Devuelve el codigo de recuperación de cuenta de un usuario
     @Update("""
             UPDATE recovery_account
             SET status = 'inactivo'
@@ -24,6 +25,7 @@ public interface RecoveryAccountDao {
             """)
     void updateStatusByUserId(Integer userId);
 
+    // Devuelve el codigo de recuperación de cuenta de un usuario
     @Select("""
             SELECT hash_code, expiration_date
             FROM recovery_account

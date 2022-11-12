@@ -33,13 +33,17 @@ public class SecurityBl {
 
     public AuthResDto authenticate(AuthReqDto credentials) {
         AuthResDto result;
+        // Verificamos que el usuario exista
         String currentPasswordInBCrypt = userDao.findPasswordByUserName(credentials.getUserName());
         if (currentPasswordInBCrypt != null) {
+            // Verificamos que la contraseña sea correcta
             BCrypt.Result verifyResult = BCrypt.verifyer().verify(credentials.getPassword().toCharArray(), currentPasswordInBCrypt);
             if (verifyResult.verified) {
+                // Obtenemos los roles del usuario
                 List<Role> roles = roleDao.findRolesByUserName(credentials.getUserName());
                 List<String> rolesAsString= roles.stream().map(Role::getRoleName).toList();
                 String [] rolesAsArray = rolesAsString.toArray(new String[0]);
+                // Creamos el token
                 result = generateTokenJwt(credentials.getUserName(),300, rolesAsArray);
             } else {
                 throw new BarkibuException("Invalid credentials", "SCTY-2000", HttpStatus.UNAUTHORIZED);

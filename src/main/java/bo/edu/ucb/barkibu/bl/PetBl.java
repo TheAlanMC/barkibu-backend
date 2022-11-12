@@ -18,9 +18,11 @@ public class PetBl {
     }
 
     public void createPet(CreatePetDto createPetDto) {
+        // Validar que la fecha de nacimiento no sea mayor a la fecha actual
         if (isDateAfterToday(createPetDto.getBornDate())) {
             throw new  BarkibuException("SCTY-1008", "Date must be before today", HttpStatus.BAD_REQUEST);
         }
+        // Crear la mascota
         Pet pet = new Pet();
         pet.setUserId(createPetDto.getUserId());
         pet.setBreedId(createPetDto.getBreedId());

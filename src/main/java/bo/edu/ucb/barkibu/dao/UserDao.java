@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public interface UserDao {
 
+
     @Select("""
             SELECT user_id, city_id,first_name,last_name,email,
                    user_name,password,photo_path,description,status,
@@ -29,6 +30,7 @@ public interface UserDao {
     """)
     User findByUserName(String userName);
 
+    // Encuentra un usuario por su userName
     @Select("""
             SELECT password
             FROM "user" 
@@ -37,6 +39,7 @@ public interface UserDao {
     """)
     String findPasswordByUserName(String userName);
 
+    // Crea un usuario con los campos obligatorios
     @Insert("""
             INSERT INTO "user" 
             (first_name, last_name, email, user_name, password, status, tx_date, tx_user, tx_host)
@@ -45,6 +48,7 @@ public interface UserDao {
             """)
     void createUser(User user);
 
+    // Encuentra el id de un usuario por su userName
     @Select("""
             SELECT user_id
             FROM "user" 
@@ -53,6 +57,7 @@ public interface UserDao {
     """)
     Integer findUserIdByUserName(String userName);
 
+    // Encuentra el id de un usuario por su email
     @Select("""
             SELECT user_id
             FROM "user" 
@@ -61,6 +66,7 @@ public interface UserDao {
     """)
     Integer findUserIdByEmail(String email);
 
+    // Asigna el grupo dueño de mascota a un usuario
     @Insert("""
             INSERT INTO user_group
             (user_id, group_id, status, tx_date, tx_user, tx_host)
@@ -69,6 +75,7 @@ public interface UserDao {
             """)
     void addPetOwnerGroup(int userId);
 
+    // Asigna el grupo veterinario a un usuario
     @Insert("""
             INSERT INTO user_group
             (user_id, group_id, status, tx_date, tx_user, tx_host)
@@ -77,6 +84,7 @@ public interface UserDao {
             """)
     void addVeterinarianGroup(int userId);
 
+    // Cambio de contraseña
     @Update("""
             UPDATE "user"
             SET password = #{password}
