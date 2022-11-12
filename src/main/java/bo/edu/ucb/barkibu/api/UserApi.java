@@ -3,6 +3,7 @@ package bo.edu.ucb.barkibu.api;
 import bo.edu.ucb.barkibu.bl.UserBl;
 import bo.edu.ucb.barkibu.dto.CreateUserDto;
 import bo.edu.ucb.barkibu.dto.ResponseDto;
+import bo.edu.ucb.barkibu.dto.UserVeterianiarnDto;
 import bo.edu.ucb.barkibu.util.AuthUtil;
 import bo.edu.ucb.barkibu.util.BarkibuException;
 import org.springframework.http.HttpStatus;
@@ -58,6 +59,22 @@ public class UserApi {
         else {
             ResponseDto<String> responseDto = new ResponseDto<>(null, "SCTY-1001", "At least one field is empty");
             return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    // Obtener información de un veterinario por su token
+    @GetMapping("/veterinarian")
+    public ResponseEntity<ResponseDto> getVeterinarianUser(@RequestHeader Map<String,String> headers) {
+        try {
+            // Verificamos que el usuario este autenticado
+            String jwt = AuthUtil.getTokenFromHeader(headers);
+            String userName = AuthUtil.getUserNameFromToken(jwt);
+            UserVeterianiarnDto user = userBl.findUserVeterinarianByUserName(userName);
+            ResponseDto<UserVeterianiarnDto> responseDto = new ResponseDto<>(user, "SCTY-0000", null);
+            return new ResponseEntity<>(responseDto, HttpStatus.OK);
+        } catch (BarkibuException e) {
+            ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
+            return new ResponseEntity<>(responseDto, e.getHttpStatus());
         }
     }
 /*

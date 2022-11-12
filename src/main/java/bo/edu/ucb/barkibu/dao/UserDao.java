@@ -92,5 +92,13 @@ public interface UserDao {
             AND status = 'activo'
             """)
     void updatePassword(User user);
+
+    // Obtiene la información de un usuario veterinario
+    @Select("""
+            SELECT first_name, last_name, description, photo_path FROM "user"
+            WHERE "user".user_name = #{userName}
+            AND "user".status = 'activo'
+            """)
+    User findVeterinarianByUserName(String userName);
 }
 

@@ -3,6 +3,7 @@ package bo.edu.ucb.barkibu.bl;
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import bo.edu.ucb.barkibu.dao.UserDao;
 import bo.edu.ucb.barkibu.dto.CreateUserDto;
+import bo.edu.ucb.barkibu.dto.UserVeterianiarnDto;
 import bo.edu.ucb.barkibu.entity.User;
 import bo.edu.ucb.barkibu.util.BarkibuException;
 import org.springframework.http.HttpStatus;
@@ -47,7 +48,6 @@ public class UserBl {
     }
 
     public void createPetOwnerUser(CreateUserDto createUserDto) {
-        //TODO: CONFIRM PASSWORD
         createUser(createUserDto);
         // Obtenemos el id del usuario creado
         int userId = userDao.findUserIdByUserName(createUserDto.getUserName());
@@ -62,5 +62,20 @@ public class UserBl {
         // Asignamos el grupo de veterinario al usuario recien creado
         this.userDao.addVeterinarianGroup(userId);
     }
+
+    public UserVeterianiarnDto findUserVeterinarianByUserName(String userName) {
+        User user = userDao.findVeterinarianByUserName(userName);
+        if (user == null) {
+            throw new BarkibuException("SCTY-3000", "User not found", HttpStatus.NOT_FOUND);
+        }
+        UserVeterianiarnDto userVeterianiarnDto = new UserVeterianiarnDto();
+        userVeterianiarnDto.setFirstName(user.getFirstName());
+        userVeterianiarnDto.setLastName(user.getLastName());
+        userVeterianiarnDto.setDescription(user.getDescription());
+        userVeterianiarnDto.setDescription(user.getDescription());
+        return userVeterianiarnDto;
+    }
+
+
 
 }

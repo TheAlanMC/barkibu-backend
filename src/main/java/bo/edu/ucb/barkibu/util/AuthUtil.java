@@ -13,12 +13,18 @@ public class AuthUtil {
     public final static String JWT_SECRET = "barkibu";
 
     //Obtenemos el subject del token
-    public static String isUserAuthenticated(String jwtToken) {
-        String subject = JWT.require(Algorithm.HMAC256(JWT_SECRET))
-                .build()
-                .verify(jwtToken)
-                .getSubject();
-        return subject;
+    public static String getUserNameFromToken(String jwtToken) {
+        try{
+            String subject = JWT.require(Algorithm.HMAC256(JWT_SECRET))
+                    .build()
+                    .verify(jwtToken)
+                    .getSubject();
+            return subject;
+        }
+        catch (JWTVerificationException exception){
+            throw new BarkibuException("Invalid token", "SCTY-2002", HttpStatus.UNAUTHORIZED);
+        }
+
     }
 
     //Obtenemos el token del header
