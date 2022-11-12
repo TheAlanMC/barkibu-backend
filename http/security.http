@@ -8,6 +8,7 @@
 # }
 # NOT WORKING, JUST USED FOR TESTING PURPOSES
 # Request:
+# TODO: DELETE THIS
 POST http://localhost:7777/v1/api/security/auth 
 Content-Type: application/json
 Accept: application/json

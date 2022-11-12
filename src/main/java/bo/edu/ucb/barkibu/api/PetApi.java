@@ -3,6 +3,7 @@ package bo.edu.ucb.barkibu.api;
 import bo.edu.ucb.barkibu.bl.PetBl;
 import bo.edu.ucb.barkibu.dto.CreatePetDto;
 import bo.edu.ucb.barkibu.dto.ResponseDto;
+import bo.edu.ucb.barkibu.util.AuthUtil;
 import bo.edu.ucb.barkibu.util.BarkibuException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,10 +25,8 @@ public class PetApi {
     public ResponseEntity<ResponseDto<String>> createPet(@RequestHeader Map<String,String> headers, @RequestBody CreatePetDto createPetDto) {
         if (createPetDto.validate()){
             try {
-                //TODO: VALIDAR QUE EL USUARIO ESTE AUTENTICADO
-                // Verificamos que el usuario este autenticado
-                //String jwt = AuthUtil.getTokenFromHeader(headers);
-                //AuthUtil.verifyHasRole(jwt, "CREAR USUARIO");
+                String jwt = AuthUtil.getTokenFromHeader(headers);
+                AuthUtil.verifyHasRole(jwt, "REGISTRAR MASCOTA");
                 petBl.createPet(createPetDto);
                 ResponseDto<String> responseDto = new ResponseDto<>("Pet Created", "SCTY-0000", null);
                 return new ResponseEntity<>(responseDto, HttpStatus.OK);

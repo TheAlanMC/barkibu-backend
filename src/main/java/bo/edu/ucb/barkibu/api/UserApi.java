@@ -27,7 +27,7 @@ public class UserApi {
             try {
                 // Verificamos que el usuario este autenticado
                 String jwt = AuthUtil.getTokenFromHeader(headers);
-                AuthUtil.verifyHasRole(jwt, "CREAR USUARIO");
+                AuthUtil.verifyHasRole(jwt, "REGISTRAR USUARIO VETERINARIO");
                 userBl.createVeterinarianUser(createUserDto);
                 ResponseDto<String> responseDto = new ResponseDto<>("Veterinary User Created", "SCTY-0000", null);
                 return new ResponseEntity<>(responseDto, HttpStatus.OK);
