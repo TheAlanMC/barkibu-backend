@@ -39,4 +39,11 @@ public class PetTreatmentDto {
     public void setTreatmentLastDate(Date treatmentLastDate) {
         this.treatmentLastDate = treatmentLastDate;
     }
+
+    public boolean validate() {
+        if(treatmentId == null || petId == null || treatmentLastDate == null) {
+            return false;
+        }
+    return true;
+    }
 }

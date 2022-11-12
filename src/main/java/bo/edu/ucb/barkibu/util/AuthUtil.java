@@ -25,7 +25,7 @@ public class AuthUtil {
     public static String getTokenFromHeader(Map<String,String> headers) {
         String jwt ="";
         if (headers.get("Authorization") == null && headers.get("authorization") == null) {
-            throw new BarkibuException("No token provided");
+            throw new BarkibuException("SCTY-2003", "No token provided", HttpStatus.UNAUTHORIZED);
         }
         if (headers.get("Authorization") != null) {
             jwt = headers.get("Authorization").split(" ")[1];
@@ -36,7 +36,7 @@ public class AuthUtil {
         return jwt;
     }
 
-    //Verificamos si el token es valido
+    //Verificamos si el tiene el rol para ejecutar la accion
     public static void verifyHasRole(String jwt, String role) {
         try{List<String> roles = JWT.require(Algorithm.HMAC256(JWT_SECRET))
                 .build()

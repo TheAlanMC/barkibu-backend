@@ -9,7 +9,8 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhcGFuaXF1Z
     "lastName": "Doe",
     "email": "jd2@ucb.edu.bo",
     "userName": "johndoe2",
-    "password": "123456"
+    "password": "123456",
+    "confirmPassword": "123456"
 }
 
 ### Add new Pet Owner User

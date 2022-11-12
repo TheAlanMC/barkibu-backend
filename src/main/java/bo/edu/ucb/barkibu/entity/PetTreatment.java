@@ -13,8 +13,7 @@ public class PetTreatment {
     private String txUser;
     private String txHost;
 
-    public PetTreatment(Integer treatmentId) {
-        this.treatmentId = treatmentId;
+    public PetTreatment() {
     }
 
     public PetTreatment(Integer petTreatmentId, Integer treatmentId, Integer petId, Date treatmentLastDate, Date treatmentNextDate, String status, Date txDate, String txUser, String txHost) {

@@ -44,7 +44,8 @@ public class SecurityBl {
                 List<String> rolesAsString= roles.stream().map(Role::getRoleName).toList();
                 String [] rolesAsArray = rolesAsString.toArray(new String[0]);
                 // Creamos el token
-                result = generateTokenJwt(credentials.getUserName(),300, rolesAsArray);
+                // TODO: CHANGE EXPIRATION TIME TO 300
+                result = generateTokenJwt(credentials.getUserName(),3000000, rolesAsArray);
             } else {
                 throw new BarkibuException("Invalid credentials", "SCTY-2000", HttpStatus.UNAUTHORIZED);
             }
