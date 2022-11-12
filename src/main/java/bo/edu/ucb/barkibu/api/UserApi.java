@@ -77,6 +77,19 @@ public class UserApi {
             return new ResponseEntity<>(responseDto, e.getHttpStatus());
         }
     }
+
+    // Obtener información de un veterinario por su nombre de usuario
+    @GetMapping("/veterinarian/{userName}")
+    public ResponseEntity<ResponseDto> getVeterinarianUserByUserName(@PathVariable String userName) {
+        try {
+            UserVeterianiarnDto user = userBl.findUserVeterinarianByUserName(userName);
+            ResponseDto<UserVeterianiarnDto> responseDto = new ResponseDto<>(user, "SCTY-0000", null);
+            return new ResponseEntity<>(responseDto, HttpStatus.OK);
+        } catch (BarkibuException e) {
+            ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
+            return new ResponseEntity<>(responseDto, e.getHttpStatus());
+        }
+    }
 /*
     //Test
     @GetMapping

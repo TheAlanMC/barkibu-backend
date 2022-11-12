@@ -1,9 +1,15 @@
 package bo.edu.ucb.barkibu.bl;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
+import bo.edu.ucb.barkibu.dao.CityDao;
+import bo.edu.ucb.barkibu.dao.CountryDao;
+import bo.edu.ucb.barkibu.dao.StateDao;
 import bo.edu.ucb.barkibu.dao.UserDao;
 import bo.edu.ucb.barkibu.dto.CreateUserDto;
 import bo.edu.ucb.barkibu.dto.UserVeterianiarnDto;
+import bo.edu.ucb.barkibu.entity.City;
+import bo.edu.ucb.barkibu.entity.Country;
+import bo.edu.ucb.barkibu.entity.State;
 import bo.edu.ucb.barkibu.entity.User;
 import bo.edu.ucb.barkibu.util.BarkibuException;
 import org.springframework.http.HttpStatus;
@@ -14,9 +20,15 @@ import static bo.edu.ucb.barkibu.util.ValidationUtil.isEmailValid;
 @Service
 public class UserBl {
     private UserDao userDao;
+    private CityDao cityDao;
+    private StateDao stateDao;
+    private CountryDao countryDao;
 
-    public UserBl(UserDao userDao) {
+    public UserBl(UserDao userDao, CityDao cityDao, StateDao stateDao, CountryDao countryDao) {
         this.userDao = userDao;
+        this.cityDao = cityDao;
+        this.stateDao = stateDao;
+        this.countryDao = countryDao;
     }
     public void createUser(CreateUserDto createUserDto) {
         // Verificamos que el username no exista
@@ -64,18 +76,31 @@ public class UserBl {
     }
 
     public UserVeterianiarnDto findUserVeterinarianByUserName(String userName) {
-        User user = userDao.findVeterinarianByUserName(userName);
+        User user = userDao.findUserByUserName(userName);
         if (user == null) {
             throw new BarkibuException("SCTY-3000", "User not found", HttpStatus.NOT_FOUND);
         }
+        City city = cityDao.findCityByCityId(user.getCityId());
+        if (city == null) {
+            throw new BarkibuException("SCTY-3001", "City not found", HttpStatus.NOT_FOUND);
+        }
+        State state = stateDao.findStateByStateId(city.getStateId());
+        if (state == null) {
+            throw new BarkibuException("SCTY-3002", "State not found", HttpStatus.NOT_FOUND);
+        }
+        Country country = countryDao.findCountryByCountryId(state.getCountryId());
+        if (country == null) {
+            throw new BarkibuException("SCTY-3003", "Country not found", HttpStatus.NOT_FOUND);
+        }
+
         UserVeterianiarnDto userVeterianiarnDto = new UserVeterianiarnDto();
         userVeterianiarnDto.setFirstName(user.getFirstName());
         userVeterianiarnDto.setLastName(user.getLastName());
-        userVeterianiarnDto.setDescription(user.getDescription());
+        userVeterianiarnDto.setCity(city.getCity());
+        userVeterianiarnDto.setState(state.getState());
+        userVeterianiarnDto.setCountry(country.getCountry());
         userVeterianiarnDto.setDescription(user.getDescription());
         return userVeterianiarnDto;
     }
-
-
 
 }

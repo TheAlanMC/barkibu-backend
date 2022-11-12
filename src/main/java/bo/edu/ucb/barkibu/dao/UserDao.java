@@ -21,16 +21,14 @@ public interface UserDao {
     User findByPrimaryKey(Integer userId);
 
     @Select("""
-            SELECT user_id, city_id,first_name,last_name,email,
-                   user_name,password,photo_path,description,status,
-                   tx_date,tx_user,tx_host 
+            SELECT user_id, city_id, first_name, last_name, email, user_name, photo_path, description
             FROM "user" 
             WHERE user_name = #{userName}
             AND status = 'activo' 
     """)
-    User findByUserName(String userName);
+    User findUserByUserName(String userName);
 
-    // Encuentra un usuario por su userName
+    // Encuentra la contraseña de un usuario por su userName
     @Select("""
             SELECT password
             FROM "user" 
@@ -93,12 +91,5 @@ public interface UserDao {
             """)
     void updatePassword(User user);
 
-    // Obtiene la información de un usuario veterinario
-    @Select("""
-            SELECT first_name, last_name, description, photo_path FROM "user"
-            WHERE "user".user_name = #{userName}
-            AND "user".status = 'activo'
-            """)
-    User findVeterinarianByUserName(String userName);
 }
 
