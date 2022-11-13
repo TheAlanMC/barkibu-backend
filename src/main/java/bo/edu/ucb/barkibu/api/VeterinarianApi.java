@@ -1,12 +1,10 @@
 package bo.edu.ucb.barkibu.api;
 
 import bo.edu.ucb.barkibu.bl.UserBl;
-import bo.edu.ucb.barkibu.dto.CreateUserDto;
-import bo.edu.ucb.barkibu.dto.VeterinarianRankingDto;
-import bo.edu.ucb.barkibu.dto.ResponseDto;
-import bo.edu.ucb.barkibu.dto.UserVeterianiarnDto;
+import bo.edu.ucb.barkibu.dto.*;
 import bo.edu.ucb.barkibu.entity.HelpedPet;
 import bo.edu.ucb.barkibu.entity.Reputation;
+import bo.edu.ucb.barkibu.entity.Veterinary;
 import bo.edu.ucb.barkibu.util.AuthUtil;
 import bo.edu.ucb.barkibu.util.BarkibuException;
 import org.springframework.http.HttpStatus;
@@ -164,6 +162,23 @@ public class VeterinarianApi {
             return new ResponseEntity<>(responseDto, e.getHttpStatus());
         }
     }
+
+    // Obtiene el consultorio de un veterinario por su token
+    @GetMapping("/veterinary")
+    public ResponseEntity<ResponseDto> getVeterinaryByUserName(@RequestHeader Map<String,String> headers) {
+        try {
+            // Verificamos que el usuario este autenticado
+            String jwt = AuthUtil.getTokenFromHeader(headers);
+            String userName = AuthUtil.getUserNameFromToken(jwt);
+            VeterinaryDto veterinaryDto = userBl.findVeterinaryByUserName(userName);
+            ResponseDto<VeterinaryDto> responseDto = new ResponseDto<>(veterinaryDto, "SCTY-0000", null);
+            return new ResponseEntity<>(responseDto, HttpStatus.OK);
+        } catch (BarkibuException e) {
+            ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
+            return new ResponseEntity<>(responseDto, e.getHttpStatus());
+        }
+    }
+
 
 
 /*

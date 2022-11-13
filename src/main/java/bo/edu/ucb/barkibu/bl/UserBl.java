@@ -6,6 +6,7 @@ import bo.edu.ucb.barkibu.dao.HelpedPetDao;
 import bo.edu.ucb.barkibu.dto.CreateUserDto;
 import bo.edu.ucb.barkibu.dto.VeterinarianRankingDto;
 import bo.edu.ucb.barkibu.dto.UserVeterianiarnDto;
+import bo.edu.ucb.barkibu.dto.VeterinaryDto;
 import bo.edu.ucb.barkibu.entity.*;
 import bo.edu.ucb.barkibu.util.BarkibuException;
 import org.springframework.http.HttpStatus;
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 import static bo.edu.ucb.barkibu.util.ValidationUtil.isEmailValid;
-
+//TODO: SEPARAR EN VARIOS BL (VETERINARIAN, PETOWNER)
 @Service
 public class UserBl {
     private UserDao userDao;
@@ -23,14 +24,16 @@ public class UserBl {
     private CountryDao countryDao;
     private ReputationDao reputationDao;
     private HelpedPetDao helpedPetDao;
+    private VeterinaryDao veterinaryDao;
 
-    public UserBl(UserDao userDao, CityDao cityDao, StateDao stateDao, CountryDao countryDao, ReputationDao reputationDao, HelpedPetDao helpedPetDao) {
+    public UserBl(UserDao userDao, CityDao cityDao, StateDao stateDao, CountryDao countryDao, ReputationDao reputationDao, HelpedPetDao helpedPetDao, VeterinaryDao veterinaryDao) {
         this.userDao = userDao;
         this.cityDao = cityDao;
         this.stateDao = stateDao;
         this.countryDao = countryDao;
         this.reputationDao = reputationDao;
         this.helpedPetDao = helpedPetDao;
+        this.veterinaryDao = veterinaryDao;
     }
 
     public void createUser(CreateUserDto createUserDto) {
@@ -132,4 +135,23 @@ public class UserBl {
         }
         return helpedPetDao.findHelpedPetByUserName(userName);
     }
+
+    public VeterinaryDto findVeterinaryByUserName(String userName){
+        User user = userDao.findUserByUserName(userName);
+        if (user == null) {
+            throw new BarkibuException("SCTY-3000", "User not found", HttpStatus.NOT_FOUND);
+        }
+        Veterinary veterinary = veterinaryDao.findVeterinaryByUserName(userName);
+        if (veterinary == null) {
+            throw new BarkibuException("SCTY-3004", "Veterinary not found", HttpStatus.NOT_FOUND);
+        }
+        VeterinaryDto veterinaryDto = new VeterinaryDto();
+        veterinaryDto.setName(veterinary.getName());
+        veterinaryDto.setAddress(veterinary.getAddress());
+        veterinaryDto.setLatitude(veterinary.getLatitude());
+        veterinaryDto.setLongitude(veterinary.getLongitude());
+        veterinaryDto.setDescription(veterinary.getDescription());
+        return veterinaryDto;
+    }
+
 }
