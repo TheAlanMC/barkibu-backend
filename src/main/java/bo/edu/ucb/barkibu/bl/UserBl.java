@@ -6,6 +6,7 @@ import bo.edu.ucb.barkibu.dao.CountryDao;
 import bo.edu.ucb.barkibu.dao.StateDao;
 import bo.edu.ucb.barkibu.dao.UserDao;
 import bo.edu.ucb.barkibu.dto.CreateUserDto;
+import bo.edu.ucb.barkibu.dto.VeterinarianRankingDto;
 import bo.edu.ucb.barkibu.dto.UserVeterianiarnDto;
 import bo.edu.ucb.barkibu.entity.City;
 import bo.edu.ucb.barkibu.entity.Country;
@@ -103,4 +104,15 @@ public class UserBl {
         return userVeterianiarnDto;
     }
 
+
+    public VeterinarianRankingDto findVeterinarianRankingByUserName(String userName) {
+        User user = userDao.findUserByUserName(userName);
+        if (user == null) {
+            throw new BarkibuException("SCTY-3000", "User not found", HttpStatus.NOT_FOUND);
+        }
+        VeterinarianRankingDto rankingDto = new VeterinarianRankingDto();
+        rankingDto.setMonthlyRanking(userDao.findMonthlyRankingByUserName(userName));
+        rankingDto.setGeneralRanking(userDao.findGeneralRankingByUserName(userName));
+        return rankingDto;
+    }
 }

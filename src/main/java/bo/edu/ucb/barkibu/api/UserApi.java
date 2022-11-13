@@ -2,6 +2,7 @@ package bo.edu.ucb.barkibu.api;
 
 import bo.edu.ucb.barkibu.bl.UserBl;
 import bo.edu.ucb.barkibu.dto.CreateUserDto;
+import bo.edu.ucb.barkibu.dto.VeterinarianRankingDto;
 import bo.edu.ucb.barkibu.dto.ResponseDto;
 import bo.edu.ucb.barkibu.dto.UserVeterianiarnDto;
 import bo.edu.ucb.barkibu.util.AuthUtil;
@@ -90,6 +91,37 @@ public class UserApi {
             return new ResponseEntity<>(responseDto, e.getHttpStatus());
         }
     }
+
+    // Obtiene el ranking de veterinario por su token
+    @GetMapping("/veterinarian/ranking")
+    public ResponseEntity<ResponseDto> getVeterinarianRanking(@RequestHeader Map<String,String> headers) {
+        try {
+            // Verificamos que el usuario este autenticado
+            String jwt = AuthUtil.getTokenFromHeader(headers);
+            String userName = AuthUtil.getUserNameFromToken(jwt);
+            VeterinarianRankingDto ranking = userBl.findVeterinarianRankingByUserName(userName);
+            ResponseDto<VeterinarianRankingDto> responseDto = new ResponseDto<>(ranking, "SCTY-0000", null);
+            return new ResponseEntity<>(responseDto, HttpStatus.OK);
+        } catch (BarkibuException e) {
+            ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
+            return new ResponseEntity<>(responseDto, e.getHttpStatus());
+        }
+    }
+
+    // Obtiene el ranking de veterinario por su nombre de usuario
+
+    @GetMapping("/veterinarian/ranking/{userName}")
+    public ResponseEntity<ResponseDto> getVeterinarianRankingByUserName(@PathVariable String userName) {
+        try {
+            VeterinarianRankingDto ranking = userBl.findVeterinarianRankingByUserName(userName);
+            ResponseDto<VeterinarianRankingDto> responseDto = new ResponseDto<>(ranking, "SCTY-0000", null);
+            return new ResponseEntity<>(responseDto, HttpStatus.OK);
+        } catch (BarkibuException e) {
+            ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
+            return new ResponseEntity<>(responseDto, e.getHttpStatus());
+        }
+    }
+
 /*
     //Test
     @GetMapping
