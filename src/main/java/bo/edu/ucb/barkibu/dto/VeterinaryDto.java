@@ -1,16 +1,18 @@
 package bo.edu.ucb.barkibu.dto;
 
+import java.math.BigDecimal;
+
 public class VeterinaryDto {
     private String name;
     private String address;
-    private String latitude;
-    private String longitude;
+    private BigDecimal latitude;
+    private BigDecimal longitude;
     private String description;
 
     public VeterinaryDto() {
     }
 
-    public VeterinaryDto(String name, String address, String latitude, String longitude, String description) {
+    public VeterinaryDto(String name, String address, BigDecimal latitude, BigDecimal longitude, String description) {
         this.name = name;
         this.address = address;
         this.latitude = latitude;
@@ -34,19 +36,19 @@ public class VeterinaryDto {
         this.address = address;
     }
 
-    public String getLatitude() {
+    public BigDecimal getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(String latitude) {
+    public void setLatitude(BigDecimal latitude) {
         this.latitude = latitude;
     }
 
-    public String getLongitude() {
+    public BigDecimal getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(String longitude) {
+    public void setLongitude(BigDecimal longitude) {
         this.longitude = longitude;
     }
 
@@ -63,9 +65,28 @@ public class VeterinaryDto {
         return "VeterinaryDto{" +
                 "name='" + name + '\'' +
                 ", address='" + address + '\'' +
-                ", latitude='" + latitude + '\'' +
-                ", longitude='" + longitude + '\'' +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
                 ", description='" + description + '\'' +
                 '}';
+    }
+
+    public boolean validate() {
+        if (this.name == null || this.name.isEmpty()) {
+            return false;
+        }
+        if (this.address == null || this.address.isEmpty()) {
+            return false;
+        }
+        if (this.latitude == null) {
+            return false;
+        }
+        if (this.longitude == null) {
+            return false;
+        }
+        if (this.description == null || this.description.isEmpty()) {
+            return false;
+        }
+        return true;
     }
 }

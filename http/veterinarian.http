@@ -77,7 +77,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhcGFuaXF1Z
 
 
 ### Update veterinarian's profile by token
-POST http://localhost:7777/v1/api/veterinarian/profile
+PUT http://localhost:7777/v1/api/veterinarian/profile
 Content-Type: application/json
 Accept: application/json
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhcGFuaXF1ZSIsInJvbGVzIjpbIlJFR0lTVFJBUiBVU1VBUklPIFZFVEVSSU5BUklPIiwiUkVHSVNUUkFSIE1BU0NPVEEiLCJSRUdJU1RSQVIgVFJBVEFNSUVOVE9TIERFIExBIE1BU0NPVEEiLCJFRElUQVIgSU5GT1JNQUNJT04gREUgRFVFw5FPIERFIE1BU0NPVEEiLCJFRElUQVIgSU5GT1JNQUNJT04gREUgTEEgTUFTQ09UQSIsIkVESVRBUiBUUkFUQU1JRU5UT1MgREUgTEEgTUFTQ09UQSIsIlBVQkxJQ0FSIFBSRUdVTlRBIiwiRURJVEFSIElORk9STUFDSU9OIERFIFZFVEVSSU5BUklPIiwiRURJVEFSIElORk9STUFDSU9OIERFIENMSU5JQ0EgVkVURVJJTkFSSUEiLCJQVUJMSUNBUiBSRVNQVUVTVEEiXSwiaXNzIjoidWNiIiwicmVmcmVzaCI6ZmFsc2UsImV4cCI6MTY3MTI5MjExMiwiaWF0IjoxNjY4MjkyMTEyfQ.1dZQWL0siAy-yJ4AFns1aKzG6tkLgaHxUBSIKB9IcDA
@@ -85,9 +85,23 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhcGFuaXF1Z
 {
     "firstName": "Andre Nicolas",
     "lastName": "Panique Vargas",
-    "cityId": 1,
+    "cityId": 3,
     "userName": "apanique",
     "email": "apanique@gmail.com",
     "description": "Hola soy Andre",
-    "photoPath": "noPhoto.jpg"
+    "photoPath": "noPhoto2.jpg"
+}
+
+### Create veterinarian's clinic by token
+POST http://localhost:7777/v1/api/veterinarian/veterinary
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhcGFuaXF1ZSIsInJvbGVzIjpbIlJFR0lTVFJBUiBVU1VBUklPIFZFVEVSSU5BUklPIiwiUkVHSVNUUkFSIE1BU0NPVEEiLCJSRUdJU1RSQVIgVFJBVEFNSUVOVE9TIERFIExBIE1BU0NPVEEiLCJFRElUQVIgSU5GT1JNQUNJT04gREUgRFVFw5FPIERFIE1BU0NPVEEiLCJFRElUQVIgSU5GT1JNQUNJT04gREUgTEEgTUFTQ09UQSIsIkVESVRBUiBUUkFUQU1JRU5UT1MgREUgTEEgTUFTQ09UQSIsIlBVQkxJQ0FSIFBSRUdVTlRBIiwiRURJVEFSIElORk9STUFDSU9OIERFIFZFVEVSSU5BUklPIiwiRURJVEFSIElORk9STUFDSU9OIERFIENMSU5JQ0EgVkVURVJJTkFSSUEiLCJQVUJMSUNBUiBSRVNQVUVTVEEiXSwiaXNzIjoidWNiIiwicmVmcmVzaCI6ZmFsc2UsImV4cCI6MTY3MTI5MjExMiwiaWF0IjoxNjY4MjkyMTEyfQ.1dZQWL0siAy-yJ4AFns1aKzG6tkLgaHxUBSIKB9IcDA
+
+{
+    "name": "Bernhard Inc",
+    "address": "3968 Fallview Hill",
+    "latitude": "49.7830508000",
+    "longitude": "18.5257165000",
+    "description": "Hyposmolality and/or hyponatremia"
 }

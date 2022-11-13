@@ -103,6 +103,7 @@ public class UserBl {
         veterinarianDto.setState(state.getState());
         veterinarianDto.setCountry(country.getCountry());
         veterinarianDto.setDescription(user.getDescription());
+        veterinarianDto.setPhotoPath(user.getPhotoPath());
         return veterinarianDto;
     }
 
@@ -177,6 +178,7 @@ public class UserBl {
         veterinarianProfileDto.setUserName(user.getUserName());
         veterinarianProfileDto.setEmail(user.getEmail());
         veterinarianProfileDto.setDescription(user.getDescription());
+        veterinarianProfileDto.setPhotoPath(user.getPhotoPath());
         return veterinarianProfileDto;
     }
 
@@ -202,6 +204,25 @@ public class UserBl {
         user.setEmail(veterinarianProfileDto.getEmail());
         user.setDescription(veterinarianProfileDto.getDescription());
         user.setPhotoPath(veterinarianProfileDto.getPhotoPath());
-        userDao.updateUser(user);
+        this.userDao.updateUser(user);
+    }
+
+    //todo: move to veterinary business logic
+    public void createVeterinary(String userName, VeterinaryDto veterinaryDto) {
+        User user = userDao.findUserByUserName(userName);
+        if (user == null) {
+            throw new BarkibuException("SCTY-3000", "User not found", HttpStatus.NOT_FOUND);
+        }
+        if (veterinaryDao.findVeterinaryByUserName(userName) != null) {
+            throw new BarkibuException("SCTY-1009", "Veterinary already exists", HttpStatus.BAD_REQUEST);
+        }
+        Veterinary veterinary = new Veterinary();
+        veterinary.setUserId(user.getUserId());
+        veterinary.setName(veterinaryDto.getName());
+        veterinary.setAddress(veterinaryDto.getAddress());
+        veterinary.setLatitude(veterinaryDto.getLatitude());
+        veterinary.setLongitude(veterinaryDto.getLongitude());
+        veterinary.setDescription(veterinaryDto.getDescription());
+        this.veterinaryDao.createVeterinary(veterinary);
     }
 }

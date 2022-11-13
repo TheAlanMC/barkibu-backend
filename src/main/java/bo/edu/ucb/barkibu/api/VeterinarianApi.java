@@ -209,19 +209,49 @@ public class VeterinarianApi {
     }
 
     // Edita el perfil de un veterinario por su token
-    @PostMapping("/profile")
+    @PutMapping("/profile")
     public ResponseEntity<ResponseDto> updateVeterinarianProfile(@RequestHeader Map<String,String> headers, @RequestBody VeterinarianProfileDto veterinarianProfileDto) {
-        try {
+        if (veterinarianProfileDto.validate()) {
+            try {
             // Verificamos que el usuario este autenticado
             String jwt = AuthUtil.getTokenFromHeader(headers);
             AuthUtil.verifyHasRole(jwt, "EDITAR INFORMACION DE VETERINARIO");
             String userName = AuthUtil.getUserNameFromToken(jwt);
             userBl.updateVeterinarianProfile(userName, veterinarianProfileDto);
-            ResponseDto<String> responseDto = new ResponseDto<>("Profile Updated Successfully", "SCTY-0000", null);
+            ResponseDto<String> responseDto = new ResponseDto<>("Profile Updated", "SCTY-0000", null);
             return new ResponseEntity<>(responseDto, HttpStatus.OK);
         } catch (BarkibuException e) {
             ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
             return new ResponseEntity<>(responseDto, e.getHttpStatus());
+            }
+        }
+        else {
+            ResponseDto<String> responseDto = new ResponseDto<>(null, "SCTY-0001", "Invalid Data");
+            return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    // Crear un nuevo consultorio
+    // todo: move to other api
+    @PostMapping("/veterinary")
+    public ResponseEntity<ResponseDto<String>> createVeterinary(@RequestHeader Map<String,String> headers, @RequestBody VeterinaryDto veterinaryDto) {
+        if (veterinaryDto.validate()) {
+            try {
+                // Verificamos que el usuario este autenticado
+                String jwt = AuthUtil.getTokenFromHeader(headers);
+                AuthUtil.verifyHasRole(jwt, "EDITAR INFORMACION DE CLINICA VETERINARIA");
+                String userName = AuthUtil.getUserNameFromToken(jwt);
+                userBl.createVeterinary(userName, veterinaryDto);
+                ResponseDto<String> responseDto = new ResponseDto<>("Veterinary Created", "SCTY-0000", null);
+                return new ResponseEntity<>(responseDto, HttpStatus.OK);
+            } catch (BarkibuException e) {
+                ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
+                return new ResponseEntity<>(responseDto, e.getHttpStatus());
+            }
+        }
+        else {
+            ResponseDto<String> responseDto = new ResponseDto<>(null, "SCTY-0001", "Invalid Data");
+            return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
         }
     }
 

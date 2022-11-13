@@ -1,5 +1,6 @@
 package bo.edu.ucb.barkibu.entity;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class Veterinary {
@@ -7,8 +8,8 @@ public class Veterinary {
     private Integer userId;
     private String name;
     private String address;
-    private String latitude;
-    private String longitude;
+    private BigDecimal latitude;
+    private BigDecimal longitude;
     private String description;
     private String status;
     private Date txDate;
@@ -18,7 +19,7 @@ public class Veterinary {
     public Veterinary() {
     }
 
-    public Veterinary(Integer veterinaryId, Integer userId, String name, String address, String latitude, String longitude, String description, String status, Date txDate, String txUser, Integer txHost) {
+    public Veterinary(Integer veterinaryId, Integer userId, String name, String address, BigDecimal latitude, BigDecimal longitude, String description, String status, Date txDate, String txUser, Integer txHost) {
         this.veterinaryId = veterinaryId;
         this.userId = userId;
         this.name = name;
@@ -64,19 +65,19 @@ public class Veterinary {
         this.address = address;
     }
 
-    public String getLatitude() {
+    public BigDecimal getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(String latitude) {
+    public void setLatitude(BigDecimal latitude) {
         this.latitude = latitude;
     }
 
-    public String getLongitude() {
+    public BigDecimal getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(String longitude) {
+    public void setLongitude(BigDecimal longitude) {
         this.longitude = longitude;
     }
 
@@ -127,8 +128,8 @@ public class Veterinary {
                 ", userId=" + userId +
                 ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
-                ", latitude='" + latitude + '\'' +
-                ", longitude='" + longitude + '\'' +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
                 ", description='" + description + '\'' +
                 ", status='" + status + '\'' +
                 ", txDate=" + txDate +
