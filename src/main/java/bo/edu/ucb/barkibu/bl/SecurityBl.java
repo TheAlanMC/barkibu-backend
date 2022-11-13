@@ -47,11 +47,11 @@ public class SecurityBl {
                 // TODO: CHANGE EXPIRATION TIME TO 300
                 result = generateTokenJwt(credentials.getUserName(),3000000, rolesAsArray);
             } else {
-                throw new BarkibuException("Invalid credentials", "SCTY-2000", HttpStatus.UNAUTHORIZED);
+                throw new BarkibuException("SCTY-2000");
             }
         } else {
             //TODO: SECURITY SHOW THAT USER DOES NOT EXIST?
-            throw new BarkibuException("User not found", "SCTY-3000", HttpStatus.NOT_FOUND);
+            throw new BarkibuException("SCTY-4000");
         }
         return result;
     }
@@ -79,7 +79,7 @@ public class SecurityBl {
             result.setRefreshToken(refreshToken);
             //TODO: INCLUDE GROUP?
         } catch (JWTCreationException exception) {
-            throw new BarkibuException("Error generating token", "SCTY-4000", HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new BarkibuException("SCTY-5000");
         }
         return result;
     }

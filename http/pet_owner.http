@@ -8,5 +8,6 @@ Accept: application/json
   "lastName": "Doe",
   "email": "jd5@ucb.edu.bo",
   "userName": "johndoe5",
-  "password": "123456"
+  "password": "123456",
+  "confirmPassword": "12345"
 }

@@ -31,12 +31,12 @@ public class RecoveryAccountBl {
         RecoveryAccount recoveryAccount = new RecoveryAccount();
         // Verificamos que el email tenga un formato valido
         if (!isEmailValid(recoveryAccountReqDto.getEmail())) {
-            throw new BarkibuException("SCTY-1004", "Email format is invalid", HttpStatus.BAD_REQUEST);
+            throw new BarkibuException("SCTY-1004");
         }
         // Verificamos que el email exista
         if (userDao.findUserIdByEmail(recoveryAccountReqDto.getEmail()) == null) {
             //TODO: SHOW THAT EMAIL DOES NOT EXIST?
-            throw new BarkibuException("User not found", "SCTY-3000", HttpStatus.NOT_FOUND);
+            throw new BarkibuException("SCTY-4000");
         }
         int userId = userDao.findUserIdByEmail(recoveryAccountReqDto.getEmail());
         // Cambiamos el estado a inactivo de solicitudes anteriores
@@ -61,19 +61,19 @@ public class RecoveryAccountBl {
         RecoveryAccount recoveryAccount;
         // Verificamos que el email tenga un formato valido
         if (!isEmailValid(recoveryPasswordReqDto.getEmail())) {
-            throw new BarkibuException("SCTY-1004", "Email format is invalid", HttpStatus.BAD_REQUEST);
+            throw new BarkibuException("SCTY-1004");
         }
         // Verificamos que el email exista
         if (userDao.findUserIdByEmail(recoveryPasswordReqDto.getEmail()) == null) {
             //TODO: SHOW THAT EMAIL DOES NOT EXIST?
-            throw new BarkibuException("User not found", "SCTY-3000", HttpStatus.NOT_FOUND);
+            throw new BarkibuException("SCTY-4000");
         }
         int userId = userDao.findUserIdByEmail(recoveryPasswordReqDto.getEmail());
         recoveryAccount = recoveryAccountDao.findRecoveryAccountByUserId(userId);
         // Verificamos que el codigo sea correcto
         BCrypt.Result verifyResult = BCrypt.verifyer().verify(recoveryPasswordReqDto.getHashCode().toCharArray(), recoveryAccount.getHashCode());
         if (!verifyResult.verified) {
-            throw new BarkibuException("SCTY-1005", "Code is invalid", HttpStatus.BAD_REQUEST);
+            throw new BarkibuException("SCTY-1005");
         }
     }
     public void updatePassword(RecoveryPasswordDto recoveryPasswordDto) {
@@ -81,27 +81,27 @@ public class RecoveryAccountBl {
         RecoveryAccount recoveryAccount;
         // Verificamos que el email tenga un formato valido
         if (!isEmailValid(recoveryPasswordDto.getEmail())) {
-            throw new BarkibuException("SCTY-1004", "Email format is invalid", HttpStatus.BAD_REQUEST);
+            throw new BarkibuException("SCTY-1004");
         }
         // Verificamos que el email exista
         if (userDao.findUserIdByEmail(recoveryPasswordDto.getEmail()) == null) {
             //TODO: SHOW THAT EMAIL DOES NOT EXIST?
-            throw new BarkibuException("User not found", "SCTY-3000", HttpStatus.NOT_FOUND);
+            throw new BarkibuException("SCTY-4000");
         }
         int userId = userDao.findUserIdByEmail(recoveryPasswordDto.getEmail());
         recoveryAccount = recoveryAccountDao.findRecoveryAccountByUserId(userId);
         // Verificamos que el token sea valido
         BCrypt.Result verifyResult = BCrypt.verifyer().verify(recoveryPasswordDto.getHashCode().toCharArray(), recoveryAccount.getHashCode());
         if (!verifyResult.verified) {
-            throw new BarkibuException("SCTY-1005", "Code is invalid", HttpStatus.BAD_REQUEST);
+            throw new BarkibuException("SCTY-1005");
         }
         // Verificamos que el token no este expirado
         if (recoveryAccount.getExpirationDate().before(new Date())) {
-            throw new BarkibuException("SCTY-1006", "Code is expired", HttpStatus.BAD_REQUEST);
+            throw new BarkibuException("SCTY-1006");
         }
         // Verificamos que ambas contraseñas sean iguales
         if (!recoveryPasswordDto.getPassword().equals(recoveryPasswordDto.getConfirmPassword())) {
-            throw new BarkibuException("SCTY-1007", "Passwords are not equals", HttpStatus.BAD_REQUEST);
+            throw new BarkibuException("SCTY-1007");
         }
         // Encriptamos la nueva contraseña
         String password = BCrypt.withDefaults().hashToString(12, recoveryPasswordDto.getPassword().toCharArray());

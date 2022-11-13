@@ -2,6 +2,9 @@ package bo.edu.ucb.barkibu.util;
 
 import org.springframework.http.HttpStatus;
 
+import static bo.edu.ucb.barkibu.util.HttpMessageUtil.httpMessageUtilMap;
+
+
 public class BarkibuException extends RuntimeException {
     private String statusCode;
     private HttpStatus httpStatus;
@@ -22,17 +25,19 @@ public class BarkibuException extends RuntimeException {
         this.httpStatus = httpStatus;
     }
 
-    public BarkibuException(String message) {
-        super(message);
-    }
-
-    public BarkibuException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public BarkibuException(String statusCode, String message, HttpStatus httpStatus) {
-        super(message);
+    public BarkibuException(String statusCode) {
+        super(httpMessageUtilMap.get(statusCode).getMessage());
         this.statusCode = statusCode;
-        this.httpStatus = httpStatus;
+        this.httpStatus = httpMessageUtilMap.get(statusCode).getHttpStatus();
     }
+
 }
+
+
+
+
+
+
+
+
+

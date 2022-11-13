@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
+import static bo.edu.ucb.barkibu.util.HttpMessageUtil.httpMessageUtilMap;
+
 @RestController
 @RequestMapping("/v1/api/veterinarian")
 public class VeterinarianApi {
@@ -40,8 +42,9 @@ public class VeterinarianApi {
             }
         }
         else {
-            ResponseDto<String> responseDto = new ResponseDto<>(null, "SCTY-1001", "At least one field is empty");
-            return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
+            String statusCode = "SCTY-1001";
+            ResponseDto<String> responseDto = new ResponseDto<>(null, statusCode, httpMessageUtilMap.get(statusCode).getMessage());
+            return new ResponseEntity<>(responseDto, httpMessageUtilMap.get(statusCode).getHttpStatus());
         }
     }
 
@@ -227,8 +230,9 @@ public class VeterinarianApi {
             }
         }
         else {
-            ResponseDto<String> responseDto = new ResponseDto<>(null, "SCTY-0001", "Invalid Data");
-            return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
+            String statusCode = "SCTY-1001";
+            ResponseDto<String> responseDto = new ResponseDto<>(null, statusCode, httpMessageUtilMap.get(statusCode).getMessage());
+            return new ResponseEntity<>(responseDto, httpMessageUtilMap.get(statusCode).getHttpStatus());
         }
     }
 
@@ -251,8 +255,9 @@ public class VeterinarianApi {
             }
         }
         else {
-            ResponseDto<String> responseDto = new ResponseDto<>(null, "SCTY-0001", "Invalid Data");
-            return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
+            String statusCode = "SCTY-1001";
+            ResponseDto<String> responseDto = new ResponseDto<>(null, statusCode, httpMessageUtilMap.get(statusCode).getMessage());
+            return new ResponseEntity<>(responseDto, httpMessageUtilMap.get(statusCode).getHttpStatus());
         }
     }
 
@@ -274,8 +279,9 @@ public class VeterinarianApi {
             }
         }
         else {
-            ResponseDto<String> responseDto = new ResponseDto<>(null, "SCTY-0001", "Invalid Data");
-            return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
+            String statusCode = "SCTY-1001";
+            ResponseDto<String> responseDto = new ResponseDto<>(null, statusCode, httpMessageUtilMap.get(statusCode).getMessage());
+            return new ResponseEntity<>(responseDto, httpMessageUtilMap.get(statusCode).getHttpStatus());
         }
     }
 
@@ -297,8 +303,9 @@ public class VeterinarianApi {
             }
         }
         else {
-            ResponseDto<String> responseDto = new ResponseDto<>(null, "SCTY-0001", "Invalid Data");
-            return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
+            String statusCode = "SCTY-1001";
+            ResponseDto<String> responseDto = new ResponseDto<>(null, statusCode, httpMessageUtilMap.get(statusCode).getMessage());
+            return new ResponseEntity<>(responseDto, httpMessageUtilMap.get(statusCode).getHttpStatus());
         }
     }
 

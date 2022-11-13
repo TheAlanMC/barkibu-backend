@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
+import static bo.edu.ucb.barkibu.util.HttpMessageUtil.httpMessageUtilMap;
+
 @RestController
 @RequestMapping("/v1/api/pet/treatment")
 public class PetTreatmentApi {
@@ -35,8 +37,9 @@ public class PetTreatmentApi {
             }
         }
         else {
-            ResponseDto<String> responseDto = new ResponseDto<>(null, "SCTY-1001", "At least one field is empty");
-            return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
+            String statusCode = "SCTY-1001";
+            ResponseDto<String> responseDto = new ResponseDto<>(null, statusCode, httpMessageUtilMap.get(statusCode).getMessage());
+            return new ResponseEntity<>(responseDto, httpMessageUtilMap.get(statusCode).getHttpStatus());
         }
     }
 }

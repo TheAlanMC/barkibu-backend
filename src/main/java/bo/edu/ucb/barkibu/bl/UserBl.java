@@ -39,19 +39,20 @@ public class UserBl {
     public void createUser(CreateUserDto createUserDto) {
         // Verificamos que el username no exista
         if (userDao.findUserIdByUserName(createUserDto.getUserName()) != null) {
-            throw new BarkibuException("SCTY-1002", "User name already exists", HttpStatus.BAD_REQUEST);
+            throw new BarkibuException("SCTY-1002");
         }
         // Verificamos que el email no exista
         if (userDao.findUserIdByEmail(createUserDto.getEmail()) != null) {
-            throw new BarkibuException("SCTY-1003", "Email already exists", HttpStatus.BAD_REQUEST);
+            throw new BarkibuException("SCTY-1003");
         }
         // Verificamos que el email tenga un formato valido
         if (!isEmailValid(createUserDto.getEmail())) {
-            throw new BarkibuException("SCTY-1004", "Email format is invalid", HttpStatus.BAD_REQUEST);
+            throw new BarkibuException("SCTY-1004");
         }
         // Verificamos que ambas contraseñas sean iguales
-        if (createUserDto.getPassword().equals(createUserDto.getConfirmPassword())) {
-            throw new BarkibuException("SCTY-1007", "New password and confirmation must be equals", HttpStatus.BAD_REQUEST);
+
+        if (!createUserDto.getPassword().equals(createUserDto.getConfirmPassword())) {
+            throw new BarkibuException("SCTY-1007");
         }
         // Creamos el usuario
         User user = new User();
@@ -84,19 +85,19 @@ public class UserBl {
     public VeterinarianDto findUserVeterinarianByUserName(String userName) {
         User user = userDao.findUserByUserName(userName);
         if (user == null) {
-            throw new BarkibuException("SCTY-3000", "User not found", HttpStatus.NOT_FOUND);
+            throw new BarkibuException("SCTY-4000");
         }
         City city = cityDao.findCityByCityId(user.getCityId());
         if (city == null) {
-            throw new BarkibuException("SCTY-3001", "City not found", HttpStatus.NOT_FOUND);
+            throw new BarkibuException("SCTY-4001");
         }
         State state = stateDao.findStateByStateId(city.getStateId());
         if (state == null) {
-            throw new BarkibuException("SCTY-3002", "State not found", HttpStatus.NOT_FOUND);
+            throw new BarkibuException("SCTY-4002");
         }
         Country country = countryDao.findCountryByCountryId(state.getCountryId());
         if (country == null) {
-            throw new BarkibuException("SCTY-3003", "Country not found", HttpStatus.NOT_FOUND);
+            throw new BarkibuException("SCTY-4003");
         }
 
         VeterinarianDto veterinarianDto = new VeterinarianDto();
@@ -113,7 +114,7 @@ public class UserBl {
     public VeterinarianRankingDto findVeterinarianRankingByUserName(String userName) {
         User user = userDao.findUserByUserName(userName);
         if (user == null) {
-            throw new BarkibuException("SCTY-3000", "User not found", HttpStatus.NOT_FOUND);
+            throw new BarkibuException("SCTY-4000");
         }
         VeterinarianRankingDto rankingDto = new VeterinarianRankingDto();
         rankingDto.setMonthlyRanking(userDao.findMonthlyRankingByUserName(userName));
@@ -124,7 +125,7 @@ public class UserBl {
     public Reputation findReputationByUserName(String userName) {
         User user = userDao.findUserByUserName(userName);
         if (user == null) {
-            throw new BarkibuException("SCTY-3000", "User not found", HttpStatus.NOT_FOUND);
+            throw new BarkibuException("SCTY-4000");
         }
         return reputationDao.findReputationByUserName(userName);
     }
@@ -132,7 +133,7 @@ public class UserBl {
     public List<HelpedPet> findHelpedPetByUserName(String userName) {
         User user = userDao.findUserByUserName(userName);
         if (user == null) {
-            throw new BarkibuException("SCTY-3000", "User not found", HttpStatus.NOT_FOUND);
+            throw new BarkibuException("SCTY-4000");
         }
         return helpedPetDao.findHelpedPetByUserName(userName);
     }
@@ -140,11 +141,11 @@ public class UserBl {
     public VeterinaryDto findVeterinaryByUserName(String userName){
         User user = userDao.findUserByUserName(userName);
         if (user == null) {
-            throw new BarkibuException("SCTY-3000", "User not found", HttpStatus.NOT_FOUND);
+            throw new BarkibuException("SCTY-4000");
         }
         Veterinary veterinary = veterinaryDao.findVeterinaryByUserName(userName);
         if (veterinary == null) {
-            throw new BarkibuException("SCTY-3004", "Veterinary not found", HttpStatus.NOT_FOUND);
+            throw new BarkibuException("SCTY-4004");
         }
         VeterinaryDto veterinaryDto = new VeterinaryDto();
         veterinaryDto.setName(veterinary.getName());
@@ -158,19 +159,19 @@ public class UserBl {
     public VeterinarianProfileDto getVeterinarianProfile(String userName) {
         User user = userDao.findUserByUserName(userName);
         if (user == null) {
-            throw new BarkibuException("SCTY-3000", "User not found", HttpStatus.NOT_FOUND);
+            throw new BarkibuException("SCTY-4000");
         }
         City city = cityDao.findCityByCityId(user.getCityId());
         if (city == null) {
-            throw new BarkibuException("SCTY-3001", "City not found", HttpStatus.NOT_FOUND);
+            throw new BarkibuException("SCTY-4001");
         }
         State state = stateDao.findStateByStateId(city.getStateId());
         if (state == null) {
-            throw new BarkibuException("SCTY-3002", "State not found", HttpStatus.NOT_FOUND);
+            throw new BarkibuException("SCTY-4002");
         }
         Country country = countryDao.findCountryByCountryId(state.getCountryId());
         if (country == null) {
-            throw new BarkibuException("SCTY-3003", "Country not found", HttpStatus.NOT_FOUND);
+            throw new BarkibuException("SCTY-4003");
         }
         VeterinarianProfileDto veterinarianProfileDto = new VeterinarianProfileDto();
         veterinarianProfileDto.setFirstName(user.getFirstName());
@@ -188,16 +189,16 @@ public class UserBl {
     public void updateVeterinarianProfile(String userName, VeterinarianProfileDto veterinarianProfileDto) {
         User user = userDao.findUserByUserName(veterinarianProfileDto.getUserName());
         if (user == null) {
-            throw new BarkibuException("SCTY-3000", "User not found", HttpStatus.NOT_FOUND);
+            throw new BarkibuException("SCTY-4000");
         }
         if (userDao.findUserIdByUserName(veterinarianProfileDto.getUserName()) != null && !user.getUserName().equals(veterinarianProfileDto.getUserName())) {
-            throw new BarkibuException("SCTY-1002", "User name already exists", HttpStatus.BAD_REQUEST);
+            throw new BarkibuException("SCTY-1002");
         }
         if (userDao.findUserIdByEmail(veterinarianProfileDto.getEmail()) != null && !user.getEmail().equals(veterinarianProfileDto.getEmail())) {
-            throw new BarkibuException("SCTY-1003", "Email already exists", HttpStatus.BAD_REQUEST);
+            throw new BarkibuException("SCTY-1003");
         }
         if (!isEmailValid(veterinarianProfileDto.getEmail())) {
-            throw new BarkibuException("SCTY-1004", "Email format is invalid", HttpStatus.BAD_REQUEST);
+            throw new BarkibuException("SCTY-1004");
         }
         // TODO: MAYBE VALIDATE COUNTRY, STATE AND CITY?
         user.setFirstName(veterinarianProfileDto.getFirstName());
@@ -214,10 +215,10 @@ public class UserBl {
     public void createVeterinary(String userName, VeterinaryDto veterinaryDto) {
         User user = userDao.findUserByUserName(userName);
         if (user == null) {
-            throw new BarkibuException("SCTY-3000", "User not found", HttpStatus.NOT_FOUND);
+            throw new BarkibuException("SCTY-4000");
         }
         if (veterinaryDao.findVeterinaryByUserName(userName) != null) {
-            throw new BarkibuException("SCTY-1009", "Veterinary already exists", HttpStatus.BAD_REQUEST);
+            throw new BarkibuException("SCTY-1009");
         }
         Veterinary veterinary = new Veterinary();
         veterinary.setUserId(user.getUserId());
@@ -232,11 +233,11 @@ public class UserBl {
     public void updateVeterinary(String userName, VeterinaryDto veterinaryDto) {
         User user = userDao.findUserByUserName(userName);
         if (user == null) {
-            throw new BarkibuException("SCTY-3000", "User not found", HttpStatus.NOT_FOUND);
+            throw new BarkibuException("SCTY-4000");
         }
         Veterinary veterinary = veterinaryDao.findVeterinaryByUserName(userName);
         if (veterinary == null) {
-            throw new BarkibuException("SCTY-3004", "Veterinary not found", HttpStatus.NOT_FOUND);
+            throw new BarkibuException("SCTY-4004");
         }
         veterinary.setUserId(user.getUserId());
         veterinary.setName(veterinaryDto.getName());
@@ -250,21 +251,21 @@ public class UserBl {
     public void updatePassword(String userName, UpdatePasswordDto updatePasswordDto) {
         User user = userDao.findUserByUserName(userName);
         if (user == null) {
-            throw new BarkibuException("SCTY-3000", "User not found", HttpStatus.NOT_FOUND);
+            throw new BarkibuException("SCTY-4000");
         }
         // Verificamos que la contraseña actual sea correcta
         String currentPasswordInBCrypt = userDao.findPasswordByUserName(userName);
         BCrypt.Result verifyResult = BCrypt.verifyer().verify(updatePasswordDto.getCurrentPassword().toCharArray(), currentPasswordInBCrypt);
         if (!verifyResult.verified) {
-            throw new BarkibuException("SCTY-1010", "Current password is incorrect", HttpStatus.BAD_REQUEST);
+            throw new BarkibuException("SCTY-1010");
         }
         // Verificamos que la nueva contraseña sea diferente a la actual
         if (updatePasswordDto.getCurrentPassword().equals(updatePasswordDto.getNewPassword())) {
-            throw new BarkibuException("SCTY-1011", "New password must be different to current password", HttpStatus.BAD_REQUEST);
+            throw new BarkibuException("SCTY-1011");
         }
         // Verificamos que la nueva contraseña y la confirmación sean iguales
         if (!updatePasswordDto.getNewPassword().equals(updatePasswordDto.getConfirmNewPassword())) {
-            throw new BarkibuException("SCTY-1007", "New password and confirmation must be equals", HttpStatus.BAD_REQUEST);
+            throw new BarkibuException("SCTY-1007");
         }
         // Encriptamos la nueva contraseña
         String password = BCrypt.withDefaults().hashToString(12, updatePasswordDto.getNewPassword().toCharArray());
@@ -275,7 +276,7 @@ public class UserBl {
     public List<VeterinarianAnswer> getVeterinarianAnswers(String userName) {
         User user = userDao.findUserByUserName(userName);
         if (user == null) {
-            throw new BarkibuException("SCTY-3000", "User not found", HttpStatus.NOT_FOUND);
+            throw new BarkibuException("SCTY-4000");
         }
         List<VeterinarianAnswer> veterinarianAnswers = veterinarianAnswerDao.findVeterinarianAnswersByUserName(userName);
         return veterinarianAnswers;

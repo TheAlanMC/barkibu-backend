@@ -22,7 +22,7 @@ public class PetTreatmentBl {
     public void createPetTreatment(PetTreatmentDto petTreatmentDto) {
         // Verificamos que la fecha de la última vacuna no sea mayor a la fecha actual
         if (isDateAfterToday(petTreatmentDto.getTreatmentLastDate())) {
-            throw new BarkibuException("SCTY-1008", "Date must be before today", HttpStatus.BAD_REQUEST);
+            throw new BarkibuException("SCTY-1008");
         }
         PetTreatment petTreatment = new PetTreatment();
         petTreatment.setPetId(petTreatmentDto.getPetId());

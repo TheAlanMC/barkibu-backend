@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import static bo.edu.ucb.barkibu.util.HttpMessageUtil.httpMessageUtilMap;
+
 @RestController
 @RequestMapping("/v1/api/auth")
 public class AuthApi {
@@ -21,7 +23,7 @@ public class AuthApi {
 
     //Autentication
     @PostMapping()
-    public ResponseEntity<ResponseDto<AuthResDto>> authentication(@RequestBody AuthReqDto authReqDto) {
+    public ResponseEntity<ResponseDto> authentication(@RequestBody AuthReqDto authReqDto) {
         if (authReqDto.validate()) {
             try {
                 ResponseDto<AuthResDto> responseDto = new ResponseDto<>(securityBl.authenticate(authReqDto), "SCTY-0000", null);
@@ -31,8 +33,9 @@ public class AuthApi {
                 return new ResponseEntity<>(responseDto, e.getHttpStatus());
             }
         } else {
-            ResponseDto<AuthResDto> responseDto = new ResponseDto<>(null, "SCTY-1001", "At least one field is empty");
-            return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
+            String statusCode = "SCTY-1001";
+            ResponseDto<String> responseDto = new ResponseDto<>(null, statusCode, httpMessageUtilMap.get(statusCode).getMessage());
+            return new ResponseEntity<>(responseDto, httpMessageUtilMap.get(statusCode).getHttpStatus());
         }
     }
 }

@@ -22,7 +22,7 @@ public class AuthUtil {
             return subject;
         }
         catch (JWTVerificationException exception){
-            throw new BarkibuException("Invalid token", "SCTY-2002", HttpStatus.UNAUTHORIZED);
+            throw new BarkibuException("SCTY-2001");
         }
 
     }
@@ -31,7 +31,7 @@ public class AuthUtil {
     public static String getTokenFromHeader(Map<String,String> headers) {
         String jwt ="";
         if (headers.get("Authorization") == null && headers.get("authorization") == null) {
-            throw new BarkibuException("SCTY-2003", "No token provided", HttpStatus.UNAUTHORIZED);
+            throw new BarkibuException("SCTY-2002");
         }
         if (headers.get("Authorization") != null) {
             jwt = headers.get("Authorization").split(" ")[1];
@@ -50,10 +50,10 @@ public class AuthUtil {
                 .getClaim("roles")
                 .asList(String.class);
         if (!roles.contains(role)) {
-            throw new BarkibuException("User does not have permission to access this resource", "SCTY-2001", HttpStatus.FORBIDDEN);
+            throw new BarkibuException("SCTY-3000");
         }}
         catch (JWTVerificationException exception){
-            throw new BarkibuException("Invalid token", "SCTY-2002", HttpStatus.UNAUTHORIZED);
+            throw new BarkibuException("SCTY-2001");
         }
     }
 }
