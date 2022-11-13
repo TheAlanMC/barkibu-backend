@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class VeterinarianBl {
+public class VeterinarianInfoBl {
     private final UserDao userDao;
     private final CityDao cityDao;
     private final StateDao stateDao;
@@ -19,7 +19,7 @@ public class VeterinarianBl {
     private final HelpedPetDao helpedPetDao;
     private final VeterinarianAnswerDao veterinarianAnswerDao;
 
-    public VeterinarianBl(UserDao userDao, CityDao cityDao, StateDao stateDao, CountryDao countryDao, VeterinarianRankingDao veterinarianRankingDao, ReputationDao reputationDao, HelpedPetDao helpedPetDao, VeterinarianAnswerDao veterinarianAnswerDao) {
+    public VeterinarianInfoBl(UserDao userDao, CityDao cityDao, StateDao stateDao, CountryDao countryDao, VeterinarianRankingDao veterinarianRankingDao, ReputationDao reputationDao, HelpedPetDao helpedPetDao, VeterinarianAnswerDao veterinarianAnswerDao) {
         this.userDao = userDao;
         this.cityDao = cityDao;
         this.stateDao = stateDao;

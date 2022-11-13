@@ -57,7 +57,7 @@ public class UserVeterinarianBl {
         user.setPassword(password);
         this.userDao.createUser(user);
         // Obtenemos el id del usuario creado
-        int userId = userDao.findUserIdByUserName(createUserDto.getUserName());
+        Integer userId = userDao.findUserIdByUserName(createUserDto.getUserName());
         // Asignamos el grupo de veterinario al usuario recien creado
         this.userVeterinarianDao.addVeterinarianGroup(userId);
     }

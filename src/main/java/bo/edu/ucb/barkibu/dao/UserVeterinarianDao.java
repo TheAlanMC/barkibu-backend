@@ -15,7 +15,7 @@ public interface UserVeterinarianDao {
             VALUES
             (#{userId}, 3, 'activo', now(), 'anonymus', 'localhost')
             """)
-    void addVeterinarianGroup(int userId);
+    void addVeterinarianGroup(Integer userId);
 
     // Actualiza la información de un usuario Veterinario
     @Update("""

@@ -9,6 +9,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhcGFuaXF1Z
 GET http://localhost:7777/v1/api/veterinarian/czarate
 Content-Type: application/json
 Accept: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjemFyYXRlIiwicm9sZXMiOlsiRURJVEFSIElORk9STUFDSU9OIERFIFZFVEVSSU5BUklPIiwiRURJVEFSIElORk9STUFDSU9OIERFIENMSU5JQ0EgVkVURVJJTkFSSUEiLCJQVUJMSUNBUiBSRVNQVUVTVEEiXSwiaXNzIjoidWNiIiwicmVmcmVzaCI6ZmFsc2UsImV4cCI6MTY3MTMxNDYwMSwiaWF0IjoxNjY4MzE0NjAxfQ.hffFmxApO-4sn5lVa3zuguAamWtFEuqxrDhAFBexgw8
 
 ### Get veterinarian ranking by token
 GET http://localhost:7777/v1/api/veterinarian/ranking
@@ -20,6 +21,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhcGFuaXF1Z
 GET http://localhost:7777/v1/api/veterinarian/ranking/czarate
 Content-Type: application/json
 Accept: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjemFyYXRlIiwicm9sZXMiOlsiRURJVEFSIElORk9STUFDSU9OIERFIFZFVEVSSU5BUklPIiwiRURJVEFSIElORk9STUFDSU9OIERFIENMSU5JQ0EgVkVURVJJTkFSSUEiLCJQVUJMSUNBUiBSRVNQVUVTVEEiXSwiaXNzIjoidWNiIiwicmVmcmVzaCI6ZmFsc2UsImV4cCI6MTY3MTMxNDYwMSwiaWF0IjoxNjY4MzE0NjAxfQ.hffFmxApO-4sn5lVa3zuguAamWtFEuqxrDhAFBexgw8
 
 ### Get veterinarian reputation by token
 GET http://localhost:7777/v1/api/veterinarian/reputation
@@ -31,6 +33,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhcGFuaXF1Z
 GET http://localhost:7777/v1/api/veterinarian/reputation/czarate
 Content-Type: application/json
 Accept: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjemFyYXRlIiwicm9sZXMiOlsiRURJVEFSIElORk9STUFDSU9OIERFIFZFVEVSSU5BUklPIiwiRURJVEFSIElORk9STUFDSU9OIERFIENMSU5JQ0EgVkVURVJJTkFSSUEiLCJQVUJMSUNBUiBSRVNQVUVTVEEiXSwiaXNzIjoidWNiIiwicmVmcmVzaCI6ZmFsc2UsImV4cCI6MTY3MTMxNDYwMSwiaWF0IjoxNjY4MzE0NjAxfQ.hffFmxApO-4sn5lVa3zuguAamWtFEuqxrDhAFBexgw8
 
 ### Get veterinarian contributions by token
 GET http://localhost:7777/v1/api/veterinarian/contribution
@@ -42,6 +45,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhcGFuaXF1Z
 GET http://localhost:7777/v1/api/veterinarian/contribution/gsallinger14
 Content-Type: application/json
 Accept: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjemFyYXRlIiwicm9sZXMiOlsiRURJVEFSIElORk9STUFDSU9OIERFIFZFVEVSSU5BUklPIiwiRURJVEFSIElORk9STUFDSU9OIERFIENMSU5JQ0EgVkVURVJJTkFSSUEiLCJQVUJMSUNBUiBSRVNQVUVTVEEiXSwiaXNzIjoidWNiIiwicmVmcmVzaCI6ZmFsc2UsImV4cCI6MTY3MTMxNDYwMSwiaWF0IjoxNjY4MzE0NjAxfQ.hffFmxApO-4sn5lVa3zuguAamWtFEuqxrDhAFBexgw8
 
 ### Get veterinarian's answers by token
 GET http://localhost:7777/v1/api/veterinarian/answers

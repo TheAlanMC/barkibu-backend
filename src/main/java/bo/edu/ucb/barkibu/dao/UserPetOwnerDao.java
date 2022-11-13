@@ -12,5 +12,5 @@ public interface UserPetOwnerDao {
             VALUES
             (#{userId}, 2, 'activo', now(), 'anonymus', 'localhost')
             """)
-    void addPetOwnerGroup(int userId);
+    void addPetOwnerGroup(Integer userId);
 }

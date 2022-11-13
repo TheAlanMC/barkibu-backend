@@ -7,13 +7,13 @@ public class VeterinarianAnswer {
     private String photoPath;
     private String question;
     private String answer;
-    private int totalLikes;
+    private Integer totalLikes;
     private Date answerDate;
 
     public VeterinarianAnswer() {
     }
 
-    public VeterinarianAnswer(String petName, String photoPath, String question, String answer, int totalLikes, Date answerDate) {
+    public VeterinarianAnswer(String petName, String photoPath, String question, String answer, Integer totalLikes, Date answerDate) {
         this.petName = petName;
         this.photoPath = photoPath;
         this.question = question;
@@ -54,11 +54,11 @@ public class VeterinarianAnswer {
         this.answer = answer;
     }
 
-    public int getTotalLikes() {
+    public Integer getTotalLikes() {
         return totalLikes;
     }
 
-    public void setTotalLikes(int totalLikes) {
+    public void setTotalLikes(Integer totalLikes) {
         this.totalLikes = totalLikes;
     }
 
