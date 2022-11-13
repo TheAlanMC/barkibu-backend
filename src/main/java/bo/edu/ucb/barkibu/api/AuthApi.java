@@ -15,13 +15,13 @@ import static bo.edu.ucb.barkibu.util.HttpMessageUtil.httpMessageUtilMap;
 @RequestMapping("/v1/api/auth")
 public class AuthApi {
 
-    private SecurityBl securityBl;
+    private final SecurityBl securityBl;
 
     public AuthApi(SecurityBl securityBl) {
         this.securityBl = securityBl;
     }
 
-    //Autentication
+    // Autenticación de usuario
     @PostMapping()
     public ResponseEntity<ResponseDto> authentication(@RequestBody AuthReqDto authReqDto) {
         if (authReqDto.validate()) {

@@ -13,10 +13,9 @@ public class Country {
     public Country() {
     }
 
-    public Country(Integer stateId, Integer countryId, String state, String status, Date txDate, String txUser, String txHost) {
-        this.countryId = stateId;
+    public Country(Integer countryId, String country, String status, Date txDate, String txUser, String txHost) {
         this.countryId = countryId;
-        this.country = state;
+        this.country = country;
         this.status = status;
         this.txDate = txDate;
         this.txUser = txUser;
@@ -30,7 +29,6 @@ public class Country {
     public void setCountryId(Integer countryId) {
         this.countryId = countryId;
     }
-
 
     public String getCountry() {
         return country;
@@ -74,10 +72,9 @@ public class Country {
 
     @Override
     public String toString() {
-        return "State{" +
-                "stateId=" + countryId +
-                ", countryId=" + countryId +
-                ", state='" + country + '\'' +
+        return "Country{" +
+                "countryId=" + countryId +
+                ", country='" + country + '\'' +
                 ", status='" + status + '\'' +
                 ", txDate=" + txDate +
                 ", txUser='" + txUser + '\'' +

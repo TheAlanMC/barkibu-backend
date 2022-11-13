@@ -1,18 +1,16 @@
 package bo.edu.ucb.barkibu.bl;
 
 import bo.edu.ucb.barkibu.dao.PetDao;
-import bo.edu.ucb.barkibu.dao.UserDao;
 import bo.edu.ucb.barkibu.dto.CreatePetDto;
 import bo.edu.ucb.barkibu.entity.Pet;
 import bo.edu.ucb.barkibu.util.BarkibuException;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import static bo.edu.ucb.barkibu.util.ValidationUtil.isDateAfterToday;
 
 @Service
 public class PetBl {
-    private PetDao petDao;
+    private final PetDao petDao;
 
     public PetBl(PetDao petDao) {
         this.petDao = petDao;
@@ -31,8 +29,9 @@ public class PetBl {
         pet.setGender(createPetDto.getGender());
         pet.setBornDate(createPetDto.getBornDate());
         pet.setPhotoPath(createPetDto.getPhotoPath());
-        //todo :delete this?
-        pet.setChipNumber(createPetDto.getChipNumber());
+        // TODO: ADD BL TO CREATE CHIP NUMBER
+        String chipNumber = "";
+        pet.setChipNumber(chipNumber);
         this.petDao.createPet(pet);
     }
 }

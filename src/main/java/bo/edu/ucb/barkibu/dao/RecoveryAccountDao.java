@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
 @Component
 public interface RecoveryAccountDao {
     // Registro de solicitud de codigo de recuperación de cuenta
@@ -24,7 +23,7 @@ public interface RecoveryAccountDao {
             WHERE user_id = #{userId}
             AND status = 'activo'
             """)
-    void updateStatusByUserId(Integer userId);
+    void disableRecoverAccountByUserId(Integer userId);
 
     // Devuelve el codigo de recuperación de cuenta de un usuario
     @Select("""

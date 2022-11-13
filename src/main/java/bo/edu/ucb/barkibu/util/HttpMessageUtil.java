@@ -40,6 +40,7 @@ public class HttpMessageUtil {
                 '}';
     }
 
+    // HashMap con todos los mensajes de error
     public static Map<String, HttpMessageUtil> errorHashMap (){
         Map<String,HttpMessageUtil> errorHashMap = new HashMap<>();
         // Errores de tipo bad request (400)
@@ -59,17 +60,15 @@ public class HttpMessageUtil {
         errorHashMap.put("SCTY-2000", new HttpMessageUtil("Invalid credentials", HttpStatus.UNAUTHORIZED));
         errorHashMap.put("SCTY-2001", new HttpMessageUtil("Invalid token", HttpStatus.UNAUTHORIZED));
         errorHashMap.put("SCTY-2002", new HttpMessageUtil("No token provided", HttpStatus.UNAUTHORIZED));
-        //TODO : Agreagar error 2003
-        //errorHashMap.put("SCTY-2003", new HttpMessageUtil("Token has expired", HttpStatus.UNAUTHORIZED));
         // Errores de tipo forbidden (403) -- no autorizado
         errorHashMap.put("SCTY-3000", new HttpMessageUtil("User is not allowed to access this resource", HttpStatus.FORBIDDEN));
-        // Errores de tipo not found (404)
+        // Errores de tipo not found (404) -- no encontrado
         errorHashMap.put("SCTY-4000", new HttpMessageUtil("User not found", HttpStatus.NOT_FOUND));
         errorHashMap.put("SCTY-4001", new HttpMessageUtil("City not found", HttpStatus.NOT_FOUND));
         errorHashMap.put("SCTY-4002", new HttpMessageUtil("State not found", HttpStatus.NOT_FOUND));
         errorHashMap.put("SCTY-4003", new HttpMessageUtil("Country not found", HttpStatus.NOT_FOUND));
         errorHashMap.put("SCTY-4004", new HttpMessageUtil("Veterinary not found", HttpStatus.NOT_FOUND));
-        // Errores de tipo server error (500)
+        // Errores de tipo server error (500) -- error interno del servidor
         errorHashMap.put("SCTY-5000", new HttpMessageUtil("Error generating token", HttpStatus.INTERNAL_SERVER_ERROR));
         return errorHashMap;
     }

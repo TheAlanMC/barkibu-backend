@@ -1,7 +1,7 @@
 package bo.edu.ucb.barkibu.api;
 
 import bo.edu.ucb.barkibu.bl.RecoveryAccountBl;
-import bo.edu.ucb.barkibu.dto.RecoveryAccountReqDto;
+import bo.edu.ucb.barkibu.dto.RecoveryAccountCodeReqDto;
 import bo.edu.ucb.barkibu.dto.RecoveryPasswordDto;
 import bo.edu.ucb.barkibu.dto.RecoveryPasswordReqDto;
 import bo.edu.ucb.barkibu.dto.ResponseDto;
@@ -25,10 +25,10 @@ public class RecoveryAccountApi {
     }
 
     @PostMapping()
-    public ResponseEntity<ResponseDto<String>> createRecoveryAccount(@RequestBody RecoveryAccountReqDto recoveryAccountReqDto) {
-        if (recoveryAccountReqDto.validate()) {
+    public ResponseEntity<ResponseDto<String>> createRecoveryAccount(@RequestBody RecoveryAccountCodeReqDto recoveryAccountCodeReqDto) {
+        if (recoveryAccountCodeReqDto.validate()) {
             try {
-                recoveryAccountBl.createRecoveryAccount(recoveryAccountReqDto);
+                recoveryAccountBl.createRecoveryAccount(recoveryAccountCodeReqDto);
                 ResponseDto<String> responseDto = new ResponseDto<>("Security code sent to your email", "SCTY-0000", null);
                 return new ResponseEntity<>(responseDto, HttpStatus.OK);
             } catch (BarkibuException e) {

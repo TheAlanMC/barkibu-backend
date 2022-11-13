@@ -4,7 +4,6 @@ import bo.edu.ucb.barkibu.dao.PetTreatmentDao;
 import bo.edu.ucb.barkibu.dto.PetTreatmentDto;
 import bo.edu.ucb.barkibu.entity.PetTreatment;
 import bo.edu.ucb.barkibu.util.BarkibuException;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;

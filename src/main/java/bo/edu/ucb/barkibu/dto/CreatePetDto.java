@@ -8,19 +8,17 @@ public class CreatePetDto {
     private String gender;
     private Date bornDate;
     private String photoPath;
-    private String chipNumber;
 
     public CreatePetDto() {
     }
 
-    public CreatePetDto(Integer userId, Integer breedId, String name, String gender, Date bornDate, String photoPath, String chipNumber) {
+    public CreatePetDto(Integer userId, Integer breedId, String name, String gender, Date bornDate, String photoPath) {
         this.userId = userId;
         this.breedId = breedId;
         this.name = name;
         this.gender = gender;
         this.bornDate = bornDate;
         this.photoPath = photoPath;
-        this.chipNumber = chipNumber;
     }
 
     public Integer getUserId() {
@@ -71,14 +69,6 @@ public class CreatePetDto {
         this.photoPath = photoPath;
     }
 
-    public String getChipNumber() {
-        return chipNumber;
-    }
-
-    public void setChipNumber(String chipNumber) {
-        this.chipNumber = chipNumber;
-    }
-
     @Override
     public String toString() {
         return "CreatePetDto{" +
@@ -88,7 +78,6 @@ public class CreatePetDto {
                 ", gender='" + gender + '\'' +
                 ", bornDate='" + bornDate + '\'' +
                 ", photoPath='" + photoPath + '\'' +
-                ", chipNumber='" + chipNumber + '\'' +
                 '}';
     }
 
@@ -109,9 +98,6 @@ public class CreatePetDto {
             return false;
         }
         if(photoPath == null || photoPath.isEmpty()) {
-            return false;
-        }
-        if(chipNumber == null || chipNumber.isEmpty()) {
             return false;
         }
             return true;

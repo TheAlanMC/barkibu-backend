@@ -16,14 +16,13 @@ import static bo.edu.ucb.barkibu.util.HttpMessageUtil.httpMessageUtilMap;
 @RestController
 @RequestMapping("/v1/api/pet")
 public class PetApi {
-    private PetBl petBl;
+    private final PetBl petBl;
 
     public PetApi(PetBl petBl) {
         this.petBl = petBl;
     }
-    // TODO: CREATE BY USERNAME?
 
-    //Registar nueva mascota
+    //Registrar nueva mascota
     @PostMapping()
     public ResponseEntity<ResponseDto<String>> createPet(@RequestHeader Map<String,String> headers, @RequestBody CreatePetDto createPetDto) {
         if (createPetDto.validate()){

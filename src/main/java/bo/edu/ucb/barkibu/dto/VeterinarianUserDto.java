@@ -1,6 +1,6 @@
 package bo.edu.ucb.barkibu.dto;
 
-public class VeterinarianProfileDto {
+public class VeterinarianUserDto {
     private String firstName;
     private String lastName;
     private Integer cityId;
@@ -11,10 +11,10 @@ public class VeterinarianProfileDto {
     private String description;
     private String photoPath;
 
-    public VeterinarianProfileDto() {
+    public VeterinarianUserDto() {
     }
 
-    public VeterinarianProfileDto(String firstName, String lastName, Integer cityId, Integer stateId, Integer countryId, String userName, String email, String description, String photoPath) {
+    public VeterinarianUserDto(String firstName, String lastName, Integer cityId, Integer stateId, Integer countryId, String userName, String email, String description, String photoPath) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.cityId = cityId;

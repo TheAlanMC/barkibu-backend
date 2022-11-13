@@ -1,13 +1,13 @@
-package bo.edu.ucb.barkibu.dto;
+package bo.edu.ucb.barkibu.entity;
 
-public class VeterinarianRankingDto {
+public class VeterinarianRanking {
     private Integer monthlyRanking;
     private Integer generalRanking;
 
-    public VeterinarianRankingDto() {
+    public VeterinarianRanking() {
     }
 
-    public VeterinarianRankingDto(Integer monthlyRanking, Integer generalRanking) {
+    public VeterinarianRanking(Integer monthlyRanking, Integer generalRanking) {
         this.monthlyRanking = monthlyRanking;
         this.generalRanking = generalRanking;
     }

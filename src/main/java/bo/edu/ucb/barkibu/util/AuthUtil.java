@@ -12,7 +12,7 @@ import java.util.Map;
 public class AuthUtil {
     public final static String JWT_SECRET = "barkibu";
 
-    //Obtenemos el subject del token
+    // Obtenemos el subject del token
     public static String getUserNameFromToken(String jwtToken) {
         try{
             String subject = JWT.require(Algorithm.HMAC256(JWT_SECRET))
@@ -27,7 +27,7 @@ public class AuthUtil {
 
     }
 
-    //Obtenemos el token del header
+    // Obtenemos el token del header
     public static String getTokenFromHeader(Map<String,String> headers) {
         String jwt ="";
         if (headers.get("Authorization") == null && headers.get("authorization") == null) {
@@ -42,7 +42,7 @@ public class AuthUtil {
         return jwt;
     }
 
-    //Verificamos si el tiene el rol para ejecutar la accion
+    // Verificamos si el tiene el rol para ejecutar la accion
     public static void verifyHasRole(String jwt, String role) {
         try{List<String> roles = JWT.require(Algorithm.HMAC256(JWT_SECRET))
                 .build()

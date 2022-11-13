@@ -19,7 +19,7 @@ public interface RoleDao {
             AND role.status = 'activo'
             AND group_role.status = 'activo'
             AND user_group.status = 'activo'
-            AND "user".status = 'activo'        
+            AND "user".status = 'activo'
             """)
     List<Role> findRolesByUserName(String userName);
 

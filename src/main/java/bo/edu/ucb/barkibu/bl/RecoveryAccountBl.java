@@ -3,13 +3,12 @@ package bo.edu.ucb.barkibu.bl;
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import bo.edu.ucb.barkibu.dao.RecoveryAccountDao;
 import bo.edu.ucb.barkibu.dao.UserDao;
-import bo.edu.ucb.barkibu.dto.RecoveryAccountReqDto;
+import bo.edu.ucb.barkibu.dto.RecoveryAccountCodeReqDto;
 import bo.edu.ucb.barkibu.dto.RecoveryPasswordDto;
 import bo.edu.ucb.barkibu.dto.RecoveryPasswordReqDto;
 import bo.edu.ucb.barkibu.entity.RecoveryAccount;
 import bo.edu.ucb.barkibu.entity.User;
 import bo.edu.ucb.barkibu.util.BarkibuException;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -19,28 +18,27 @@ import static bo.edu.ucb.barkibu.util.ValidationUtil.isEmailValid;
 @Service
 public class RecoveryAccountBl {
 
-    private RecoveryAccountDao recoveryAccountDao;
-    private UserDao userDao;
+    private final RecoveryAccountDao recoveryAccountDao;
+    private final UserDao userDao;
 
     public RecoveryAccountBl(RecoveryAccountDao recoveryAccountDao, UserDao userDao) {
         this.recoveryAccountDao = recoveryAccountDao;
         this.userDao = userDao;
     }
 
-    public void createRecoveryAccount(RecoveryAccountReqDto recoveryAccountReqDto) {
+    public void createRecoveryAccount(RecoveryAccountCodeReqDto recoveryAccountCodeReqDto) {
         RecoveryAccount recoveryAccount = new RecoveryAccount();
         // Verificamos que el email tenga un formato valido
-        if (!isEmailValid(recoveryAccountReqDto.getEmail())) {
+        if (!isEmailValid(recoveryAccountCodeReqDto.getEmail())) {
             throw new BarkibuException("SCTY-1004");
         }
         // Verificamos que el email exista
-        if (userDao.findUserIdByEmail(recoveryAccountReqDto.getEmail()) == null) {
-            //TODO: SHOW THAT EMAIL DOES NOT EXIST?
+        if (userDao.findUserIdByEmail(recoveryAccountCodeReqDto.getEmail()) == null) {
             throw new BarkibuException("SCTY-4000");
         }
-        int userId = userDao.findUserIdByEmail(recoveryAccountReqDto.getEmail());
+        int userId = userDao.findUserIdByEmail(recoveryAccountCodeReqDto.getEmail());
         // Cambiamos el estado a inactivo de solicitudes anteriores
-        recoveryAccountDao.updateStatusByUserId(userId);
+        recoveryAccountDao.disableRecoverAccountByUserId(userId);
         recoveryAccount.setUserId(userId);
         // Generamos un token aleatorio de 6 digitos
         int randomCode = (int) (Math.random() * 900000) + 100000;
@@ -65,7 +63,6 @@ public class RecoveryAccountBl {
         }
         // Verificamos que el email exista
         if (userDao.findUserIdByEmail(recoveryPasswordReqDto.getEmail()) == null) {
-            //TODO: SHOW THAT EMAIL DOES NOT EXIST?
             throw new BarkibuException("SCTY-4000");
         }
         int userId = userDao.findUserIdByEmail(recoveryPasswordReqDto.getEmail());
@@ -85,7 +82,6 @@ public class RecoveryAccountBl {
         }
         // Verificamos que el email exista
         if (userDao.findUserIdByEmail(recoveryPasswordDto.getEmail()) == null) {
-            //TODO: SHOW THAT EMAIL DOES NOT EXIST?
             throw new BarkibuException("SCTY-4000");
         }
         int userId = userDao.findUserIdByEmail(recoveryPasswordDto.getEmail());
@@ -109,6 +105,6 @@ public class RecoveryAccountBl {
         user.setUserId(userId);
         userDao.updatePassword(user);
         // Cambiamos el estado a inactivo de la solicitud ya que ya se utilizo
-        recoveryAccountDao.updateStatusByUserId(userId);
+        recoveryAccountDao.disableRecoverAccountByUserId(userId);
     }
 }

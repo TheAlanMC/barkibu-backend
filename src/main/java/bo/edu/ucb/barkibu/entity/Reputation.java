@@ -43,7 +43,7 @@ public class Reputation {
         return "Reputation{" +
                 "totalAnswers=" + totalAnswers +
                 ", totalPetOwnerLike=" + totalPetOwnerLike +
-                ", totalVeterianrianLike=" + totalVeterinarianLike +
+                ", totalVeterinarianLike=" + totalVeterinarianLike +
                 '}';
     }
 }

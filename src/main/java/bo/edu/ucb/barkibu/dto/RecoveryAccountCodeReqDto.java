@@ -1,12 +1,12 @@
 package bo.edu.ucb.barkibu.dto;
 
-public class RecoveryAccountReqDto {
+public class RecoveryAccountCodeReqDto {
     private String email;
 
-    public RecoveryAccountReqDto() {
+    public RecoveryAccountCodeReqDto() {
     }
 
-    public RecoveryAccountReqDto(String email) {
+    public RecoveryAccountCodeReqDto(String email) {
         this.email = email;
     }
 
