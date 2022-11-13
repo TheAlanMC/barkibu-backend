@@ -1,10 +1,7 @@
 package bo.edu.ucb.barkibu.bl;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
-import bo.edu.ucb.barkibu.dao.CityDao;
-import bo.edu.ucb.barkibu.dao.CountryDao;
-import bo.edu.ucb.barkibu.dao.StateDao;
-import bo.edu.ucb.barkibu.dao.UserDao;
+import bo.edu.ucb.barkibu.dao.*;
 import bo.edu.ucb.barkibu.dto.CreateUserDto;
 import bo.edu.ucb.barkibu.dto.VeterinarianUserDto;
 import bo.edu.ucb.barkibu.entity.City;
@@ -19,23 +16,50 @@ import static bo.edu.ucb.barkibu.util.ValidationUtil.isEmailValid;
 @Service
 public class UserVeterinarianBl {
     private final UserDao userDao;
+    private final UserVeterinarianDao userVeterinarianDao;
     private final CityDao cityDao;
     private final StateDao stateDao;
     private final CountryDao countryDao;
 
-    public UserVeterinarianBl(UserDao userDao, CityDao cityDao, StateDao stateDao, CountryDao countryDao) {
+    public UserVeterinarianBl(UserDao userDao, UserVeterinarianDao userVeterinarianDao, CityDao cityDao, StateDao stateDao, CountryDao countryDao) {
         this.userDao = userDao;
+        this.userVeterinarianDao = userVeterinarianDao;
         this.cityDao = cityDao;
         this.stateDao = stateDao;
         this.countryDao = countryDao;
     }
 
     public void createVeterinarianUser(CreateUserDto createUserDto) {
+        // Verificamos que el username no exista
+        if (userDao.findUserIdByUserName(createUserDto.getUserName()) != null) {
+            throw new BarkibuException("SCTY-1002");
+        }
+        // Verificamos que el email no exista
+        if (userDao.findUserIdByEmail(createUserDto.getEmail()) != null) {
+            throw new BarkibuException("SCTY-1003");
+        }
+        // Verificamos que el email tenga un formato valido
+        if (!isEmailValid(createUserDto.getEmail())) {
+            throw new BarkibuException("SCTY-1004");
+        }
+        // Verificamos que ambas contraseñas sean iguales
+        if (!createUserDto.getPassword().equals(createUserDto.getConfirmPassword())) {
+            throw new BarkibuException("SCTY-1007");
+        }
         // Creamos el usuario
+        User user = new User();
+        user.setFirstName(createUserDto.getFirstName());
+        user.setLastName(createUserDto.getLastName());
+        user.setEmail(createUserDto.getEmail());
+        user.setUserName(createUserDto.getUserName());
+        // Encriptamos la contraseña
+        String password = BCrypt.withDefaults().hashToString(12, createUserDto.getPassword().toCharArray());
+        user.setPassword(password);
+        this.userDao.createUser(user);
         // Obtenemos el id del usuario creado
         int userId = userDao.findUserIdByUserName(createUserDto.getUserName());
         // Asignamos el grupo de veterinario al usuario recien creado
-        this.userDao.addVeterinarianGroup(userId);
+        this.userVeterinarianDao.addVeterinarianGroup(userId);
     }
 
     public VeterinarianUserDto getVeterinarianUser(String userName) {
@@ -90,6 +114,6 @@ public class UserVeterinarianBl {
         user.setEmail(veterinarianUserDto.getEmail());
         user.setDescription(veterinarianUserDto.getDescription());
         user.setPhotoPath(veterinarianUserDto.getPhotoPath());
-        this.userDao.updateUser(user);
+        this.userVeterinarianDao.updateUser(user);
     }
 }

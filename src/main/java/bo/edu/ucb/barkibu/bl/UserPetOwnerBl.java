@@ -2,6 +2,7 @@ package bo.edu.ucb.barkibu.bl;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import bo.edu.ucb.barkibu.dao.UserDao;
+import bo.edu.ucb.barkibu.dao.UserPetOwnerDao;
 import bo.edu.ucb.barkibu.dto.CreateUserDto;
 import bo.edu.ucb.barkibu.entity.User;
 import bo.edu.ucb.barkibu.util.BarkibuException;
@@ -12,9 +13,11 @@ import static bo.edu.ucb.barkibu.util.ValidationUtil.isEmailValid;
 @Service
 public class UserPetOwnerBl {
     final  private UserDao userDao;
+    final  private UserPetOwnerDao userPetOwnerDao;
 
-    public UserPetOwnerBl(UserDao userDao) {
+    public UserPetOwnerBl(UserDao userDao, UserPetOwnerDao userPetOwnerDao) {
         this.userDao = userDao;
+        this.userPetOwnerDao = userPetOwnerDao;
     }
 
     public void createPetOwnerUser(CreateUserDto createUserDto) {
@@ -48,7 +51,7 @@ public class UserPetOwnerBl {
         // Obtenemos el id del usuario creado
         int userId = userDao.findUserIdByUserName(createUserDto.getUserName());
         // Asignamos el grupo de dueño de mascota al usuario recien creado
-        this.userDao.addPetOwnerGroup(userId);
+        this.userPetOwnerDao.addPetOwnerGroup(userId);
     }
 
 }

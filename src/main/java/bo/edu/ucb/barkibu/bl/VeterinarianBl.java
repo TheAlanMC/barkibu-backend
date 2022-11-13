@@ -61,8 +61,7 @@ public class VeterinarianBl {
     }
 
     public VeterinarianRanking findVeterinarianRankingByUserName(String userName) {
-        User user = userDao.findUserByUserName(userName);
-        if (user == null) {
+        if (userDao.findUserIdByUserName(userName) == null) {
             throw new BarkibuException("SCTY-4000");
         }
         VeterinarianRanking veterinarianRanking = new VeterinarianRanking();
@@ -72,24 +71,21 @@ public class VeterinarianBl {
     }
 
     public Reputation findReputationByUserName(String userName) {
-        User user = userDao.findUserByUserName(userName);
-        if (user == null) {
+        if (userDao.findUserIdByUserName(userName) == null) {
             throw new BarkibuException("SCTY-4000");
         }
         return reputationDao.findReputationByUserName(userName);
     }
 
     public List<HelpedPet> findHelpedPetByUserName(String userName) {
-        User user = userDao.findUserByUserName(userName);
-        if (user == null) {
+        if (userDao.findUserIdByUserName(userName) == null) {
             throw new BarkibuException("SCTY-4000");
         }
         return helpedPetDao.findHelpedPetByUserName(userName);
     }
 
     public List<VeterinarianAnswer> getVeterinarianAnswers(String userName) {
-        User user = userDao.findUserByUserName(userName);
-        if (user == null) {
+        if (userDao.findUserIdByUserName(userName) == null) {
             throw new BarkibuException("SCTY-4000");
         }
         return veterinarianAnswerDao.findVeterinarianAnswersByUserName(userName);

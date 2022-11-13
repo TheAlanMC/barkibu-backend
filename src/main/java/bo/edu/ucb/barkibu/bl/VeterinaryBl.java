@@ -19,15 +19,14 @@ public class VeterinaryBl {
     }
 
     public void createVeterinary(String userName, VeterinaryDto veterinaryDto) {
-        User user = userDao.findUserByUserName(userName);
-        if (user == null) {
+        if (userDao.findUserIdByUserName(userName) == null) {
             throw new BarkibuException("SCTY-4000");
         }
         if (veterinaryDao.findVeterinaryByUserName(userName) != null) {
             throw new BarkibuException("SCTY-1009");
         }
         Veterinary veterinary = new Veterinary();
-        veterinary.setUserId(user.getUserId());
+        veterinary.setUserId(userDao.findUserIdByUserName(userName));
         veterinary.setName(veterinaryDto.getName());
         veterinary.setAddress(veterinaryDto.getAddress());
         veterinary.setLatitude(veterinaryDto.getLatitude());
@@ -37,8 +36,7 @@ public class VeterinaryBl {
     }
 
     public VeterinaryDto findVeterinaryByUserName(String userName){
-        User user = userDao.findUserByUserName(userName);
-        if (user == null) {
+        if (userDao.findUserIdByUserName(userName) == null) {
             throw new BarkibuException("SCTY-4000");
         }
         Veterinary veterinary = veterinaryDao.findVeterinaryByUserName(userName);
@@ -55,15 +53,14 @@ public class VeterinaryBl {
     }
 
     public void updateVeterinary(String userName, VeterinaryDto veterinaryDto) {
-        User user = userDao.findUserByUserName(userName);
-        if (user == null) {
+        if (userDao.findUserIdByUserName(userName) == null) {
             throw new BarkibuException("SCTY-4000");
         }
         Veterinary veterinary = veterinaryDao.findVeterinaryByUserName(userName);
         if (veterinary == null) {
             throw new BarkibuException("SCTY-4004");
         }
-        veterinary.setUserId(user.getUserId());
+        veterinary.setUserId(userDao.findUserIdByUserName(userName));
         veterinary.setName(veterinaryDto.getName());
         veterinary.setAddress(veterinaryDto.getAddress());
         veterinary.setLatitude(veterinaryDto.getLatitude());

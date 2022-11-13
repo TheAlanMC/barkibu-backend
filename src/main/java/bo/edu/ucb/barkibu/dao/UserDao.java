@@ -9,6 +9,14 @@ import org.springframework.stereotype.Component;
 @Component
 public interface UserDao {
 
+    @Select("""
+            SELECT user_id, city_id, first_name, last_name, email, user_name, photo_path, description
+            FROM "user"
+            WHERE user_name = #{userName}
+            AND status = 'activo'
+    """)
+    User findUserByUserName(String userName);
+
     // Encuentra el id de un usuario por su userName
     @Select("""
             SELECT user_id
@@ -17,14 +25,6 @@ public interface UserDao {
             AND status = 'activo'
     """)
     Integer findUserIdByUserName(String userName);
-
-    @Select("""
-            SELECT user_id, city_id, first_name, last_name, email, user_name, photo_path, description
-            FROM "user"
-            WHERE user_name = #{userName}
-            AND status = 'activo'
-    """)
-    User findUserByUserName(String userName);
 
     // Encuentra la contraseña de un usuario por su userName
     @Select("""
@@ -53,23 +53,7 @@ public interface UserDao {
             """)
     void createUser(User user);
 
-    // Asigna el grupo dueño de mascota a un usuario
-    @Insert("""
-            INSERT INTO user_group
-            (user_id, group_id, status, tx_date, tx_user, tx_host)
-            VALUES
-            (#{userId}, 2, 'activo', now(), 'anonymus', 'localhost')
-            """)
-    void addPetOwnerGroup(int userId);
 
-    // Asigna el grupo veterinario a un usuario
-    @Insert("""
-            INSERT INTO user_group
-            (user_id, group_id, status, tx_date, tx_user, tx_host)
-            VALUES
-            (#{userId}, 3, 'activo', now(), 'anonymus', 'localhost')
-            """)
-    void addVeterinarianGroup(int userId);
 
     // Cambio de contraseña
     @Update("""
@@ -79,15 +63,6 @@ public interface UserDao {
             AND status = 'activo'
             """)
     void updatePassword(User user);
-
-    @Update("""
-            UPDATE "user"
-            SET city_id = #{cityId}, first_name = #{firstName}, last_name = #{lastName}, email = #{email},
-                user_name = #{userName}, photo_path = #{photoPath}, description = #{description}
-            WHERE user_id = #{userId}
-            AND status = 'activo'
-            """)
-    void updateUser(User user);
 
 }
 
