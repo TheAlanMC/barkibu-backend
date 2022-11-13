@@ -47,3 +47,9 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhcGFuaXF1Z
 GET http://localhost:7777/v1/api/user/veterinarian/ranking/czarate
 Content-Type: application/json
 Accept: application/json
+
+### Get veterinarian reputation by token
+GET http://localhost:7777/v1/api/user/veterinarian/reputation
+Content-Type: application/json
+Accept: application/json
+

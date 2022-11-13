@@ -1,17 +1,12 @@
 package bo.edu.ucb.barkibu.bl;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
-import bo.edu.ucb.barkibu.dao.CityDao;
-import bo.edu.ucb.barkibu.dao.CountryDao;
-import bo.edu.ucb.barkibu.dao.StateDao;
-import bo.edu.ucb.barkibu.dao.UserDao;
+import bo.edu.ucb.barkibu.dao.*;
+import bo.edu.ucb.barkibu.dao.HelpedPetDao;
 import bo.edu.ucb.barkibu.dto.CreateUserDto;
 import bo.edu.ucb.barkibu.dto.VeterinarianRankingDto;
 import bo.edu.ucb.barkibu.dto.UserVeterianiarnDto;
-import bo.edu.ucb.barkibu.entity.City;
-import bo.edu.ucb.barkibu.entity.Country;
-import bo.edu.ucb.barkibu.entity.State;
-import bo.edu.ucb.barkibu.entity.User;
+import bo.edu.ucb.barkibu.entity.*;
 import bo.edu.ucb.barkibu.util.BarkibuException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -24,13 +19,18 @@ public class UserBl {
     private CityDao cityDao;
     private StateDao stateDao;
     private CountryDao countryDao;
+    private ReputationDao reputationDao;
+    private HelpedPetDao helpedPetDao;
 
-    public UserBl(UserDao userDao, CityDao cityDao, StateDao stateDao, CountryDao countryDao) {
+    public UserBl(UserDao userDao, CityDao cityDao, StateDao stateDao, CountryDao countryDao, ReputationDao reputationDao, HelpedPetDao helpedPetDao) {
         this.userDao = userDao;
         this.cityDao = cityDao;
         this.stateDao = stateDao;
         this.countryDao = countryDao;
+        this.reputationDao = reputationDao;
+        this.helpedPetDao = helpedPetDao;
     }
+
     public void createUser(CreateUserDto createUserDto) {
         // Verificamos que el username no exista
         if (userDao.findUserIdByUserName(createUserDto.getUserName()) != null) {
@@ -104,7 +104,6 @@ public class UserBl {
         return userVeterianiarnDto;
     }
 
-
     public VeterinarianRankingDto findVeterinarianRankingByUserName(String userName) {
         User user = userDao.findUserByUserName(userName);
         if (user == null) {
@@ -114,5 +113,21 @@ public class UserBl {
         rankingDto.setMonthlyRanking(userDao.findMonthlyRankingByUserName(userName));
         rankingDto.setGeneralRanking(userDao.findGeneralRankingByUserName(userName));
         return rankingDto;
+    }
+
+    public Reputation findReputationByUserName(String userName) {
+        User user = userDao.findUserByUserName(userName);
+        if (user == null) {
+            throw new BarkibuException("SCTY-3000", "User not found", HttpStatus.NOT_FOUND);
+        }
+        return reputationDao.findReputationByUserName(userName);
+    }
+
+    public HelpedPet findHelpedPetByUserName(String userName) {
+        User user = userDao.findUserByUserName(userName);
+        if (user == null) {
+            throw new BarkibuException("SCTY-3000", "User not found", HttpStatus.NOT_FOUND);
+        }
+        return helpedPetDao.findHelpedPetByUserName(userName);
     }
 }

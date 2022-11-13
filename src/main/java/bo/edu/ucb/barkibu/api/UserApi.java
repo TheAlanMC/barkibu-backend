@@ -5,6 +5,7 @@ import bo.edu.ucb.barkibu.dto.CreateUserDto;
 import bo.edu.ucb.barkibu.dto.VeterinarianRankingDto;
 import bo.edu.ucb.barkibu.dto.ResponseDto;
 import bo.edu.ucb.barkibu.dto.UserVeterianiarnDto;
+import bo.edu.ucb.barkibu.entity.Reputation;
 import bo.edu.ucb.barkibu.util.AuthUtil;
 import bo.edu.ucb.barkibu.util.BarkibuException;
 import org.springframework.http.HttpStatus;
@@ -109,12 +110,40 @@ public class UserApi {
     }
 
     // Obtiene el ranking de veterinario por su nombre de usuario
-
     @GetMapping("/veterinarian/ranking/{userName}")
     public ResponseEntity<ResponseDto> getVeterinarianRankingByUserName(@PathVariable String userName) {
         try {
             VeterinarianRankingDto ranking = userBl.findVeterinarianRankingByUserName(userName);
             ResponseDto<VeterinarianRankingDto> responseDto = new ResponseDto<>(ranking, "SCTY-0000", null);
+            return new ResponseEntity<>(responseDto, HttpStatus.OK);
+        } catch (BarkibuException e) {
+            ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
+            return new ResponseEntity<>(responseDto, e.getHttpStatus());
+        }
+    }
+
+    // Obtiene la reputación de un veterinario por su token
+    @GetMapping("/veterinarian/reputation")
+    public ResponseEntity<ResponseDto> getVeterinarianReputation(@RequestHeader Map<String,String> headers) {
+        try {
+            // Verificamos que el usuario este autenticado
+            String jwt = AuthUtil.getTokenFromHeader(headers);
+            String userName = AuthUtil.getUserNameFromToken(jwt);
+            Reputation reputation = userBl.findReputationByUserName(userName);
+            ResponseDto<Reputation> responseDto = new ResponseDto<>(reputation, "SCTY-0000", null);
+            return new ResponseEntity<>(responseDto, HttpStatus.OK);
+        } catch (BarkibuException e) {
+            ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
+            return new ResponseEntity<>(responseDto, e.getHttpStatus());
+        }
+    }
+
+    // Obtiene la reputación de un veterinario por su nombre de usuario
+    @GetMapping("/veterinarian/reputation/{userName}")
+    public ResponseEntity<ResponseDto> getVeterinarianReputationByUserName(@PathVariable String userName) {
+        try {
+            Reputation reputation = userBl.findReputationByUserName(userName);
+            ResponseDto<Reputation> responseDto = new ResponseDto<>(reputation, "SCTY-0000", null);
             return new ResponseEntity<>(responseDto, HttpStatus.OK);
         } catch (BarkibuException e) {
             ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
