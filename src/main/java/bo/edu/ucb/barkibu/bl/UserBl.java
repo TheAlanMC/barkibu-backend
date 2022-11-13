@@ -179,4 +179,29 @@ public class UserBl {
         veterinarianProfileDto.setDescription(user.getDescription());
         return veterinarianProfileDto;
     }
+
+    public void updateVeterinarianProfile(String userName, VeterinarianProfileDto veterinarianProfileDto) {
+        User user = userDao.findUserByUserName(veterinarianProfileDto.getUserName());
+        if (user == null) {
+            throw new BarkibuException("SCTY-3000", "User not found", HttpStatus.NOT_FOUND);
+        }
+        if (userDao.findUserIdByUserName(veterinarianProfileDto.getUserName()) != null && !user.getUserName().equals(veterinarianProfileDto.getUserName())) {
+            throw new BarkibuException("SCTY-1002", "User name already exists", HttpStatus.BAD_REQUEST);
+        }
+        if (userDao.findUserIdByEmail(veterinarianProfileDto.getEmail()) != null && !user.getEmail().equals(veterinarianProfileDto.getEmail())) {
+            throw new BarkibuException("SCTY-1003", "Email already exists", HttpStatus.BAD_REQUEST);
+        }
+        if (!isEmailValid(veterinarianProfileDto.getEmail())) {
+            throw new BarkibuException("SCTY-1004", "Email format is invalid", HttpStatus.BAD_REQUEST);
+        }
+        // TODO: MAYBE VALIDATE COUNTRY, STATE AND CITY?
+        user.setFirstName(veterinarianProfileDto.getFirstName());
+        user.setLastName(veterinarianProfileDto.getLastName());
+        user.setCityId(veterinarianProfileDto.getCityId());
+        user.setUserName(veterinarianProfileDto.getUserName());
+        user.setEmail(veterinarianProfileDto.getEmail());
+        user.setDescription(veterinarianProfileDto.getDescription());
+        user.setPhotoPath(veterinarianProfileDto.getPhotoPath());
+        userDao.updateUser(user);
+    }
 }

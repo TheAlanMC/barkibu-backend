@@ -125,5 +125,14 @@ public interface UserDao {
             """)
     Integer findMonthlyRankingByUserName(String userName);
 
+    @Update("""
+            UPDATE "user"
+            SET city_id = #{cityId}, first_name = #{firstName}, last_name = #{lastName}, email = #{email}, 
+                user_name = #{userName}, photo_path = #{photoPath}, description = #{description}
+            WHERE user_id = #{userId}
+            AND status = 'activo'
+            """)
+    void updateUser(User user);
+
 }
 

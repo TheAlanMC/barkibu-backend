@@ -191,7 +191,7 @@ public class VeterinarianApi {
         }
     }
 
-    // Actualiza el perfil de un veterinario
+    // Obtiene el perfil de un veterinario por su token con el fin de editar su perfil
     @GetMapping("/profile")
     public ResponseEntity<ResponseDto> getVeterinarianProfile(@RequestHeader Map<String,String> headers) {
         try {
@@ -207,6 +207,25 @@ public class VeterinarianApi {
             return new ResponseEntity<>(responseDto, e.getHttpStatus());
         }
     }
+
+    // Edita el perfil de un veterinario por su token
+    @PostMapping("/profile")
+    public ResponseEntity<ResponseDto> updateVeterinarianProfile(@RequestHeader Map<String,String> headers, @RequestBody VeterinarianProfileDto veterinarianProfileDto) {
+        try {
+            // Verificamos que el usuario este autenticado
+            String jwt = AuthUtil.getTokenFromHeader(headers);
+            AuthUtil.verifyHasRole(jwt, "EDITAR INFORMACION DE VETERINARIO");
+            String userName = AuthUtil.getUserNameFromToken(jwt);
+            userBl.updateVeterinarianProfile(userName, veterinarianProfileDto);
+            ResponseDto<String> responseDto = new ResponseDto<>("Profile Updated Successfully", "SCTY-0000", null);
+            return new ResponseEntity<>(responseDto, HttpStatus.OK);
+        } catch (BarkibuException e) {
+            ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
+            return new ResponseEntity<>(responseDto, e.getHttpStatus());
+        }
+    }
+
+
 
 
 

@@ -123,12 +123,6 @@ public class VeterinarianProfileDto {
         if (cityId == null || cityId < 1) {
             return false;
         }
-        if (stateId == null || stateId < 1) {
-            return false;
-        }
-        if (countryId == null || countryId < 1) {
-            return false;
-        }
         if (userName == null || userName.isEmpty()) {
             return false;
         }
