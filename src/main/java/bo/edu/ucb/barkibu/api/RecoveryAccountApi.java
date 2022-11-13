@@ -24,6 +24,7 @@ public class RecoveryAccountApi {
         this.recoveryAccountBl = recoveryAccountBl;
     }
 
+    // Solicitar código de recuperación de cuenta
     @PostMapping()
     public ResponseEntity<ResponseDto<String>> createRecoveryAccount(@RequestBody RecoveryAccountCodeReqDto recoveryAccountCodeReqDto) {
         if (recoveryAccountCodeReqDto.validate()) {
@@ -42,6 +43,7 @@ public class RecoveryAccountApi {
         }
     }
 
+    // Verificar código de recuperación de cuenta
     @PostMapping("/hash-code")
     public ResponseEntity<ResponseDto<String>> validateCode(@RequestBody RecoveryPasswordReqDto recoveryPasswordReqDto) {
         if (recoveryPasswordReqDto.validate()) {
@@ -60,6 +62,7 @@ public class RecoveryAccountApi {
         }
     }
 
+    // Cambiar contraseña
     @PostMapping("/password")
     public ResponseEntity<ResponseDto<String>> updatePassword(@RequestBody RecoveryPasswordDto recoveryPasswordDto) {
         if (recoveryPasswordDto.validate()) {

@@ -22,6 +22,7 @@ public class PetTreatmentApi {
         this.petTreatmentBl = petTreatmentBl;
     }
 
+    // Regitra un tratamiento para una mascota
     @PostMapping()
     public ResponseEntity<ResponseDto<String>> createPetTreatment(@RequestHeader Map<String,String> headers, @RequestBody PetTreatmentDto petTreatmentDto) {
         if (petTreatmentDto.validate()){

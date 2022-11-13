@@ -56,7 +56,6 @@ public class RecoveryAccountBl {
     }
 
     public void validateCode(RecoveryPasswordReqDto recoveryPasswordReqDto){
-        RecoveryAccount recoveryAccount;
         // Verificamos que el email tenga un formato valido
         if (!isEmailValid(recoveryPasswordReqDto.getEmail())) {
             throw new BarkibuException("SCTY-1004");
@@ -65,6 +64,7 @@ public class RecoveryAccountBl {
         if (userDao.findUserIdByEmail(recoveryPasswordReqDto.getEmail()) == null) {
             throw new BarkibuException("SCTY-4000");
         }
+        RecoveryAccount recoveryAccount;
         int userId = userDao.findUserIdByEmail(recoveryPasswordReqDto.getEmail());
         recoveryAccount = recoveryAccountDao.findRecoveryAccountByUserId(userId);
         // Verificamos que el codigo sea correcto
@@ -75,7 +75,6 @@ public class RecoveryAccountBl {
     }
     public void updatePassword(RecoveryPasswordDto recoveryPasswordDto) {
         User user = new User();
-        RecoveryAccount recoveryAccount;
         // Verificamos que el email tenga un formato valido
         if (!isEmailValid(recoveryPasswordDto.getEmail())) {
             throw new BarkibuException("SCTY-1004");
@@ -84,6 +83,7 @@ public class RecoveryAccountBl {
         if (userDao.findUserIdByEmail(recoveryPasswordDto.getEmail()) == null) {
             throw new BarkibuException("SCTY-4000");
         }
+        RecoveryAccount recoveryAccount;
         int userId = userDao.findUserIdByEmail(recoveryPasswordDto.getEmail());
         recoveryAccount = recoveryAccountDao.findRecoveryAccountByUserId(userId);
         // Verificamos que el token sea valido

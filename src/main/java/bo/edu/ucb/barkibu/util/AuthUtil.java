@@ -42,7 +42,7 @@ public class AuthUtil {
         return jwt;
     }
 
-    // Verificamos si el tiene el rol para ejecutar la accion
+    // sVerificamos si el tiene el rol para ejecutar la accion
     public static void verifyHasRole(String jwt, String role) {
         try{List<String> roles = JWT.require(Algorithm.HMAC256(JWT_SECRET))
                 .build()

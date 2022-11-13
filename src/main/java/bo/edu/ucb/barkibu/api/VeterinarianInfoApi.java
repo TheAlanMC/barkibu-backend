@@ -17,10 +17,10 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/v1/api/veterinarian")
-public class VeterinarianApi {
+public class VeterinarianInfoApi {
     private final VeterinarianBl veterinarianBl;
 
-    VeterinarianApi(VeterinarianBl veterinarianBl) {
+    VeterinarianInfoApi(VeterinarianBl veterinarianBl) {
         this.veterinarianBl = veterinarianBl;
     }
 

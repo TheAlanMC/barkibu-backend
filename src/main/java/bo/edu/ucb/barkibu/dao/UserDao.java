@@ -9,6 +9,15 @@ import org.springframework.stereotype.Component;
 @Component
 public interface UserDao {
 
+    // Encuentra el id de un usuario por su userName
+    @Select("""
+            SELECT user_id
+            FROM "user"
+            WHERE user_name = #{userName}
+            AND status = 'activo'
+    """)
+    Integer findUserIdByUserName(String userName);
+
     @Select("""
             SELECT user_id, city_id, first_name, last_name, email, user_name, photo_path, description
             FROM "user"
@@ -26,24 +35,6 @@ public interface UserDao {
     """)
     String findPasswordByUserName(String userName);
 
-    // Crea un usuario con los campos obligatorios
-    @Insert("""
-            INSERT INTO "user"
-            (first_name, last_name, email, user_name, password, status, tx_date, tx_user, tx_host)
-            VALUES
-            (#{firstName}, #{lastName}, #{email}, #{userName}, #{password}, 'activo', now(), 'anonymus', 'localhost')
-            """)
-    void createUser(User user);
-
-    // Encuentra el id de un usuario por su userName
-    @Select("""
-            SELECT user_id
-            FROM "user"
-            WHERE user_name = #{userName}
-            AND status = 'activo'
-    """)
-    Integer findUserIdByUserName(String userName);
-
     // Encuentra el id de un usuario por su email
     @Select("""
             SELECT user_id
@@ -52,6 +43,15 @@ public interface UserDao {
             AND status = 'activo'
     """)
     Integer findUserIdByEmail(String email);
+
+    // Crea un usuario con los campos obligatorios
+    @Insert("""
+            INSERT INTO "user"
+            (first_name, last_name, email, user_name, password, status, tx_date, tx_user, tx_host)
+            VALUES
+            (#{firstName}, #{lastName}, #{email}, #{userName}, #{password}, 'activo', now(), 'anonymus', 'localhost')
+            """)
+    void createUser(User user);
 
     // Asigna el grupo dueño de mascota a un usuario
     @Insert("""
