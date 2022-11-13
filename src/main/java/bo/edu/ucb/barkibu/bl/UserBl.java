@@ -5,6 +5,7 @@ import bo.edu.ucb.barkibu.dao.*;
 import bo.edu.ucb.barkibu.dao.HelpedPetDao;
 import bo.edu.ucb.barkibu.dto.*;
 import bo.edu.ucb.barkibu.entity.*;
+import bo.edu.ucb.barkibu.entity.VeterinarianAnswer;
 import bo.edu.ucb.barkibu.util.BarkibuException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -22,8 +23,9 @@ public class UserBl {
     private ReputationDao reputationDao;
     private HelpedPetDao helpedPetDao;
     private VeterinaryDao veterinaryDao;
+    private VeterinarianAnswerDao veterinarianAnswerDao;
 
-    public UserBl(UserDao userDao, CityDao cityDao, StateDao stateDao, CountryDao countryDao, ReputationDao reputationDao, HelpedPetDao helpedPetDao, VeterinaryDao veterinaryDao) {
+    public UserBl(UserDao userDao, CityDao cityDao, StateDao stateDao, CountryDao countryDao, ReputationDao reputationDao, HelpedPetDao helpedPetDao, VeterinaryDao veterinaryDao, VeterinarianAnswerDao veterinarianAnswerDao) {
         this.userDao = userDao;
         this.cityDao = cityDao;
         this.stateDao = stateDao;
@@ -31,6 +33,7 @@ public class UserBl {
         this.reputationDao = reputationDao;
         this.helpedPetDao = helpedPetDao;
         this.veterinaryDao = veterinaryDao;
+        this.veterinarianAnswerDao = veterinarianAnswerDao;
     }
 
     public void createUser(CreateUserDto createUserDto) {
@@ -267,5 +270,14 @@ public class UserBl {
         String password = BCrypt.withDefaults().hashToString(12, updatePasswordDto.getNewPassword().toCharArray());
         user.setPassword(password);
         this.userDao.updatePassword(user);
+    }
+
+    public List<VeterinarianAnswer> getVeterinarianAnswers(String userName) {
+        User user = userDao.findUserByUserName(userName);
+        if (user == null) {
+            throw new BarkibuException("SCTY-3000", "User not found", HttpStatus.NOT_FOUND);
+        }
+        List<VeterinarianAnswer> veterinarianAnswers = veterinarianAnswerDao.findVeterinarianAnswersByUserName(userName);
+        return veterinarianAnswers;
     }
 }

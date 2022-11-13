@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 @Component
 public interface UserDao {
 
-
     @Select("""
             SELECT user_id, city_id,first_name,last_name,email,
                    user_name,password,photo_path,description,status,

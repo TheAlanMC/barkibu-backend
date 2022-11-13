@@ -9,6 +9,6 @@ Content-Type: application/json
 Accept: application/json
 
 {
- "userName":"apanique", 
- "password": "123456"
+ "userName":"czarate", 
+ "password": "12345"
 }

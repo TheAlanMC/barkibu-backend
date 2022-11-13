@@ -4,6 +4,7 @@ import bo.edu.ucb.barkibu.bl.UserBl;
 import bo.edu.ucb.barkibu.dto.*;
 import bo.edu.ucb.barkibu.entity.HelpedPet;
 import bo.edu.ucb.barkibu.entity.Reputation;
+import bo.edu.ucb.barkibu.entity.VeterinarianAnswer;
 import bo.edu.ucb.barkibu.util.AuthUtil;
 import bo.edu.ucb.barkibu.util.BarkibuException;
 import org.springframework.http.HttpStatus;
@@ -298,6 +299,22 @@ public class VeterinarianApi {
         else {
             ResponseDto<String> responseDto = new ResponseDto<>(null, "SCTY-0001", "Invalid Data");
             return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    // Lista de respuestas de un usuario por su token
+    @GetMapping("/answers")
+    public ResponseEntity<ResponseDto<List<VeterinarianAnswer>>> getAnswers(@RequestHeader Map<String,String> headers) {
+        try {
+            // Verificamos que el usuario este autenticado
+            String jwt = AuthUtil.getTokenFromHeader(headers);
+            String userName = AuthUtil.getUserNameFromToken(jwt);
+            List<VeterinarianAnswer> answerDtos = userBl.getVeterinarianAnswers(userName);
+            ResponseDto<List<VeterinarianAnswer>> responseDto = new ResponseDto<>(answerDtos, "SCTY-0000", null);
+            return new ResponseEntity<>(responseDto, HttpStatus.OK);
+        } catch (BarkibuException e) {
+            ResponseDto<List<VeterinarianAnswer>> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
+            return new ResponseEntity<>(responseDto, e.getHttpStatus());
         }
     }
 
