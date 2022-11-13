@@ -11,6 +11,8 @@ import bo.edu.ucb.barkibu.util.BarkibuException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 import static bo.edu.ucb.barkibu.util.ValidationUtil.isEmailValid;
 
 @Service
@@ -123,7 +125,7 @@ public class UserBl {
         return reputationDao.findReputationByUserName(userName);
     }
 
-    public HelpedPet findHelpedPetByUserName(String userName) {
+    public List<HelpedPet> findHelpedPetByUserName(String userName) {
         User user = userDao.findUserByUserName(userName);
         if (user == null) {
             throw new BarkibuException("SCTY-3000", "User not found", HttpStatus.NOT_FOUND);
