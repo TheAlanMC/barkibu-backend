@@ -50,7 +50,6 @@ public class UserBl {
             throw new BarkibuException("SCTY-1004");
         }
         // Verificamos que ambas contraseñas sean iguales
-
         if (!createUserDto.getPassword().equals(createUserDto.getConfirmPassword())) {
             throw new BarkibuException("SCTY-1007");
         }

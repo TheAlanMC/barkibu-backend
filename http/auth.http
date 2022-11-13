@@ -3,12 +3,22 @@
 ### Path Variable: http://localhost:7777/v1/api/auth/{user_id}
 ### Query Param: http://localhost:7777/v1/api/auth?user_id={user_id} Esto se utilzia para paginacion
 GET http://localhost:7777/v1/api/auth/1
-###
+### USUARIO ADMIN
 POST http://localhost:7777/v1/api/auth/
 Content-Type: application/json
 Accept: application/json
 
 {
  "userName":"czarate", 
- "password": "1234"
+ "password": "12345"
+}
+
+### USUARIO VETERINARIO
+POST http://localhost:7777/v1/api/auth/
+Content-Type: application/json
+Accept: application/json
+
+{
+ "userName":"juan123", 
+ "password": "123456"
 }

@@ -6,8 +6,8 @@ Accept: application/json
 {
   "firstName": "John",
   "lastName": "Doe",
-  "email": "jd5@ucb.edu.bo",
-  "userName": "johndoe5",
+  "email": "jd8@ucb.edu.bo",
+  "userName": "johndoe8",
   "password": "123456",
-  "confirmPassword": "12345"
+  "confirmPassword": "123456"
 }

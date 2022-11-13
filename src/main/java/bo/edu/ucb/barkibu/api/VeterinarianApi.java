@@ -34,7 +34,7 @@ public class VeterinarianApi {
                 String jwt = AuthUtil.getTokenFromHeader(headers);
                 AuthUtil.verifyHasRole(jwt, "REGISTRAR USUARIO VETERINARIO");
                 userBl.createVeterinarianUser(createUserDto);
-                ResponseDto<String> responseDto = new ResponseDto<>("Veterinary User Created", "SCTY-0000", null);
+                ResponseDto<String> responseDto = new ResponseDto<>("Veterinarian User Created", "SCTY-0000", null);
                 return new ResponseEntity<>(responseDto, HttpStatus.OK);
             } catch (BarkibuException e) {
                 ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
