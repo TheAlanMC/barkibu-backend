@@ -17,6 +17,9 @@ import static bo.edu.ucb.barkibu.util.HttpMessageUtil.httpMessageUtilMap;
 public class VeterinaryApi {
     VeterinaryBl veterinaryBl;
 
+    public VeterinaryApi(VeterinaryBl veterinaryBl) {
+        this.veterinaryBl = veterinaryBl;
+    }
 
     // Obtiene el consultorio de un veterinario por su token
     @GetMapping()

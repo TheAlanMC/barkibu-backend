@@ -1,0 +1,13 @@
+### Add new Pet Owner User
+POST http://localhost:7777/v1/api/user/pet-owner
+Content-Type: application/json
+Accept: application/json
+
+{
+  "firstName": "Jose",
+  "lastName": "Alvarez",
+  "email": "jose_alvarez@ucb.edu.bo",
+  "userName": "jose123",
+  "password": "123456",
+  "confirmPassword": "123456"
+}
