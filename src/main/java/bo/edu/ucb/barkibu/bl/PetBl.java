@@ -1,6 +1,7 @@
 package bo.edu.ucb.barkibu.bl;
 
 import bo.edu.ucb.barkibu.dao.PetDao;
+import bo.edu.ucb.barkibu.dao.UserDao;
 import bo.edu.ucb.barkibu.dto.CreatePetDto;
 import bo.edu.ucb.barkibu.entity.Pet;
 import bo.edu.ucb.barkibu.util.BarkibuException;

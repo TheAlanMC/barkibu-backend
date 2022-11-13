@@ -96,8 +96,8 @@ public interface UserDao {
             SELECT rank FROM (
             SELECT row_number() 
                 OVER (
-                    ORDER BY sum(pet_owner_like)+sum(veteinarian_like) DESC NULLS LAST) AS rank, 
-                    sum(pet_owner_like)+sum(veteinarian_like) AS total_likes, "user".user_name FROM "user"
+                    ORDER BY sum(pet_owner_like)+sum(veterinarian_like) DESC NULLS LAST) AS rank, 
+                    sum(pet_owner_like)+sum(veterinarian_like) AS total_likes, "user".user_name FROM "user"
             LEFT JOIN answer ON "user".user_id = answer.user_id
             AND answer.status = 'activo'
             WHERE "user".status = 'activo'
@@ -112,8 +112,8 @@ public interface UserDao {
             SELECT rank FROM (
             SELECT row_number() 
                 OVER (
-                    ORDER BY sum(pet_owner_like)+sum(veteinarian_like) DESC NULLS LAST) AS rank, 
-                    sum(pet_owner_like)+sum(veteinarian_like) AS total_likes, "user".user_name FROM "user"
+                    ORDER BY sum(pet_owner_like)+sum(veterinarian_like) DESC NULLS LAST) AS rank, 
+                    sum(pet_owner_like)+sum(veterinarian_like) AS total_likes, "user".user_name FROM "user"
             LEFT JOIN answer ON "user".user_id = answer.user_id
             AND EXTRACT(MONTH from answer.time_stamp) = EXTRACT(MONTH from now())
             AND EXTRACT(YEAR from answer.time_stamp) = EXTRACT(YEAR from now())

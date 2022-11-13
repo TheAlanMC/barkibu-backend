@@ -17,16 +17,16 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/v1/api/user")
-public class UserApi {
+@RequestMapping("/v1/api/veterinarian")
+public class VeterinarianApi {
     private UserBl userBl;
 
-    public UserApi(UserBl userBl) {
+    public VeterinarianApi(UserBl userBl) {
         this.userBl = userBl;
     }
 
     //Registar usuario veterinario
-    @PostMapping("/veterinarian")
+    @PostMapping("/")
     public ResponseEntity<ResponseDto<String>> createVeterinarianUser(@RequestHeader Map<String,String> headers, @RequestBody  CreateUserDto createUserDto) {
         if (createUserDto.validate()) {
             try {
@@ -47,27 +47,10 @@ public class UserApi {
         }
     }
 
-    // Registrar usuario dueño de mascota
-    @PostMapping("/pet-owner")
-    public ResponseEntity<ResponseDto<String>> createPetOwnerUser(@RequestBody  CreateUserDto createUserDto) {
-        if (createUserDto.validate()) {
-            try {
-                userBl.createPetOwnerUser(createUserDto);
-                ResponseDto<String> responseDto = new ResponseDto<>("Pet Owner User Created", "SCTY-0000", null);
-                return new ResponseEntity<>(responseDto, HttpStatus.OK);
-            } catch (BarkibuException e) {
-                ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
-                return new ResponseEntity<>(responseDto, e.getHttpStatus());
-            }
-        }
-        else {
-            ResponseDto<String> responseDto = new ResponseDto<>(null, "SCTY-1001", "At least one field is empty");
-            return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
-        }
-    }
+
 
     // Obtener información de un veterinario por su token
-    @GetMapping("/veterinarian")
+    @GetMapping("/")
     public ResponseEntity<ResponseDto> getVeterinarianUser(@RequestHeader Map<String,String> headers) {
         try {
             // Verificamos que el usuario este autenticado
@@ -83,7 +66,7 @@ public class UserApi {
     }
 
     // Obtener información de un veterinario por su nombre de usuario
-    @GetMapping("/veterinarian/{userName}")
+    @GetMapping("/{userName}")
     public ResponseEntity<ResponseDto> getVeterinarianUserByUserName(@PathVariable String userName) {
         try {
             UserVeterianiarnDto user = userBl.findUserVeterinarianByUserName(userName);
@@ -96,7 +79,7 @@ public class UserApi {
     }
 
     // Obtiene el ranking de veterinario por su token
-    @GetMapping("/veterinarian/ranking")
+    @GetMapping("/ranking")
     public ResponseEntity<ResponseDto> getVeterinarianRanking(@RequestHeader Map<String,String> headers) {
         try {
             // Verificamos que el usuario este autenticado
@@ -112,7 +95,7 @@ public class UserApi {
     }
 
     // Obtiene el ranking de veterinario por su nombre de usuario
-    @GetMapping("/veterinarian/ranking/{userName}")
+    @GetMapping("/ranking/{userName}")
     public ResponseEntity<ResponseDto> getVeterinarianRankingByUserName(@PathVariable String userName) {
         try {
             VeterinarianRankingDto ranking = userBl.findVeterinarianRankingByUserName(userName);
@@ -125,7 +108,7 @@ public class UserApi {
     }
 
     // Obtiene la reputación de un veterinario por su token
-    @GetMapping("/veterinarian/reputation")
+    @GetMapping("/reputation")
     public ResponseEntity<ResponseDto> getVeterinarianReputation(@RequestHeader Map<String,String> headers) {
         try {
             // Verificamos que el usuario este autenticado
@@ -141,7 +124,7 @@ public class UserApi {
     }
 
     // Obtiene la reputación de un veterinario por su nombre de usuario
-    @GetMapping("/veterinarian/reputation/{userName}")
+    @GetMapping("/reputation/{userName}")
     public ResponseEntity<ResponseDto> getVeterinarianReputationByUserName(@PathVariable String userName) {
         try {
             Reputation reputation = userBl.findReputationByUserName(userName);
@@ -154,7 +137,7 @@ public class UserApi {
     }
 
     // Obtiene la lista de mascotas ayudadas por un veterinario por su token
-    @GetMapping("/veterinarian/contribution")
+    @GetMapping("/contribution")
     public ResponseEntity<ResponseDto> getVeterinarianContribution(@RequestHeader Map<String,String> headers) {
         try {
             // Verificamos que el usuario este autenticado
@@ -170,7 +153,7 @@ public class UserApi {
     }
 
     // Obtiene la lista de mascotas ayudadas por un veterinario por su nombre de usuario
-    @GetMapping("/veterinarian/contribution/{userName}")
+    @GetMapping("/contribution/{userName}")
     public ResponseEntity<ResponseDto> getVeterinarianContributionByUserName(@PathVariable String userName) {
         try {
             List<HelpedPet> contributions = userBl.findHelpedPetByUserName(userName);
