@@ -117,5 +117,17 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhcGFuaXF1Z
     "address": "3968 Fallview Hill",
     "latitude": "49.7830508000",
     "longitude": "18.5257165000",
-    "description": "Hyposmolality and/or hyponatremia"
+    "description": "Hyposmolality and/or hyponatremia 2"
+}
+
+### Update password by token
+PUT http://localhost:7777/v1/api/veterinarian/password
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhcGFuaXF1ZSIsInJvbGVzIjpbIlJFR0lTVFJBUiBVU1VBUklPIFZFVEVSSU5BUklPIiwiUkVHSVNUUkFSIE1BU0NPVEEiLCJSRUdJU1RSQVIgVFJBVEFNSUVOVE9TIERFIExBIE1BU0NPVEEiLCJFRElUQVIgSU5GT1JNQUNJT04gREUgRFVFw5FPIERFIE1BU0NPVEEiLCJFRElUQVIgSU5GT1JNQUNJT04gREUgTEEgTUFTQ09UQSIsIkVESVRBUiBUUkFUQU1JRU5UT1MgREUgTEEgTUFTQ09UQSIsIlBVQkxJQ0FSIFBSRUdVTlRBIiwiRURJVEFSIElORk9STUFDSU9OIERFIFZFVEVSSU5BUklPIiwiRURJVEFSIElORk9STUFDSU9OIERFIENMSU5JQ0EgVkVURVJJTkFSSUEiLCJQVUJMSUNBUiBSRVNQVUVTVEEiXSwiaXNzIjoidWNiIiwicmVmcmVzaCI6ZmFsc2UsImV4cCI6MTY3MTI5MjExMiwiaWF0IjoxNjY4MjkyMTEyfQ.1dZQWL0siAy-yJ4AFns1aKzG6tkLgaHxUBSIKB9IcDA
+
+{
+    "currentPassword": "123456",
+    "newPassword": "123456",
+    "confirmNewPassword": "123456"
 }

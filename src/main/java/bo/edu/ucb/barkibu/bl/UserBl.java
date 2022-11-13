@@ -48,7 +48,7 @@ public class UserBl {
         }
         // Verificamos que ambas contraseñas sean iguales
         if (createUserDto.getPassword().equals(createUserDto.getConfirmPassword())) {
-            throw new BarkibuException("SCTY-1007", "Passwords are not equals", HttpStatus.BAD_REQUEST);
+            throw new BarkibuException("SCTY-1007", "New password and confirmation must be equals", HttpStatus.BAD_REQUEST);
         }
         // Creamos el usuario
         User user = new User();
@@ -242,5 +242,30 @@ public class UserBl {
         veterinary.setLongitude(veterinaryDto.getLongitude());
         veterinary.setDescription(veterinaryDto.getDescription());
         this.veterinaryDao.updateVeterinary(veterinary);
+    }
+
+    public void updatePassword(String userName, UpdatePasswordDto updatePasswordDto) {
+        User user = userDao.findUserByUserName(userName);
+        if (user == null) {
+            throw new BarkibuException("SCTY-3000", "User not found", HttpStatus.NOT_FOUND);
+        }
+        // Verificamos que la contraseña actual sea correcta
+        String currentPasswordInBCrypt = userDao.findPasswordByUserName(userName);
+        BCrypt.Result verifyResult = BCrypt.verifyer().verify(updatePasswordDto.getCurrentPassword().toCharArray(), currentPasswordInBCrypt);
+        if (!verifyResult.verified) {
+            throw new BarkibuException("SCTY-1010", "Current password is incorrect", HttpStatus.BAD_REQUEST);
+        }
+        // Verificamos que la nueva contraseña sea diferente a la actual
+        if (updatePasswordDto.getCurrentPassword().equals(updatePasswordDto.getNewPassword())) {
+            throw new BarkibuException("SCTY-1011", "New password must be different to current password", HttpStatus.BAD_REQUEST);
+        }
+        // Verificamos que la nueva contraseña y la confirmación sean iguales
+        if (!updatePasswordDto.getNewPassword().equals(updatePasswordDto.getConfirmNewPassword())) {
+            throw new BarkibuException("SCTY-1007", "New password and confirmation must be equals", HttpStatus.BAD_REQUEST);
+        }
+        // Encriptamos la nueva contraseña
+        String password = BCrypt.withDefaults().hashToString(12, updatePasswordDto.getNewPassword().toCharArray());
+        user.setPassword(password);
+        this.userDao.updatePassword(user);
     }
 }

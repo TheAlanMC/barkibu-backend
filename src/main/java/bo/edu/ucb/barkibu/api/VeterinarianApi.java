@@ -278,6 +278,31 @@ public class VeterinarianApi {
         }
     }
 
+    // Actualiza la contraseña de un usuario
+    @PutMapping("/password")
+    public ResponseEntity<ResponseDto> updatePassword(@RequestHeader Map<String,String> headers, @RequestBody UpdatePasswordDto updatePasswordDto) {
+        if (updatePasswordDto.validate()) {
+            try {
+                // Verificamos que el usuario este autenticado
+                String jwt = AuthUtil.getTokenFromHeader(headers);
+                AuthUtil.verifyHasRole(jwt, "EDITAR INFORMACION DE VETERINARIO");
+                String userName = AuthUtil.getUserNameFromToken(jwt);
+                userBl.updatePassword(userName, updatePasswordDto);
+                ResponseDto<String> responseDto = new ResponseDto<>("Password Updated", "SCTY-0000", null);
+                return new ResponseEntity<>(responseDto, HttpStatus.OK);
+            } catch (BarkibuException e) {
+                ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
+                return new ResponseEntity<>(responseDto, e.getHttpStatus());
+            }
+        }
+        else {
+            ResponseDto<String> responseDto = new ResponseDto<>(null, "SCTY-0001", "Invalid Data");
+            return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
+
 
 
 
