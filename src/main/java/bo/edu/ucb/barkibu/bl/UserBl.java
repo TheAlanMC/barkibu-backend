@@ -3,10 +3,7 @@ package bo.edu.ucb.barkibu.bl;
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import bo.edu.ucb.barkibu.dao.*;
 import bo.edu.ucb.barkibu.dao.HelpedPetDao;
-import bo.edu.ucb.barkibu.dto.CreateUserDto;
-import bo.edu.ucb.barkibu.dto.VeterinarianRankingDto;
-import bo.edu.ucb.barkibu.dto.UserVeterianiarnDto;
-import bo.edu.ucb.barkibu.dto.VeterinaryDto;
+import bo.edu.ucb.barkibu.dto.*;
 import bo.edu.ucb.barkibu.entity.*;
 import bo.edu.ucb.barkibu.util.BarkibuException;
 import org.springframework.http.HttpStatus;
@@ -81,7 +78,7 @@ public class UserBl {
         this.userDao.addVeterinarianGroup(userId);
     }
 
-    public UserVeterianiarnDto findUserVeterinarianByUserName(String userName) {
+    public VeterinarianDto findUserVeterinarianByUserName(String userName) {
         User user = userDao.findUserByUserName(userName);
         if (user == null) {
             throw new BarkibuException("SCTY-3000", "User not found", HttpStatus.NOT_FOUND);
@@ -99,14 +96,14 @@ public class UserBl {
             throw new BarkibuException("SCTY-3003", "Country not found", HttpStatus.NOT_FOUND);
         }
 
-        UserVeterianiarnDto userVeterianiarnDto = new UserVeterianiarnDto();
-        userVeterianiarnDto.setFirstName(user.getFirstName());
-        userVeterianiarnDto.setLastName(user.getLastName());
-        userVeterianiarnDto.setCity(city.getCity());
-        userVeterianiarnDto.setState(state.getState());
-        userVeterianiarnDto.setCountry(country.getCountry());
-        userVeterianiarnDto.setDescription(user.getDescription());
-        return userVeterianiarnDto;
+        VeterinarianDto veterinarianDto = new VeterinarianDto();
+        veterinarianDto.setFirstName(user.getFirstName());
+        veterinarianDto.setLastName(user.getLastName());
+        veterinarianDto.setCity(city.getCity());
+        veterinarianDto.setState(state.getState());
+        veterinarianDto.setCountry(country.getCountry());
+        veterinarianDto.setDescription(user.getDescription());
+        return veterinarianDto;
     }
 
     public VeterinarianRankingDto findVeterinarianRankingByUserName(String userName) {
@@ -153,5 +150,11 @@ public class UserBl {
         veterinaryDto.setDescription(veterinary.getDescription());
         return veterinaryDto;
     }
+
+    public VeterinarianProfileDto getVeterinarianProfile(String userName) {
+return null;
+    }
+
+
 
 }

@@ -53,8 +53,8 @@ public class VeterinarianApi {
             // Verificamos que el usuario este autenticado
             String jwt = AuthUtil.getTokenFromHeader(headers);
             String userName = AuthUtil.getUserNameFromToken(jwt);
-            UserVeterianiarnDto user = userBl.findUserVeterinarianByUserName(userName);
-            ResponseDto<UserVeterianiarnDto> responseDto = new ResponseDto<>(user, "SCTY-0000", null);
+            VeterinarianDto user = userBl.findUserVeterinarianByUserName(userName);
+            ResponseDto<VeterinarianDto> responseDto = new ResponseDto<>(user, "SCTY-0000", null);
             return new ResponseEntity<>(responseDto, HttpStatus.OK);
         } catch (BarkibuException e) {
             ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
@@ -66,8 +66,8 @@ public class VeterinarianApi {
     @GetMapping("/{userName}")
     public ResponseEntity<ResponseDto> getVeterinarianUserByUserName(@PathVariable String userName) {
         try {
-            UserVeterianiarnDto user = userBl.findUserVeterinarianByUserName(userName);
-            ResponseDto<UserVeterianiarnDto> responseDto = new ResponseDto<>(user, "SCTY-0000", null);
+            VeterinarianDto user = userBl.findUserVeterinarianByUserName(userName);
+            ResponseDto<VeterinarianDto> responseDto = new ResponseDto<>(user, "SCTY-0000", null);
             return new ResponseEntity<>(responseDto, HttpStatus.OK);
         } catch (BarkibuException e) {
             ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
@@ -190,6 +190,25 @@ public class VeterinarianApi {
             return new ResponseEntity<>(responseDto, e.getHttpStatus());
         }
     }
+
+    // Actualiza el perfil de un veterinario
+    @GetMapping("/profile")
+    public ResponseEntity<ResponseDto> updateVeterinarianProfile(@RequestHeader Map<String,String> headers, @RequestBody VeterinarianDto veterinarianDto) {
+        try {
+            // Verificamos que el usuario este autenticado
+            String jwt = AuthUtil.getTokenFromHeader(headers);
+            String userName = AuthUtil.getUserNameFromToken(jwt);
+            VeterinarianProfileDto veterinarianProfileDto = userBl.getVeterinarianProfile(userName);
+            ResponseDto<VeterinarianProfileDto> responseDto = new ResponseDto<>(veterinarianProfileDto, "SCTY-0000", null);
+            return new ResponseEntity<>(responseDto, HttpStatus.OK);
+        } catch (BarkibuException e) {
+            ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
+            return new ResponseEntity<>(responseDto, e.getHttpStatus());
+        }
+    }
+
+
+
 
 
 
