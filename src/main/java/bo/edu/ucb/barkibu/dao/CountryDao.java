@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public interface CountryDao {
     @Select("""
-            SELECT country
+            SELECT country_id, country
             FROM country
             WHERE country_id = #{countryId}
             AND status = 'activo'

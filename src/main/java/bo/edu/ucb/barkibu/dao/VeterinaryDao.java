@@ -15,4 +15,5 @@ public interface VeterinaryDao {
             AND "user".status = 'activo';
             """)
     Veterinary findVeterinaryByUserName(String userName);
+
 }

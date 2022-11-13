@@ -193,10 +193,11 @@ public class VeterinarianApi {
 
     // Actualiza el perfil de un veterinario
     @GetMapping("/profile")
-    public ResponseEntity<ResponseDto> updateVeterinarianProfile(@RequestHeader Map<String,String> headers, @RequestBody VeterinarianDto veterinarianDto) {
+    public ResponseEntity<ResponseDto> getVeterinarianProfile(@RequestHeader Map<String,String> headers) {
         try {
             // Verificamos que el usuario este autenticado
             String jwt = AuthUtil.getTokenFromHeader(headers);
+            AuthUtil.verifyHasRole(jwt, "EDITAR INFORMACION DE VETERINARIO");
             String userName = AuthUtil.getUserNameFromToken(jwt);
             VeterinarianProfileDto veterinarianProfileDto = userBl.getVeterinarianProfile(userName);
             ResponseDto<VeterinarianProfileDto> responseDto = new ResponseDto<>(veterinarianProfileDto, "SCTY-0000", null);

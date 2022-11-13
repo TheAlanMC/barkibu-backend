@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public interface CityDao {
     @Select("""
-            SELECT city, state_id
+            SELECT city_id, city, state_id
             FROM city
             WHERE city_id = #{cityId}
             AND status = 'activo'

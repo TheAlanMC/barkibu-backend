@@ -152,9 +152,31 @@ public class UserBl {
     }
 
     public VeterinarianProfileDto getVeterinarianProfile(String userName) {
-return null;
+        User user = userDao.findUserByUserName(userName);
+        if (user == null) {
+            throw new BarkibuException("SCTY-3000", "User not found", HttpStatus.NOT_FOUND);
+        }
+        City city = cityDao.findCityByCityId(user.getCityId());
+        if (city == null) {
+            throw new BarkibuException("SCTY-3001", "City not found", HttpStatus.NOT_FOUND);
+        }
+        State state = stateDao.findStateByStateId(city.getStateId());
+        if (state == null) {
+            throw new BarkibuException("SCTY-3002", "State not found", HttpStatus.NOT_FOUND);
+        }
+        Country country = countryDao.findCountryByCountryId(state.getCountryId());
+        if (country == null) {
+            throw new BarkibuException("SCTY-3003", "Country not found", HttpStatus.NOT_FOUND);
+        }
+        VeterinarianProfileDto veterinarianProfileDto = new VeterinarianProfileDto();
+        veterinarianProfileDto.setFirstName(user.getFirstName());
+        veterinarianProfileDto.setLastName(user.getLastName());
+        veterinarianProfileDto.setCityId(city.getCityId());
+        veterinarianProfileDto.setStateId(state.getStateId());
+        veterinarianProfileDto.setCountryId(country.getCountryId());
+        veterinarianProfileDto.setUserName(user.getUserName());
+        veterinarianProfileDto.setEmail(user.getEmail());
+        veterinarianProfileDto.setDescription(user.getDescription());
+        return veterinarianProfileDto;
     }
-
-
-
 }
