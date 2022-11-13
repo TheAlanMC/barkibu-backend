@@ -3,6 +3,7 @@ package bo.edu.ucb.barkibu.dao;
 import bo.edu.ucb.barkibu.entity.Veterinary;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -22,6 +23,13 @@ public interface VeterinaryDao {
             VALUES (#{userId}, #{name}, #{address}, #{latitude}, #{longitude}, #{description}, 'activo', now(), 'anonymous', 'localhost');
             """)
     void createVeterinary(Veterinary veterinary);
+
+    @Update("""
+            UPDATE veterinary
+            SET name = #{name}, address = #{address}, latitude = #{latitude}, longitude = #{longitude}, description = #{description}
+            WHERE user_id = #{userId};
+            """)
+    void updateVeterinary(Veterinary veterinary);
 
 
 

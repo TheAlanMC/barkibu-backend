@@ -255,6 +255,29 @@ public class VeterinarianApi {
         }
     }
 
+    // Edita el consultorio de un veterinario por su token
+    @PutMapping("/veterinary")
+    public ResponseEntity<ResponseDto> updateVeterinary(@RequestHeader Map<String,String> headers, @RequestBody VeterinaryDto veterinaryDto) {
+        if (veterinaryDto.validate()) {
+            try {
+                // Verificamos que el usuario este autenticado
+                String jwt = AuthUtil.getTokenFromHeader(headers);
+                AuthUtil.verifyHasRole(jwt, "EDITAR INFORMACION DE CLINICA VETERINARIA");
+                String userName = AuthUtil.getUserNameFromToken(jwt);
+                userBl.updateVeterinary(userName, veterinaryDto);
+                ResponseDto<String> responseDto = new ResponseDto<>("Veterinary Updated", "SCTY-0000", null);
+                return new ResponseEntity<>(responseDto, HttpStatus.OK);
+            } catch (BarkibuException e) {
+                ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
+                return new ResponseEntity<>(responseDto, e.getHttpStatus());
+            }
+        }
+        else {
+            ResponseDto<String> responseDto = new ResponseDto<>(null, "SCTY-0001", "Invalid Data");
+            return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
+        }
+    }
+
 
 
 

@@ -225,4 +225,22 @@ public class UserBl {
         veterinary.setDescription(veterinaryDto.getDescription());
         this.veterinaryDao.createVeterinary(veterinary);
     }
+
+    public void updateVeterinary(String userName, VeterinaryDto veterinaryDto) {
+        User user = userDao.findUserByUserName(userName);
+        if (user == null) {
+            throw new BarkibuException("SCTY-3000", "User not found", HttpStatus.NOT_FOUND);
+        }
+        Veterinary veterinary = veterinaryDao.findVeterinaryByUserName(userName);
+        if (veterinary == null) {
+            throw new BarkibuException("SCTY-3004", "Veterinary not found", HttpStatus.NOT_FOUND);
+        }
+        veterinary.setUserId(user.getUserId());
+        veterinary.setName(veterinaryDto.getName());
+        veterinary.setAddress(veterinaryDto.getAddress());
+        veterinary.setLatitude(veterinaryDto.getLatitude());
+        veterinary.setLongitude(veterinaryDto.getLongitude());
+        veterinary.setDescription(veterinaryDto.getDescription());
+        this.veterinaryDao.updateVeterinary(veterinary);
+    }
 }
