@@ -2,7 +2,6 @@ package bo.edu.ucb.barkibu.dto;
 
 import java.util.Date;
 public class CreatePetDto {
-    private Integer userId;
     private Integer breedId;
     private String name;
     private String gender;
@@ -12,21 +11,12 @@ public class CreatePetDto {
     public CreatePetDto() {
     }
 
-    public CreatePetDto(Integer userId, Integer breedId, String name, String gender, Date bornDate, String photoPath) {
-        this.userId = userId;
+    public CreatePetDto(Integer breedId, String name, String gender, Date bornDate, String photoPath) {
         this.breedId = breedId;
         this.name = name;
         this.gender = gender;
         this.bornDate = bornDate;
         this.photoPath = photoPath;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
     }
 
     public Integer getBreedId() {
@@ -72,7 +62,6 @@ public class CreatePetDto {
     @Override
     public String toString() {
         return "CreatePetDto{" +
-                "userId=" + userId +
                 ", breedId=" + breedId +
                 ", name='" + name + '\'' +
                 ", gender='" + gender + '\'' +
@@ -82,9 +71,6 @@ public class CreatePetDto {
     }
 
     public boolean validate () {
-        if(userId == null) {
-            return false;
-        }
         if(breedId == null) {
             return false;
         }

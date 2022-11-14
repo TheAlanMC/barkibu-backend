@@ -56,6 +56,7 @@ public class HttpMessageUtil {
         errorHashMap.put("SCTY-1009", new HttpMessageUtil("Veterinary already exists", HttpStatus.BAD_REQUEST));
         errorHashMap.put("SCTY-1010", new HttpMessageUtil( "Current password is incorrect", HttpStatus.BAD_REQUEST));
         errorHashMap.put("SCTY-1011", new HttpMessageUtil("New password must be different to current password", HttpStatus.BAD_REQUEST));
+        errorHashMap.put("SCTY-1012", new HttpMessageUtil("Question already answered", HttpStatus.BAD_REQUEST));
         // Errores de tipo unauthorized (401) -- no autehnticado
         errorHashMap.put("SCTY-2000", new HttpMessageUtil("Invalid credentials", HttpStatus.UNAUTHORIZED));
         errorHashMap.put("SCTY-2001", new HttpMessageUtil("Invalid token", HttpStatus.UNAUTHORIZED));
@@ -72,7 +73,7 @@ public class HttpMessageUtil {
         errorHashMap.put("SCTY-4006", new HttpMessageUtil("Question category not found", HttpStatus.NOT_FOUND));
         errorHashMap.put("SCTY-4007", new HttpMessageUtil("Specie not found", HttpStatus.NOT_FOUND));
         errorHashMap.put("SCTY-4008", new HttpMessageUtil("Pet not found", HttpStatus.NOT_FOUND));
-
+        errorHashMap.put("SCTY-4009", new HttpMessageUtil("Answer not found", HttpStatus.NOT_FOUND));
         // Errores de tipo server error (500) -- error interno del servidor
         errorHashMap.put("SCTY-5000", new HttpMessageUtil("Error generating token", HttpStatus.INTERNAL_SERVER_ERROR));
         return errorHashMap;
