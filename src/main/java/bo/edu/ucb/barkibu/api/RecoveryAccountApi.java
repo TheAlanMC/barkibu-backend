@@ -18,7 +18,7 @@ import static bo.edu.ucb.barkibu.util.HttpMessageUtil.httpMessageUtilMap;
 @RestController
 @RequestMapping("/v1/api/recovery-account")
 public class RecoveryAccountApi {
-    RecoveryAccountBl recoveryAccountBl;
+    private final RecoveryAccountBl recoveryAccountBl;
 
     public RecoveryAccountApi(RecoveryAccountBl recoveryAccountBl) {
         this.recoveryAccountBl = recoveryAccountBl;

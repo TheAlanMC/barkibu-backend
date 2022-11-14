@@ -1,6 +1,6 @@
 package bo.edu.ucb.barkibu.api;
 
-import bo.edu.ucb.barkibu.bl.VeterinarianBl;
+import bo.edu.ucb.barkibu.bl.VeterinarianInfoBl;
 import bo.edu.ucb.barkibu.dto.*;
 import bo.edu.ucb.barkibu.entity.HelpedPet;
 import bo.edu.ucb.barkibu.entity.Reputation;
@@ -18,10 +18,10 @@ import java.util.Map;
 @RestController
 @RequestMapping("/v1/api/veterinarian")
 public class VeterinarianInfoApi {
-    private final VeterinarianBl veterinarianBl;
+    private final VeterinarianInfoBl veterinarianInfoBl;
 
-    VeterinarianInfoApi(VeterinarianBl veterinarianBl) {
-        this.veterinarianBl = veterinarianBl;
+    VeterinarianInfoApi(VeterinarianInfoBl veterinarianInfoBl) {
+        this.veterinarianInfoBl = veterinarianInfoBl;
     }
 
     // Obtener información de un veterinario por su token
@@ -31,7 +31,7 @@ public class VeterinarianInfoApi {
             // Verificamos que el usuario este autenticado
             String jwt = AuthUtil.getTokenFromHeader(headers);
             String userName = AuthUtil.getUserNameFromToken(jwt);
-            VeterinarianInfoDto user = veterinarianBl.findUserVeterinarianByUserName(userName);
+            VeterinarianInfoDto user = veterinarianInfoBl.findUserVeterinarianByUserName(userName);
             ResponseDto<VeterinarianInfoDto> responseDto = new ResponseDto<>(user, "SCTY-0000", null);
             return new ResponseEntity<>(responseDto, HttpStatus.OK);
         } catch (BarkibuException e) {
@@ -42,9 +42,12 @@ public class VeterinarianInfoApi {
 
     // Obtener información de un veterinario por su nombre de usuario
     @GetMapping("/{userName}")
-    public ResponseEntity<ResponseDto> getVeterinarianUserByUserName(@PathVariable String userName) {
+    public ResponseEntity<ResponseDto> getVeterinarianUserByUserName(@RequestHeader Map<String,String> headers, @PathVariable String userName) {
         try {
-            VeterinarianInfoDto user = veterinarianBl.findUserVeterinarianByUserName(userName);
+            // Verificamos que el usuario este autenticado
+            String jwt = AuthUtil.getTokenFromHeader(headers);
+            AuthUtil.getUserNameFromToken(jwt);
+            VeterinarianInfoDto user = veterinarianInfoBl.findUserVeterinarianByUserName(userName);
             ResponseDto<VeterinarianInfoDto> responseDto = new ResponseDto<>(user, "SCTY-0000", null);
             return new ResponseEntity<>(responseDto, HttpStatus.OK);
         } catch (BarkibuException e) {
@@ -60,7 +63,7 @@ public class VeterinarianInfoApi {
             // Verificamos que el usuario este autenticado
             String jwt = AuthUtil.getTokenFromHeader(headers);
             String userName = AuthUtil.getUserNameFromToken(jwt);
-            VeterinarianRanking ranking = veterinarianBl.findVeterinarianRankingByUserName(userName);
+            VeterinarianRanking ranking = veterinarianInfoBl.findVeterinarianRankingByUserName(userName);
             ResponseDto<VeterinarianRanking> responseDto = new ResponseDto<>(ranking, "SCTY-0000", null);
             return new ResponseEntity<>(responseDto, HttpStatus.OK);
         } catch (BarkibuException e) {
@@ -71,9 +74,12 @@ public class VeterinarianInfoApi {
 
     // Obtiene el ranking de veterinario por su nombre de usuario
     @GetMapping("/ranking/{userName}")
-    public ResponseEntity<ResponseDto> getVeterinarianRankingByUserName(@PathVariable String userName) {
+    public ResponseEntity<ResponseDto> getVeterinarianRankingByUserName(@RequestHeader Map<String,String> headers, @PathVariable String userName) {
         try {
-            VeterinarianRanking ranking = veterinarianBl.findVeterinarianRankingByUserName(userName);
+            // Verificamos que el usuario este autenticado
+            String jwt = AuthUtil.getTokenFromHeader(headers);
+            AuthUtil.getUserNameFromToken(jwt);
+            VeterinarianRanking ranking = veterinarianInfoBl.findVeterinarianRankingByUserName(userName);
             ResponseDto<VeterinarianRanking> responseDto = new ResponseDto<>(ranking, "SCTY-0000", null);
             return new ResponseEntity<>(responseDto, HttpStatus.OK);
         } catch (BarkibuException e) {
@@ -89,7 +95,7 @@ public class VeterinarianInfoApi {
             // Verificamos que el usuario este autenticado
             String jwt = AuthUtil.getTokenFromHeader(headers);
             String userName = AuthUtil.getUserNameFromToken(jwt);
-            Reputation reputation = veterinarianBl.findReputationByUserName(userName);
+            Reputation reputation = veterinarianInfoBl.findReputationByUserName(userName);
             ResponseDto<Reputation> responseDto = new ResponseDto<>(reputation, "SCTY-0000", null);
             return new ResponseEntity<>(responseDto, HttpStatus.OK);
         } catch (BarkibuException e) {
@@ -100,9 +106,12 @@ public class VeterinarianInfoApi {
 
     // Obtiene la reputación de un veterinario por su nombre de usuario
     @GetMapping("/reputation/{userName}")
-    public ResponseEntity<ResponseDto> getVeterinarianReputationByUserName(@PathVariable String userName) {
+    public ResponseEntity<ResponseDto> getVeterinarianReputationByUserName(@RequestHeader Map<String,String> headers, @PathVariable String userName) {
         try {
-            Reputation reputation = veterinarianBl.findReputationByUserName(userName);
+            // Verificamos que el usuario este autenticado
+            String jwt = AuthUtil.getTokenFromHeader(headers);
+            AuthUtil.getUserNameFromToken(jwt);
+            Reputation reputation = veterinarianInfoBl.findReputationByUserName(userName);
             ResponseDto<Reputation> responseDto = new ResponseDto<>(reputation, "SCTY-0000", null);
             return new ResponseEntity<>(responseDto, HttpStatus.OK);
         } catch (BarkibuException e) {
@@ -118,7 +127,7 @@ public class VeterinarianInfoApi {
             // Verificamos que el usuario este autenticado
             String jwt = AuthUtil.getTokenFromHeader(headers);
             String userName = AuthUtil.getUserNameFromToken(jwt);
-            List<HelpedPet> contributions = veterinarianBl.findHelpedPetByUserName(userName);
+            List<HelpedPet> contributions = veterinarianInfoBl.findHelpedPetByUserName(userName);
             ResponseDto<List<HelpedPet>> responseDto = new ResponseDto<>(contributions, "SCTY-0000", null);
             return new ResponseEntity<>(responseDto, HttpStatus.OK);
         } catch (BarkibuException e) {
@@ -129,9 +138,12 @@ public class VeterinarianInfoApi {
 
     // Obtiene la lista de mascotas ayudadas por un veterinario por su nombre de usuario
     @GetMapping("/contribution/{userName}")
-    public ResponseEntity<ResponseDto> getVeterinarianContributionByUserName(@PathVariable String userName) {
+    public ResponseEntity<ResponseDto> getVeterinarianContributionByUserName(@RequestHeader Map<String,String> headers, @PathVariable String userName) {
         try {
-            List<HelpedPet> contributions = veterinarianBl.findHelpedPetByUserName(userName);
+            // Verificamos que el usuario este autenticado
+            String jwt = AuthUtil.getTokenFromHeader(headers);
+            AuthUtil.getUserNameFromToken(jwt);
+            List<HelpedPet> contributions = veterinarianInfoBl.findHelpedPetByUserName(userName);
             ResponseDto<List<HelpedPet>> responseDto = new ResponseDto<>(contributions, "SCTY-0000", null);
             return new ResponseEntity<>(responseDto, HttpStatus.OK);
         } catch (BarkibuException e) {
@@ -142,46 +154,17 @@ public class VeterinarianInfoApi {
 
     // Lista de respuestas de un usuario por su token
     @GetMapping("/answers")
-    public ResponseEntity<ResponseDto<List<VeterinarianAnswer>>> getAnswers(@RequestHeader Map<String,String> headers) {
+    public ResponseEntity<ResponseDto> getAnswers(@RequestHeader Map<String,String> headers) {
         try {
             // Verificamos que el usuario este autenticado
             String jwt = AuthUtil.getTokenFromHeader(headers);
             String userName = AuthUtil.getUserNameFromToken(jwt);
-            List<VeterinarianAnswer> answerDtos = veterinarianBl.getVeterinarianAnswers(userName);
+            List<VeterinarianAnswer> answerDtos = veterinarianInfoBl.getVeterinarianAnswers(userName);
             ResponseDto<List<VeterinarianAnswer>> responseDto = new ResponseDto<>(answerDtos, "SCTY-0000", null);
             return new ResponseEntity<>(responseDto, HttpStatus.OK);
         } catch (BarkibuException e) {
-            ResponseDto<List<VeterinarianAnswer>> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
+            ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
             return new ResponseEntity<>(responseDto, e.getHttpStatus());
         }
     }
-
-
-
-
-
-
-
-
-
-
-/*
-    //Test
-    @GetMapping
-    public UserDto test() {
-        return new UserDto(1, 1, "Juan", "Perez", "test@ucb.edu.bo", "jperez","test", "test");
-    }
-
-    //Test get user by id
-    @GetMapping("/{userId}")
-    public UserDto getUserByPk(@PathVariable(name = "userId") Integer userId) {
-        return securityBl.getUserByPk(userId);
-    }
-
-    //Get user by username
-    @GetMapping("/")
-    public ResponseDto<> getUserByUsername(@RequestHeader Map<String,String> headers) {
-        String username = AuthUtil.isUserAuthenticated(AuthUtil.getTokenFromHeader(headers));
-        return securityBl.findByUsername(username);
-    }*/
 }

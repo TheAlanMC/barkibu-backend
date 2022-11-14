@@ -16,7 +16,7 @@ import static bo.edu.ucb.barkibu.util.HttpMessageUtil.httpMessageUtilMap;
 @RestController
 @RequestMapping("/v1/api/pet/treatment")
 public class PetTreatmentApi {
-    PetTreatmentBl petTreatmentBl;
+    private final PetTreatmentBl petTreatmentBl;
 
     public PetTreatmentApi(PetTreatmentBl petTreatmentBl) {
         this.petTreatmentBl = petTreatmentBl;

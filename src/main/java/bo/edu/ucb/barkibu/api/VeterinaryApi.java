@@ -15,7 +15,7 @@ import static bo.edu.ucb.barkibu.util.HttpMessageUtil.httpMessageUtilMap;
 @RestController
 @RequestMapping("/v1/api/veterinary")
 public class VeterinaryApi {
-    VeterinaryBl veterinaryBl;
+    private final VeterinaryBl veterinaryBl;
 
     public VeterinaryApi(VeterinaryBl veterinaryBl) {
         this.veterinaryBl = veterinaryBl;
@@ -39,8 +39,10 @@ public class VeterinaryApi {
 
     // Obtiene el consultorio de un veterinario por su nombre de usuario
     @GetMapping("/{userName}")
-    public ResponseEntity<ResponseDto> getVeterinaryByUserName(@PathVariable String userName) {
+    public ResponseEntity<ResponseDto> getVeterinaryByUserName(@RequestHeader Map<String,String> headers, @PathVariable String userName) {
         try {
+            String jwt = AuthUtil.getTokenFromHeader(headers);
+            AuthUtil.getUserNameFromToken(jwt);
             VeterinaryDto veterinaryDto = veterinaryBl.findVeterinaryByUserName(userName);
             ResponseDto<VeterinaryDto> responseDto = new ResponseDto<>(veterinaryDto, "SCTY-0000", null);
             return new ResponseEntity<>(responseDto, HttpStatus.OK);

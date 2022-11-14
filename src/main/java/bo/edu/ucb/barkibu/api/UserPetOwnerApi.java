@@ -16,7 +16,7 @@ import static bo.edu.ucb.barkibu.util.HttpMessageUtil.httpMessageUtilMap;
 @RestController
 @RequestMapping("/v1/api/user/pet-owner")
 public class UserPetOwnerApi {
-    UserPetOwnerBl userPetOwnerBl;
+    private final UserPetOwnerBl userPetOwnerBl;
 
     UserPetOwnerApi(UserPetOwnerBl userPetOwnerBl) {
         this.userPetOwnerBl = userPetOwnerBl;

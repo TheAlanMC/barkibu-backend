@@ -36,12 +36,12 @@ public class RecoveryAccountBl {
         if (userDao.findUserIdByEmail(recoveryAccountCodeReqDto.getEmail()) == null) {
             throw new BarkibuException("SCTY-4000");
         }
-        int userId = userDao.findUserIdByEmail(recoveryAccountCodeReqDto.getEmail());
+        Integer userId = userDao.findUserIdByEmail(recoveryAccountCodeReqDto.getEmail());
         // Cambiamos el estado a inactivo de solicitudes anteriores
         recoveryAccountDao.disableRecoverAccountByUserId(userId);
         recoveryAccount.setUserId(userId);
         // Generamos un token aleatorio de 6 digitos
-        int randomCode = (int) (Math.random() * 900000) + 100000;
+        Integer randomCode = (int) (Math.random() * 900000) + 100000;
         // Encriptamos el token
         String hashCode = BCrypt.withDefaults().hashToString(12, String.valueOf(randomCode).toCharArray());
         recoveryAccount.setHashCode(hashCode);
@@ -65,7 +65,7 @@ public class RecoveryAccountBl {
             throw new BarkibuException("SCTY-4000");
         }
         RecoveryAccount recoveryAccount;
-        int userId = userDao.findUserIdByEmail(recoveryPasswordReqDto.getEmail());
+        Integer userId = userDao.findUserIdByEmail(recoveryPasswordReqDto.getEmail());
         recoveryAccount = recoveryAccountDao.findRecoveryAccountByUserId(userId);
         // Verificamos que el codigo sea correcto
         BCrypt.Result verifyResult = BCrypt.verifyer().verify(recoveryPasswordReqDto.getHashCode().toCharArray(), recoveryAccount.getHashCode());
@@ -84,7 +84,7 @@ public class RecoveryAccountBl {
             throw new BarkibuException("SCTY-4000");
         }
         RecoveryAccount recoveryAccount;
-        int userId = userDao.findUserIdByEmail(recoveryPasswordDto.getEmail());
+        Integer userId = userDao.findUserIdByEmail(recoveryPasswordDto.getEmail());
         recoveryAccount = recoveryAccountDao.findRecoveryAccountByUserId(userId);
         // Verificamos que el token sea valido
         BCrypt.Result verifyResult = BCrypt.verifyer().verify(recoveryPasswordDto.getHashCode().toCharArray(), recoveryAccount.getHashCode());

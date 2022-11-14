@@ -7,7 +7,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhcGFuaXF1Z
 {
     "firstName": "John",
     "lastName": "Doe",
-    "email": "jd1101ucb.edu.bo",
+    "email": "jd1101@ucb.edu.bo",
     "userName": "juan1231",
     "password": "123456",
     "confirmPassword": "123456"

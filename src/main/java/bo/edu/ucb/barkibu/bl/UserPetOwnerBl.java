@@ -49,7 +49,7 @@ public class UserPetOwnerBl {
         this.userDao.createUser(user);
 
         // Obtenemos el id del usuario creado
-        int userId = userDao.findUserIdByUserName(createUserDto.getUserName());
+        Integer userId = userDao.findUserIdByUserName(createUserDto.getUserName());
         // Asignamos el grupo de dueño de mascota al usuario recien creado
         this.userPetOwnerDao.addPetOwnerGroup(userId);
     }
