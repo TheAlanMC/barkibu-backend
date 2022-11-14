@@ -11,12 +11,15 @@ public class QuestionOwner {
     private String detailedDescription;
     private boolean Answered;
     private Date questionDate;
-
+    private String status;
+    private Date txDate;
+    private String txUser;
+    private String txHost;
 
     public QuestionOwner() {
     }
 
-    public QuestionOwner(Integer questionId, Integer userId, Integer categoryId, Integer petId, String problem, String detailedDescription, boolean answered, Date questionDate) {
+    public QuestionOwner(Integer questionId, Integer userId, Integer categoryId, Integer petId, String problem, String detailedDescription, boolean answered, Date questionDate, String status, Date txDate, String txUser, String txHost) {
         this.questionId = questionId;
         this.userId = userId;
         this.categoryId = categoryId;
@@ -25,7 +28,12 @@ public class QuestionOwner {
         this.detailedDescription = detailedDescription;
         Answered = answered;
         this.questionDate = questionDate;
+        this.status = status;
+        this.txDate = txDate;
+        this.txUser = txUser;
+        this.txHost = txHost;
     }
+
 
     public Integer getQuestionId() {return questionId;}
 
@@ -53,29 +61,28 @@ public class QuestionOwner {
 
     public boolean isAnswered() {return Answered;}
 
-    public void setAnswered(boolean answered) {
-        Answered = answered;
+    public void setAnswered(boolean answered) {Answered = answered;}
+
+    public Date getQuestionDate() {return questionDate;}
+
+    public void setQuestionDate(Date questionDate) {this.questionDate = questionDate;}
+
+    public String getStatus() {return status;}
+
+    public void setStatus(String status) {this.status = status;}
+
+    public Date getTxDate() {return txDate;}
+
+    public void setTxDate(Date txDate) {
+        this.txDate = txDate;
     }
 
-    public Date getQuestionDate() {
-        return questionDate;
-    }
+    public String getTxUser() {return txUser;}
 
-    public void setQuestionDate(Date questionDate) {
-        this.questionDate = questionDate;
-    }
+    public void setTxUser(String txUser) {this.txUser = txUser;}
 
-    @Override
-    public String toString() {
-        return "QuestionOwner{" +
-                "questionId=" + questionId +
-                ", userId=" + userId +
-                ", categoryId=" + categoryId +
-                ", petId=" + petId +
-                ", problem='" + problem + '\'' +
-                ", detailedDescription='" + detailedDescription + '\'' +
-                ", Answered=" + Answered +
-                ", questionDate=" + questionDate +
-                '}';
-    }
+    public String getTxHost() {return txHost;}
+
+    public void setTxHost(String txHost) {this.txHost = txHost;}
 }
+
