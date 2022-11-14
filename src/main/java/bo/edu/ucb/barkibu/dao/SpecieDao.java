@@ -1,18 +1,16 @@
 package bo.edu.ucb.barkibu.dao;
 
-import bo.edu.ucb.barkibu.dto.CategoryDto;
+import bo.edu.ucb.barkibu.dto.SpecieDto;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-
 @Component
-public interface CategoryDao {
-
+public interface SpecieDao {
     @Select("""
-            SELECT category_id, category
-            FROM category
+            SELECT specie_id, specie
+            FROM specie
             WHERE status = 'activo'
             """)
-    List<CategoryDto> findAll();
+    List<SpecieDto> findAll();
 }
