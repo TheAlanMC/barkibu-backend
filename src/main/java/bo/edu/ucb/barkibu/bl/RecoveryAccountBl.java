@@ -8,6 +8,7 @@ import bo.edu.ucb.barkibu.dto.RecoveryPasswordDto;
 import bo.edu.ucb.barkibu.dto.RecoveryPasswordReqDto;
 import bo.edu.ucb.barkibu.entity.RecoveryAccount;
 import bo.edu.ucb.barkibu.entity.User;
+import bo.edu.ucb.barkibu.service.EmailService;
 import bo.edu.ucb.barkibu.util.BarkibuException;
 import org.springframework.stereotype.Service;
 
@@ -49,9 +50,8 @@ public class RecoveryAccountBl {
         // Incrementamos la fecha de expiracion en 1 dia
         expirationDate.setTime(expirationDate.getTime() + 86400000);
         recoveryAccount.setExpirationDate(expirationDate);
-        //TODO: SEND EMAIL WITH CODE
-        //TODO: SECURITY DELETE THIS !!!
-        System.out.println("Code: " + randomCode);
+        // Enviamos el codigo de recuperacion por email
+        EmailService.sendEmail(recoveryAccountCodeReqDto.getEmail(), "Código de recuperación de cuenta", "Su código de recuperación de cuenta es: " + randomCode);
         recoveryAccountDao.createRecoveryAccount(recoveryAccount);
     }
 

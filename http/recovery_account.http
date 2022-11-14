@@ -4,7 +4,7 @@ Content-Type: application/json
 Accept: application/json
 
 {
-    "email": "apanique@gmail.com"
+    "email": "chrisalanapazaa@gmail.com"
 }
 ### Request Password Change
 POST http://localhost:7777/v1/api/recovery-account/hash-code
@@ -12,8 +12,8 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "email": "apanique@gmail.com",
-  "hashCode": "962773"
+  "email": "chrisalanapazaa@gmail.com",
+  "hashCode": "849273"
 }
 ### Request Password Update
 POST http://localhost:7777/v1/api/recovery-account/password

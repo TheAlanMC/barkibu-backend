@@ -9,7 +9,9 @@ import bo.edu.ucb.barkibu.entity.QuestionOwner;
 import bo.edu.ucb.barkibu.entity.User;
 import bo.edu.ucb.barkibu.entity.Veterinary;
 import bo.edu.ucb.barkibu.util.BarkibuException;
+import org.springframework.stereotype.Service;
 
+@Service
 public class QuestionOwnerBl {
     private QuestionOwnerDao questionOwnerDao;
     private final UserDao userDao;
