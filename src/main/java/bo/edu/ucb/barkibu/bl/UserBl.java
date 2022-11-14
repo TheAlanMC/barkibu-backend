@@ -7,8 +7,6 @@ import bo.edu.ucb.barkibu.entity.*;
 import bo.edu.ucb.barkibu.util.BarkibuException;
 import org.springframework.stereotype.Service;
 
-import static bo.edu.ucb.barkibu.util.ValidationUtil.isEmailValid;
-//TODO: SEPARAR EN VARIOS BL (VETERINARIAN, PETOWNER)
 @Service
 public class UserBl {
     private final UserDao userDao;
