@@ -36,6 +36,21 @@ public class AnswerBl {
         this.answerDao.addAnswer(answer);
     }
 
+    public void updateAnswer(String userName, AnswerDto answerDto) {
+        if(answerDto.getQuestionId() == null) {
+            throw new BarkibuException("SCTY-4005");
+        }
+        Integer userId = userDao.findUserIdByUserName(userName);
+        if (answerDao.findAnswerIdByQuestionIdAndUserId(answerDto.getQuestionId(), userId) == null) {
+            throw new BarkibuException("SCTY-4009");
+        }
+        Answer answer = new Answer();
+        answer.setQuestionId(answerDto.getQuestionId());
+        answer.setUserId(userId);
+        answer.setAnswer(answerDto.getAnswer());
+        this.answerDao.updateAnswer(answer);
+    }
+
 
 
 

@@ -73,7 +73,7 @@ public class HttpMessageUtil {
         errorHashMap.put("SCTY-4006", new HttpMessageUtil("Question category not found", HttpStatus.NOT_FOUND));
         errorHashMap.put("SCTY-4007", new HttpMessageUtil("Specie not found", HttpStatus.NOT_FOUND));
         errorHashMap.put("SCTY-4008", new HttpMessageUtil("Pet not found", HttpStatus.NOT_FOUND));
-
+        errorHashMap.put("SCTY-4009", new HttpMessageUtil("Answer not found", HttpStatus.NOT_FOUND));
         // Errores de tipo server error (500) -- error interno del servidor
         errorHashMap.put("SCTY-5000", new HttpMessageUtil("Error generating token", HttpStatus.INTERNAL_SERVER_ERROR));
         return errorHashMap;

@@ -20,8 +20,9 @@ public interface AnswerDao {
     @Update("""
             UPDATE answer
             SET answer = #{answer}
-            WHERE answer_id = #{answerId}
-            AND status='activo';
+            WHERE question_id = #{questionId}
+            AND user_id = #{userId}
+            AND status='activo'
             """)
     void updateAnswer(Answer answer);
 
