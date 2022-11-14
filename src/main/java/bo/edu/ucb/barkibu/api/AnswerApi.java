@@ -1,7 +1,8 @@
 package bo.edu.ucb.barkibu.api;
 
-import bo.edu.ucb.barkibu.bl.PetBl;
-import bo.edu.ucb.barkibu.dto.CreatePetDto;
+import bo.edu.ucb.barkibu.bl.AnswerBl;
+import bo.edu.ucb.barkibu.dto.AnswerDto;
+import bo.edu.ucb.barkibu.dto.CreateUserDto;
 import bo.edu.ucb.barkibu.dto.ResponseDto;
 import bo.edu.ucb.barkibu.util.AuthUtil;
 import bo.edu.ucb.barkibu.util.BarkibuException;
@@ -14,24 +15,24 @@ import java.util.Map;
 import static bo.edu.ucb.barkibu.util.HttpMessageUtil.httpMessageUtilMap;
 
 @RestController
-@RequestMapping("/v1/api/pet")
-public class PetApi {
-    private final PetBl petBl;
+@RequestMapping("/v1/api/answer")
+public class AnswerApi {
+    private final AnswerBl answerBl;
 
-    public PetApi(PetBl petBl) {
-        this.petBl = petBl;
+    public AnswerApi(AnswerBl answerBl) {
+        this.answerBl = answerBl;
     }
 
-    //Registrar nueva mascota
     @PostMapping()
-    public ResponseEntity<ResponseDto<String>> createPet(@RequestHeader Map<String,String> headers, @RequestBody CreatePetDto createPetDto) {
-        if (createPetDto.validate()){
+    public ResponseEntity<ResponseDto<String>> createAnswer(@RequestHeader Map<String,String> headers, @RequestBody AnswerDto answerDto) {
+        if (answerDto.validate()) {
             try {
+                // Verificamos que el usuario este autenticado
                 String jwt = AuthUtil.getTokenFromHeader(headers);
-                AuthUtil.verifyHasRole(jwt, "REGISTRAR MASCOTA");
-                //TODO: add username to createPetDto
-                petBl.createPet(createPetDto);
-                ResponseDto<String> responseDto = new ResponseDto<>("Pet Created", "SCTY-0000", null);
+                String username = AuthUtil.getUserNameFromToken(jwt);
+                AuthUtil.verifyHasRole(jwt, "PUBLICAR RESPUESTA");
+               answerBl.createAnswer(username, answerDto);
+                ResponseDto<String> responseDto = new ResponseDto<>("Answer Created", "SCTY-0000", null);
                 return new ResponseEntity<>(responseDto, HttpStatus.OK);
             } catch (BarkibuException e) {
                 ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
@@ -44,5 +45,6 @@ public class PetApi {
             return new ResponseEntity<>(responseDto, httpMessageUtilMap.get(statusCode).getHttpStatus());
         }
     }
+
 
 }

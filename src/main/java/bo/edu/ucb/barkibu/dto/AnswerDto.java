@@ -5,7 +5,6 @@ import java.util.Date;
 public class AnswerDto {
     private Integer questionId;
     private String answer;
-    private Date timeStamp;
 
     public AnswerDto() {
     }
@@ -13,7 +12,6 @@ public class AnswerDto {
     public AnswerDto(Integer questionId, String answer, Date timeStamp) {
         this.questionId = questionId;
         this.answer = answer;
-        this.timeStamp = timeStamp;
     }
 
     public Integer getQuestionId() {
@@ -32,31 +30,19 @@ public class AnswerDto {
         this.answer = answer;
     }
 
-    public Date getTimeStamp() {
-        return timeStamp;
-    }
-
-    public void setTimeStamp(Date timeStamp) {
-        this.timeStamp = timeStamp;
-    }
-
     @Override
     public String toString() {
         return "AnswerDto{" +
                 "questionId=" + questionId +
                 ", answer='" + answer + '\'' +
-                ", timeStamp=" + timeStamp +
                 '}';
     }
 
-    public boolean validateAnswer() {
+    public boolean validate() {
         if(questionId == null) {
             return false;
         }
         if(this.answer == null || this.answer.isEmpty()) {
-            return false;
-        }
-        if(this.timeStamp == null) {
             return false;
         }
         return true;

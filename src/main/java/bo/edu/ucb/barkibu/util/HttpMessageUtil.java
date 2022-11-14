@@ -56,6 +56,7 @@ public class HttpMessageUtil {
         errorHashMap.put("SCTY-1009", new HttpMessageUtil("Veterinary already exists", HttpStatus.BAD_REQUEST));
         errorHashMap.put("SCTY-1010", new HttpMessageUtil( "Current password is incorrect", HttpStatus.BAD_REQUEST));
         errorHashMap.put("SCTY-1011", new HttpMessageUtil("New password must be different to current password", HttpStatus.BAD_REQUEST));
+        errorHashMap.put("SCTY-1012", new HttpMessageUtil("Question already answered", HttpStatus.BAD_REQUEST));
         // Errores de tipo unauthorized (401) -- no autehnticado
         errorHashMap.put("SCTY-2000", new HttpMessageUtil("Invalid credentials", HttpStatus.UNAUTHORIZED));
         errorHashMap.put("SCTY-2001", new HttpMessageUtil("Invalid token", HttpStatus.UNAUTHORIZED));
