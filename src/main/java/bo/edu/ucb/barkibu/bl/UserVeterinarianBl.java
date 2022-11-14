@@ -106,7 +106,6 @@ public class UserVeterinarianBl {
         if (!isEmailValid(veterinarianUserDto.getEmail())) {
             throw new BarkibuException("SCTY-1004");
         }
-        // TODO: MAYBE VALIDATE COUNTRY, STATE AND CITY?
         user.setFirstName(veterinarianUserDto.getFirstName());
         user.setLastName(veterinarianUserDto.getLastName());
         user.setCityId(veterinarianUserDto.getCityId());
