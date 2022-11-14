@@ -28,9 +28,9 @@ public class PetApi {
         if (createPetDto.validate()){
             try {
                 String jwt = AuthUtil.getTokenFromHeader(headers);
+                String userName = AuthUtil.getUserNameFromToken(jwt);
                 AuthUtil.verifyHasRole(jwt, "REGISTRAR MASCOTA");
-                //TODO: add username to createPetDto
-                petBl.createPet(createPetDto);
+                petBl.createPet(userName, createPetDto);
                 ResponseDto<String> responseDto = new ResponseDto<>("Pet Created", "SCTY-0000", null);
                 return new ResponseEntity<>(responseDto, HttpStatus.OK);
             } catch (BarkibuException e) {

@@ -34,7 +34,7 @@ public interface AnswerDao {
             AND status='activo';
             """)
     Integer findAnswerIdByQuestionIdAndUserId(Integer questionId, Integer userId);
-
+    // TODO: LIKES
     @Update("""
             UPDATE answer
             SET pet_owner_like = pet_owner_like + 1

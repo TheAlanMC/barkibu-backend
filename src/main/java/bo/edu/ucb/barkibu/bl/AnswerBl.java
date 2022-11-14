@@ -50,8 +50,4 @@ public class AnswerBl {
         answer.setAnswer(answerDto.getAnswer());
         this.answerDao.updateAnswer(answer);
     }
-
-
-
-
 }
