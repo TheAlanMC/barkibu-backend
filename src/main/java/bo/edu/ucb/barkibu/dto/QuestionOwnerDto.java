@@ -1,8 +1,8 @@
-package bo.edu.ucb.barkibu.entity;
+package bo.edu.ucb.barkibu.dto;
 
 import java.util.Date;
 
-public class QuestionOwner {
+public class QuestionOwnerDto {
     private Integer questionId;
     private Integer userId;
     private Integer categoryId;
@@ -11,15 +11,11 @@ public class QuestionOwner {
     private String detailedDescription;
     private boolean Answered;
     private Date questionDate;
-    private String status;
-    private Date txDate;
-    private String txUser;
-    private String txHost;
 
-    public QuestionOwner() {
+    public QuestionOwnerDto() {
     }
 
-    public QuestionOwner(Integer questionId, Integer userId, Integer categoryId, Integer petId, String problem, String detailedDescription, boolean answered, Date questionDate, String status, Date txDate, String txUser, String txHost) {
+    public QuestionOwnerDto(Integer questionId, Integer userId, Integer categoryId, Integer petId, String problem, String detailedDescription, boolean answered, Date questionDate) {
         this.questionId = questionId;
         this.userId = userId;
         this.categoryId = categoryId;
@@ -28,13 +24,7 @@ public class QuestionOwner {
         this.detailedDescription = detailedDescription;
         Answered = answered;
         this.questionDate = questionDate;
-        this.status = status;
-        this.txDate = txDate;
-        this.txUser = txUser;
-        this.txHost = txHost;
     }
-
-
     public Integer getQuestionId() {return questionId;}
 
     public void setQuestionId(Integer questionId) {this.questionId = questionId;}
@@ -67,27 +57,9 @@ public class QuestionOwner {
 
     public void setQuestionDate(Date questionDate) {this.questionDate = questionDate;}
 
-    public String getStatus() {return status;}
-
-    public void setStatus(String status) {this.status = status;}
-
-    public Date getTxDate() {return txDate;}
-
-    public void setTxDate(Date txDate) {
-        this.txDate = txDate;
-    }
-
-    public String getTxUser() {return txUser;}
-
-    public void setTxUser(String txUser) {this.txUser = txUser;}
-
-    public String getTxHost() {return txHost;}
-
-    public void setTxHost(String txHost) {this.txHost = txHost;}
-
     @Override
     public String toString() {
-        return "QuestionOwner{" +
+        return "QuestionOwnerDto{" +
                 "questionId=" + questionId +
                 ", userId=" + userId +
                 ", categoryId=" + categoryId +
@@ -96,11 +68,15 @@ public class QuestionOwner {
                 ", detailedDescription='" + detailedDescription + '\'' +
                 ", Answered=" + Answered +
                 ", questionDate=" + questionDate +
-                ", status='" + status + '\'' +
-                ", txDate=" + txDate +
-                ", txUser='" + txUser + '\'' +
-                ", txHost='" + txHost + '\'' +
                 '}';
     }
-}
 
+    public boolean validate() {
+        if(questionId == null || userId == null || categoryId == null || petId == null || problem == null ||
+                detailedDescription == null ||  questionId == null ) {
+            return false;
+        }
+        return true;
+    }
+
+}
