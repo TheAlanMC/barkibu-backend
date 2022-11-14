@@ -32,4 +32,22 @@ public interface PetQuestionDao {
             AND pet.status = 'activo';
             """)
     PetQuestion findPetQuestionByQuestionId(Integer questionId);
+
+    @Select("""
+            SELECT pet_id
+            FROM question
+            WHERE question_id = #{questionId}
+            AND status = 'activo';
+            """)
+    Integer findPetIdByQuestionId(Integer questionId);
+
+    @Select("""
+            SELECT symptom.symptom 
+            FROM symptom_question
+            JOIN symptom ON symptom_question.symptom_id = symptom.symptom_id
+            WHERE symptom_question.question_id = #{questionId}
+            AND symptom.status = 'activo'
+            AND symptom_question.status = 'activo';
+            """)
+    List<String> findSymptomsByQuestionId(Integer questionId);
 }
