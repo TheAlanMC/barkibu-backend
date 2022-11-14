@@ -15,4 +15,12 @@ public interface CategoryDao {
             WHERE status = 'activo'
             """)
     List<CategoryDto> findAll();
+
+    @Select("""
+            SELECT category_id, category
+            FROM category
+            WHERE category_id = #{categoryId}
+            AND status = 'activo'
+            """)
+    CategoryDto findCategoryByCategoryId(Integer categoryId);
 }

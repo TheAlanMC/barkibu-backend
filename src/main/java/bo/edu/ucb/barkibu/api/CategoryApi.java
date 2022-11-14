@@ -3,8 +3,6 @@ package bo.edu.ucb.barkibu.api;
 import bo.edu.ucb.barkibu.bl.CategoryBl;
 import bo.edu.ucb.barkibu.dto.CategoryDto;
 import bo.edu.ucb.barkibu.dto.ResponseDto;
-import bo.edu.ucb.barkibu.entity.Category;
-import bo.edu.ucb.barkibu.entity.VeterinarianAnswer;
 import bo.edu.ucb.barkibu.util.AuthUtil;
 import bo.edu.ucb.barkibu.util.BarkibuException;
 import org.springframework.http.HttpStatus;

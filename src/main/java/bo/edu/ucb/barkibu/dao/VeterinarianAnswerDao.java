@@ -8,22 +8,16 @@ import java.util.List;
 
 @Component
 public interface VeterinarianAnswerDao {
-
     @Select("""
-            SELECT pet.name as pet_name, pet.photo_path, problem as question, answer,
-                sum(pet_owner_like)+sum(veterinarian_like) AS total_likes, question.time_stamp as answer_date
+            SELECT answer_id, first_name as veterinarian_name, last_name as veterinarian_last_name, answer, 
+                   sum(pet_owner_like)+sum(veterinarian_like) AS total_likes, time_stamp as answer_date 
             FROM answer
-            JOIN question ON answer.question_id = question.question_id
-            JOIN pet ON question.pet_id = pet.pet_id
             JOIN "user" ON answer.user_id = "user".user_id
-            WHERE "user".user_name = #{userName}
+            WHERE question_id = #{questionId}
             AND answer.status = 'activo'
-            AND question.status = 'activo'
-            AND pet.status = 'activo'
             AND "user".status = 'activo'
-            GROUP BY pet.name, pet.photo_path, problem, answer, question.time_stamp
-            ORDER BY question.time_stamp DESC;
+            GROUP BY answer_id, first_name, last_name, answer, time_stamp
+            ORDER BY total_likes DESC;
             """)
-    List<VeterinarianAnswer> findVeterinarianAnswersByUserName(String userName);
-
+    List<VeterinarianAnswer> findVeterinarianAnswersByQuestionId(Integer questionId);
 }

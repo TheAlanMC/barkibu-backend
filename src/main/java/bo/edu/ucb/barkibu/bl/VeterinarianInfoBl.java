@@ -17,9 +17,9 @@ public class VeterinarianInfoBl {
     private final VeterinarianRankingDao veterinarianRankingDao;
     private final ReputationDao reputationDao;
     private final HelpedPetDao helpedPetDao;
-    private final VeterinarianAnswerDao veterinarianAnswerDao;
+    private final VeterinarianOwnAnswerDao veterinarianOwnAnswerDao;
 
-    public VeterinarianInfoBl(UserDao userDao, CityDao cityDao, StateDao stateDao, CountryDao countryDao, VeterinarianRankingDao veterinarianRankingDao, ReputationDao reputationDao, HelpedPetDao helpedPetDao, VeterinarianAnswerDao veterinarianAnswerDao) {
+    public VeterinarianInfoBl(UserDao userDao, CityDao cityDao, StateDao stateDao, CountryDao countryDao, VeterinarianRankingDao veterinarianRankingDao, ReputationDao reputationDao, HelpedPetDao helpedPetDao, VeterinarianOwnAnswerDao veterinarianOwnAnswerDao) {
         this.userDao = userDao;
         this.cityDao = cityDao;
         this.stateDao = stateDao;
@@ -27,7 +27,7 @@ public class VeterinarianInfoBl {
         this.veterinarianRankingDao = veterinarianRankingDao;
         this.reputationDao = reputationDao;
         this.helpedPetDao = helpedPetDao;
-        this.veterinarianAnswerDao = veterinarianAnswerDao;
+        this.veterinarianOwnAnswerDao = veterinarianOwnAnswerDao;
     }
 
 
@@ -84,11 +84,11 @@ public class VeterinarianInfoBl {
         return helpedPetDao.findHelpedPetByUserName(userName);
     }
 
-    public List<VeterinarianAnswer> getVeterinarianAnswers(String userName) {
+    public List<VeterinarianOwnAnswer> getVeterinarianAnswers(String userName) {
         if (userDao.findUserIdByUserName(userName) == null) {
             throw new BarkibuException("SCTY-4000");
         }
-        return veterinarianAnswerDao.findVeterinarianAnswersByUserName(userName);
+        return veterinarianOwnAnswerDao.findVeterinarianAnswersByUserName(userName);
     }
 
 }

@@ -33,7 +33,6 @@ public class QuestionVeterinarianFilterApi {
                 AuthUtil.getUserNameFromToken(jwt);
                 List<PetQuestion> petQuestions = questionVeterinarianFilterBl.findPetQuestionsByVeterinarianFilter(questionVeterinarianFilterDto);
                 ResponseDto<List<PetQuestion>> responseDto = new ResponseDto<>(petQuestions, "SCTY-0000", null);
-                System.out.println(petQuestions.size());
                 return new ResponseEntity<>(responseDto, HttpStatus.OK);
             } catch (BarkibuException e) {
                 ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());

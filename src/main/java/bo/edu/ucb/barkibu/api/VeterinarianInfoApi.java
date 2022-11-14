@@ -4,7 +4,7 @@ import bo.edu.ucb.barkibu.bl.VeterinarianInfoBl;
 import bo.edu.ucb.barkibu.dto.*;
 import bo.edu.ucb.barkibu.entity.HelpedPet;
 import bo.edu.ucb.barkibu.entity.Reputation;
-import bo.edu.ucb.barkibu.entity.VeterinarianAnswer;
+import bo.edu.ucb.barkibu.entity.VeterinarianOwnAnswer;
 import bo.edu.ucb.barkibu.entity.VeterinarianRanking;
 import bo.edu.ucb.barkibu.util.AuthUtil;
 import bo.edu.ucb.barkibu.util.BarkibuException;
@@ -159,8 +159,8 @@ public class VeterinarianInfoApi {
             // Verificamos que el usuario este autenticado
             String jwt = AuthUtil.getTokenFromHeader(headers);
             String userName = AuthUtil.getUserNameFromToken(jwt);
-            List<VeterinarianAnswer> answerDtos = veterinarianInfoBl.getVeterinarianAnswers(userName);
-            ResponseDto<List<VeterinarianAnswer>> responseDto = new ResponseDto<>(answerDtos, "SCTY-0000", null);
+            List<VeterinarianOwnAnswer> veterinarianOwnAnswers = veterinarianInfoBl.getVeterinarianAnswers(userName);
+            ResponseDto<List<VeterinarianOwnAnswer>> responseDto = new ResponseDto<>(veterinarianOwnAnswers, "SCTY-0000", null);
             return new ResponseEntity<>(responseDto, HttpStatus.OK);
         } catch (BarkibuException e) {
             ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());

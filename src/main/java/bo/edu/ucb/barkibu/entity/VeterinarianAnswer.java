@@ -1,57 +1,51 @@
 package bo.edu.ucb.barkibu.entity;
 
-import java.util.Date;
-
 public class VeterinarianAnswer {
-    private String petName;
-    private String photoPath;
-    private String question;
+    private Integer answerId;
+    private String veterinarianName;
+    private String veterinarianLastName;
     private String answer;
     private Integer totalLikes;
-    private Date answerDate;
+    private String answerDate;
 
     public VeterinarianAnswer() {
     }
 
-    public VeterinarianAnswer(String petName, String photoPath, String question, String answer, Integer totalLikes, Date answerDate) {
-        this.petName = petName;
-        this.photoPath = photoPath;
-        this.question = question;
+    public VeterinarianAnswer(Integer answerId, String veterinarianName, String veterinarianLastName, String answer, Integer totalLikes, String answerDate) {
+        this.answerId = answerId;
+        this.veterinarianName = veterinarianName;
+        this.veterinarianLastName = veterinarianLastName;
         this.answer = answer;
         this.totalLikes = totalLikes;
         this.answerDate = answerDate;
     }
 
-    public String getPetName() {
-        return petName;
+    public Integer getAnswerId() {
+        return answerId;
     }
 
-    public void setPetName(String petName) {
-        this.petName = petName;
+    public void setAnswerId(Integer answerId) {
+        this.answerId = answerId;
     }
 
-    public String getPhotoPath() {
-        return photoPath;
+    public String getVeterinarianName() {
+        return veterinarianName;
     }
 
-    public void setPhotoPath(String photoPath) {
-        this.photoPath = photoPath;
+    public void setVeterinarianName(String veterinarianName) {
+        this.veterinarianName = veterinarianName;
     }
 
-    public String getQuestion() {
-        return question;
+    public String getVeterinarianLastName() {
+        return veterinarianLastName;
     }
 
-    public void setQuestion(String question) {
-        this.question = question;
+    public void setVeterinarianLastName(String veterinarianLastName) {
+        this.veterinarianLastName = veterinarianLastName;
     }
 
     public String getAnswer() {
         return answer;
-    }
-
-    public void setAnswer(String answer) {
-        this.answer = answer;
     }
 
     public Integer getTotalLikes() {
@@ -62,23 +56,27 @@ public class VeterinarianAnswer {
         this.totalLikes = totalLikes;
     }
 
-    public Date getAnswerDate() {
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
+
+    public String getAnswerDate() {
         return answerDate;
     }
 
-    public void setAnswerDate(Date answerDate) {
+    public void setAnswerDate(String answerDate) {
         this.answerDate = answerDate;
     }
 
     @Override
     public String toString() {
-        return "VeterinarianAnswers{" +
-                "petName='" + petName + '\'' +
-                ", photoPath='" + photoPath + '\'' +
-                ", question='" + question + '\'' +
+        return "VeterinarianAnswer{" +
+                "answerId=" + answerId +
+                ", veterinarianName='" + veterinarianName + '\'' +
+                ", veterinarianLastName='" + veterinarianLastName + '\'' +
                 ", answer='" + answer + '\'' +
                 ", totalLikes=" + totalLikes +
-                ", answerDate=" + answerDate +
+                ", answerDate='" + answerDate + '\'' +
                 '}';
     }
 }
