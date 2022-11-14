@@ -13,6 +13,8 @@ public class User {
     private String password;
     private String photoPath;
     private String description;
+    private Integer failedLoginAttempts;
+    private Date failedLoginTime;
     private String status;
     private Date txDate;
     private String txUser;
@@ -22,7 +24,7 @@ public class User {
     }
     
 
-    public User(Integer userId, Integer cityId, String firstName, String lastName, String email, String userName, String password, String photoPath, String description, String status, Date txDate, String txUser, String txHost) {
+    public User(Integer userId, Integer cityId, String firstName, String lastName, String email, String userName, String password, String photoPath, String description, Integer failedLoginAttempts, Date failedLoginTime, String status, Date txDate, String txUser, String txHost) {
         this.userId = userId;
         this.cityId = cityId;
         this.firstName = firstName;
@@ -32,6 +34,8 @@ public class User {
         this.password = password;
         this.photoPath = photoPath;
         this.description = description;
+        this.failedLoginAttempts = failedLoginAttempts;
+        this.failedLoginTime = failedLoginTime;
         this.status = status;
         this.txDate = txDate;
         this.txUser = txUser;
@@ -110,6 +114,22 @@ public class User {
         this.description = description;
     }
 
+    public Integer getFailedLoginAttempts() {
+        return failedLoginAttempts;
+    }
+
+    public void setFailedLoginAttempts(Integer failedLoginAttempts) {
+        this.failedLoginAttempts = failedLoginAttempts;
+    }
+
+    public Date getFailedLoginTime() {
+        return failedLoginTime;
+    }
+
+    public void setFailedLoginTime(Date failedLoginTime) {
+        this.failedLoginTime = failedLoginTime;
+    }
+
     public String getStatus() {
         return status;
     }
@@ -153,6 +173,8 @@ public class User {
                 ", password='" + password + '\'' +
                 ", photoPath='" + photoPath + '\'' +
                 ", description='" + description + '\'' +
+                ", failedLoginAttempts=" + failedLoginAttempts +
+                ", failedLoginTime=" + failedLoginTime +
                 ", status='" + status + '\'' +
                 ", txDate=" + txDate +
                 ", txUser='" + txUser + '\'' +
@@ -170,6 +192,6 @@ public class User {
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId, cityId, firstName, lastName, email, password, photoPath, description, status, txDate, txUser, txHost);
+        return Objects.hash(userId, cityId, firstName, lastName, email, password, photoPath, description, failedLoginAttempts, failedLoginTime, status, txDate, txUser, txHost);
     }
 }

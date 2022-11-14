@@ -13,6 +13,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -29,24 +30,49 @@ public class SecurityBl {
         AuthResDto result;
         // Verificamos que el usuario exista
         String currentPasswordInBCrypt = userDao.findPasswordByUserName(credentials.getUserName());
-        if (currentPasswordInBCrypt != null) {
-            // Verificamos que la contraseña sea correcta
-            BCrypt.Result verifyResult = BCrypt.verifyer().verify(credentials.getPassword().toCharArray(), currentPasswordInBCrypt);
-            if (verifyResult.verified) {
-                // Obtenemos los roles del usuario
-                List<Role> roles = roleDao.findRolesByUserName(credentials.getUserName());
-                List<String> rolesAsString= roles.stream().map(Role::getRoleName).toList();
-                String [] rolesAsArray = rolesAsString.toArray(new String[0]);
-                // Creamos el token
-                // FIXME: CHANGE EXPIRATION TIME TO 300
-                Integer expirationTime = 3000000;
-                result = generateTokenJwt(credentials.getUserName(),expirationTime, rolesAsArray);
-            } else {
-                throw new BarkibuException("SCTY-2000");
-            }
-        } else {
+        if (currentPasswordInBCrypt == null) {
             throw new BarkibuException("SCTY-4000");
         }
+        // Verificamos si el usuario esta bloqueado
+        if(userDao.findFailedLoginTimeByUserName(credentials.getUserName()) != null) {
+            Date currentDateTime = new Date();
+            if (currentDateTime.before(userDao.findFailedLoginTimeByUserName(credentials.getUserName()))) {
+                throw new BarkibuException("SCTY-3001");
+            }
+        }
+        // Verificamos que la contraseña sea correcta
+        BCrypt.Result verifyResult = BCrypt.verifyer().verify(credentials.getPassword().toCharArray(), currentPasswordInBCrypt);
+        if (!verifyResult.verified) {
+            // Si la contraseña es incorrecta, verificamos si es el primer intento fallido
+            if (userDao.findFailedLoginAttemptsByUserName(credentials.getUserName()) == null) {
+                // Si es el primer intento fallido, iniciamos el contador de intentos fallidos
+                userDao.updateFailedLoginAttemptsByUserName(credentials.getUserName(), 1);
+            }
+            else {
+                userDao.updateFailedLoginAttemptsByUserName(credentials.getUserName(), userDao.findFailedLoginAttemptsByUserName(credentials.getUserName()) + 1);
+            }
+            // Incrementamos el contador de intentos fallidos
+            // Si la contraseña es incorrecta, verificamos si el usuario tiene 3 intentos fallidos
+            if (userDao.findFailedLoginAttemptsByUserName(credentials.getUserName()) == 3) {
+                // Si tiene 3 intentos fallidos, bloqueamos el usuario por 15 minutos
+                userDao.updateFailedLoginTimeByUserName(credentials.getUserName(), new Date(new Date().getTime() + 15 * 60 * 1000));
+                throw new BarkibuException("SCTY-3001");
+            }
+            throw new BarkibuException("SCTY-2000");
+        }
+        // Si la contraseña es correcta, limpiamos el contador de intentos fallidos y la fecha de bloqueo
+        userDao.resetFailedLoginByUserName(credentials.getUserName());
+        // Obtenemos los roles del usuario
+        List<Role> roles = roleDao.findRolesByUserName(credentials.getUserName());
+        List<String> rolesAsString= roles.stream().map(Role::getRoleName).toList();
+        String [] rolesAsArray = rolesAsString.toArray(new String[0]);
+        // Creamos el token
+        // FIXME: CHANGE EXPIRATION TIME TO 300
+        Integer expirationTime = 3000000;
+        result = generateTokenJwt(credentials.getUserName(),expirationTime, rolesAsArray);
+
+
+
         return result;
     }
 

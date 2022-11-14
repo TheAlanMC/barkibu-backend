@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
+
 @Component
 public interface UserDao {
 
@@ -14,9 +16,49 @@ public interface UserDao {
             FROM "user"
             WHERE user_name = #{userName}
             AND status = 'activo'
-    """)
+            """)
     User findUserByUserName(String userName);
 
+    @Select("""
+            SELECT failed_login_time
+            FROM "user"
+            WHERE user_name = #{userName}
+            AND status = 'activo'
+            """)
+    Date findFailedLoginTimeByUserName(String userName);
+
+    @Select("""
+            SELECT failed_login_attempts
+            FROM "user"
+            WHERE user_name = #{userName}
+            AND status = 'activo'
+            """)
+    Integer findFailedLoginAttemptsByUserName(String userName);
+
+    @Update("""
+            UPDATE "user"
+            SET failed_login_time = #{failedLoginTime}
+            WHERE user_name = #{userName}
+            AND status = 'activo'
+            """)
+    void updateFailedLoginTimeByUserName(String userName, Date failedLoginTime);
+
+    @Update("""
+            UPDATE "user"
+            SET failed_login_attempts = #{failedLoginAttempts}
+            WHERE user_name = #{userName}
+            AND status = 'activo'
+            """)
+    void updateFailedLoginAttemptsByUserName(String userName, Integer failedLoginAttempts);
+
+    @Update("""
+            UPDATE "user"
+            SET failed_login_attempts = null,
+            failed_login_time = null
+            WHERE user_name = #{userName}
+            AND status = 'activo'
+            """)
+    void resetFailedLoginByUserName(String userName);
     // Encuentra el id de un usuario por su userName
     @Select("""
             SELECT user_id
@@ -52,7 +94,6 @@ public interface UserDao {
             (#{firstName}, #{lastName}, #{email}, #{userName}, #{password}, 'activo', now(), 'anonymus', 'localhost')
             """)
     void createUser(User user);
-
 
 
     // Cambio de contraseña

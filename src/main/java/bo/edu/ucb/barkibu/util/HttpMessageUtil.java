@@ -63,6 +63,7 @@ public class HttpMessageUtil {
         errorHashMap.put("SCTY-2002", new HttpMessageUtil("No token provided", HttpStatus.UNAUTHORIZED));
         // Errores de tipo forbidden (403) -- no autorizado
         errorHashMap.put("SCTY-3000", new HttpMessageUtil("User is not allowed to access this resource", HttpStatus.FORBIDDEN));
+        errorHashMap.put("SCTY-3001", new HttpMessageUtil("User has been blocked, please try again later", HttpStatus.FORBIDDEN));
         // Errores de tipo not found (404) -- no encontrado
         errorHashMap.put("SCTY-4000", new HttpMessageUtil("User not found", HttpStatus.NOT_FOUND));
         errorHashMap.put("SCTY-4001", new HttpMessageUtil("City not found", HttpStatus.NOT_FOUND));
