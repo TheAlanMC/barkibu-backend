@@ -6,6 +6,6 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhcGFuaXF1Z
 
 {
     "categoryId": "10",
-    "specieId": "3",
+    "specieId": "1",
     "answered": "true"
 }

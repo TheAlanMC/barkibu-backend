@@ -7,7 +7,6 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhcGFuaXF1Z
 {
     "questionId": 1,
     "answer": "answer 1"
-
 }
 
 ### Edit answer

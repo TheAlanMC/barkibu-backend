@@ -13,7 +13,7 @@ Accept: application/json
 
 {
   "email": "chrisalanapazaa@gmail.com",
-  "hashCode": "849273"
+  "hashCode": "212590"
 }
 ### Request Password Update
 POST http://localhost:7777/v1/api/recovery-account/password
@@ -21,10 +21,10 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "email": "apanique@gmail.com",
-  "hashCode": "962773",
-  "password": "123456",
-  "confirmPassword": "123456"
+  "email": "chrisalanapazaa@gmail.com",
+  "hashCode": "212590",
+  "password": "pokemon",
+  "confirmPassword": "pokemon"
 }
 
 

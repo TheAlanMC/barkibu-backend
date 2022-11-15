@@ -10,7 +10,6 @@ public class HttpMessageUtil {
     private HttpStatus httpStatus;
     public static Map<String, HttpMessageUtil> httpMessageUtilMap = errorHashMap();
 
-
     public HttpMessageUtil(String message, HttpStatus httpStatus) {
         this.message = message;
         this.httpStatus = httpStatus;
@@ -41,8 +40,8 @@ public class HttpMessageUtil {
     }
 
     // HashMap con todos los mensajes de error
-    public static Map<String, HttpMessageUtil> errorHashMap (){
-        Map<String,HttpMessageUtil> errorHashMap = new HashMap<>();
+    public static Map<String, HttpMessageUtil> errorHashMap() {
+        Map<String, HttpMessageUtil> errorHashMap = new HashMap<>();
         // Errores de tipo bad request (400)
         errorHashMap.put("SCTY-1000", new HttpMessageUtil("Invalid data", HttpStatus.BAD_REQUEST));
         errorHashMap.put("SCTY-1001", new HttpMessageUtil("At least one field is empty", HttpStatus.BAD_REQUEST));
@@ -50,12 +49,14 @@ public class HttpMessageUtil {
         errorHashMap.put("SCTY-1003", new HttpMessageUtil("Email already exists", HttpStatus.BAD_REQUEST));
         errorHashMap.put("SCTY-1004", new HttpMessageUtil("Email format is not valid", HttpStatus.BAD_REQUEST));
         errorHashMap.put("SCTY-1005", new HttpMessageUtil("Code is not valid", HttpStatus.BAD_REQUEST));
-        errorHashMap.put("SCTY-1006", new HttpMessageUtil("Password has expired", HttpStatus.BAD_REQUEST));
-        errorHashMap.put("SCTY-1007", new HttpMessageUtil("New password and confirmation must be equals", HttpStatus.BAD_REQUEST));
+        errorHashMap.put("SCTY-1006", new HttpMessageUtil("Code has expired", HttpStatus.BAD_REQUEST));
+        errorHashMap.put("SCTY-1007",
+                new HttpMessageUtil("New password and confirmation must be equals", HttpStatus.BAD_REQUEST));
         errorHashMap.put("SCTY-1008", new HttpMessageUtil("Date must be before today", HttpStatus.BAD_REQUEST));
         errorHashMap.put("SCTY-1009", new HttpMessageUtil("Veterinary already exists", HttpStatus.BAD_REQUEST));
-        errorHashMap.put("SCTY-1010", new HttpMessageUtil( "Current password is incorrect", HttpStatus.BAD_REQUEST));
-        errorHashMap.put("SCTY-1011", new HttpMessageUtil("New password must be different to current password", HttpStatus.BAD_REQUEST));
+        errorHashMap.put("SCTY-1010", new HttpMessageUtil("Current password is incorrect", HttpStatus.BAD_REQUEST));
+        errorHashMap.put("SCTY-1011",
+                new HttpMessageUtil("New password must be different to current password", HttpStatus.BAD_REQUEST));
         errorHashMap.put("SCTY-1012", new HttpMessageUtil("Question already answered", HttpStatus.BAD_REQUEST));
         errorHashMap.put("SCTY-1013", new HttpMessageUtil("Answer already liked", HttpStatus.BAD_REQUEST));
         // Errores de tipo unauthorized (401) -- no autehnticado
@@ -63,8 +64,10 @@ public class HttpMessageUtil {
         errorHashMap.put("SCTY-2001", new HttpMessageUtil("Invalid token", HttpStatus.UNAUTHORIZED));
         errorHashMap.put("SCTY-2002", new HttpMessageUtil("No token provided", HttpStatus.UNAUTHORIZED));
         // Errores de tipo forbidden (403) -- no autorizado
-        errorHashMap.put("SCTY-3000", new HttpMessageUtil("User is not allowed to access this resource", HttpStatus.FORBIDDEN));
-        errorHashMap.put("SCTY-3001", new HttpMessageUtil("User has been blocked, please try again later", HttpStatus.FORBIDDEN));
+        errorHashMap.put("SCTY-3000",
+                new HttpMessageUtil("User is not allowed to access this resource", HttpStatus.FORBIDDEN));
+        errorHashMap.put("SCTY-3001",
+                new HttpMessageUtil("User has been blocked, please try again later", HttpStatus.FORBIDDEN));
         // Errores de tipo not found (404) -- no encontrado
         errorHashMap.put("SCTY-4000", new HttpMessageUtil("User not found", HttpStatus.NOT_FOUND));
         errorHashMap.put("SCTY-4001", new HttpMessageUtil("City not found", HttpStatus.NOT_FOUND));
@@ -76,7 +79,7 @@ public class HttpMessageUtil {
         errorHashMap.put("SCTY-4007", new HttpMessageUtil("Specie not found", HttpStatus.NOT_FOUND));
         errorHashMap.put("SCTY-4008", new HttpMessageUtil("Pet not found", HttpStatus.NOT_FOUND));
         errorHashMap.put("SCTY-4009", new HttpMessageUtil("Answer not found", HttpStatus.NOT_FOUND));
-        //TODO: MAYBE NOT NECESARY
+        // TODO: MAYBE NOT NECESARY
         errorHashMap.put("SCTY-4010", new HttpMessageUtil("Veterinarian user not found", HttpStatus.NOT_FOUND));
         errorHashMap.put("SCTY-4011", new HttpMessageUtil("Pet Owner user not found", HttpStatus.NOT_FOUND));
         // Errores de tipo server error (500) -- error interno del servidor
