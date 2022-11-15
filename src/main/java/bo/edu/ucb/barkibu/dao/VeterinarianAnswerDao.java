@@ -15,6 +15,7 @@ public interface VeterinarianAnswerDao {
             LEFT JOIN user_answer_like ON answer.answer_id = user_answer_like.answer_id
             AND user_answer_like.status = 'activo'
             WHERE question_id = #{questionId}
+            AND liked = true
             AND answer.status = 'activo'
             AND "user".status = 'activo'
             GROUP BY answer.answer_id, first_name, last_name, answer, time_stamp

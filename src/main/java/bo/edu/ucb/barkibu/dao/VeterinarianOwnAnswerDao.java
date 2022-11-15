@@ -18,7 +18,8 @@ public interface VeterinarianOwnAnswerDao {
             JOIN "user" ON answer.user_id = "user".user_id
             LEFT JOIN user_answer_like ON answer.answer_id = user_answer_like.answer_id
             AND user_answer_like.status = 'activo'
-            WHERE "user".user_name = 'czarate'
+            WHERE "user".user_name = #{userName}
+            AND liked = true
             AND answer.status = 'activo'
             AND question.status = 'activo'
             AND pet.status = 'activo'

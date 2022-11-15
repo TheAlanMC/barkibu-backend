@@ -19,6 +19,7 @@ public interface ReputationDao {
                   JOIN user_answer_like ON answer.answer_id = user_answer_like.answer_id
                   JOIN user_group ON user_answer_like.user_id = user_group.user_id
                   WHERE group_id = 3
+                  AND liked = true
                   AND user_name = #{userName}
                   AND answer.status = 'activo'
                   AND "user".status = 'activo'
@@ -31,6 +32,7 @@ public interface ReputationDao {
                   JOIN user_answer_like ON answer.answer_id = user_answer_like.answer_id
                   JOIN user_group ON user_answer_like.user_id = user_group.user_id
                   WHERE group_id = 2
+                  AND liked = true
                   AND user_name = #{userName}
                   AND answer.status = 'activo'
                   AND "user".status = 'activo'

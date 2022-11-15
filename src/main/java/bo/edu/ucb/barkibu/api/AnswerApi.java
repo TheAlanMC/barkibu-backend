@@ -69,4 +69,19 @@ public class AnswerApi {
         }
     }
 
+    @GetMapping("/{#answerId}/support")
+    public ResponseEntity<ResponseDto<String>> likeAnswer(@RequestHeader Map<String,String> headers ,@PathVariable Integer answerId) {
+            try {
+                // Verificamos que el usuario este autenticado
+                String jwt = AuthUtil.getTokenFromHeader(headers);
+                String username = AuthUtil.getUserNameFromToken(jwt);
+                answerBl.likeAnswer(username, answerId);
+                ResponseDto<String> responseDto = new ResponseDto<>("Answer Liked", "SCTY-0000", null);
+                return new ResponseEntity<>(responseDto, HttpStatus.OK);
+            } catch (BarkibuException e) {
+                ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
+                return new ResponseEntity<>(responseDto, e.getHttpStatus());
+            }
+    }
+
 }

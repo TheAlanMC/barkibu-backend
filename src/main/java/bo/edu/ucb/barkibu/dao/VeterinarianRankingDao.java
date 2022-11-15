@@ -22,6 +22,7 @@ public interface VeterinarianRankingDao {
                         AND answer.status = 'activo'
                         LEFT JOIN user_answer_like ON answer.answer_id = user_answer_like.answer_id
                         AND user_answer_like.status = 'activo'
+                        AND liked = true
                         GROUP BY user_name
                         ORDER BY total_likes DESC NULLS LAST) AS ranking
             WHERE user_name = #{user_name}
@@ -46,6 +47,7 @@ public interface VeterinarianRankingDao {
                         AND answer.status = 'activo'
                         LEFT JOIN user_answer_like ON answer.answer_id = user_answer_like.answer_id
                         AND user_answer_like.status = 'activo'
+                        AND liked = true
                         GROUP BY user_name
                         ORDER BY total_likes DESC NULLS LAST) AS ranking
             WHERE user_name = #{user_name}

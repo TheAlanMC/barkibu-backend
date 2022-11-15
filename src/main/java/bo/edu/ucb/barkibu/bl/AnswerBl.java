@@ -50,4 +50,28 @@ public class AnswerBl {
         answer.setAnswer(answerDto.getAnswer());
         this.answerDao.updateAnswer(answer);
     }
+
+    public void likeAnswer(String userName, Integer answerId) {
+        if (answerDao.findAnswerIdByAnswerId(answerId) == null) {
+            throw new BarkibuException("SCTY-4009");
+        }
+        Integer userId = userDao.findUserIdByUserName(userName);
+        if(answerDao.findUserAnswerLikeIdByAnswerIdAndUserId(answerId, userId) != null) {
+            throw new BarkibuException("SCTY-1013");
+        }
+        this.answerDao.likeAnswer(answerId, userId);
+    }
+
+    //  TODO: IMPLEMENT DISLIKES
+ /*   public void dislikeAnswer(String userName, Integer answerId) {
+        if (answerDao.findAnswerIdByAnswerId(answerId) == null) {
+            throw new BarkibuException("SCTY-4009");
+        }
+        Integer userId = userDao.findUserIdByUserName(userName);
+        if(answerDao.findUserAnswerLikeIdByAnswerIdAndUserId(answerId, userId) == null) {
+            throw new BarkibuException("SCTY-1014");
+        }
+
+        this.answerDao.dislikeAnswer(answerId, userId);
+    }*/
 }
