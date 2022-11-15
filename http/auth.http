@@ -20,8 +20,8 @@ Content-Type: application/json
 Accept: application/json
 
 {
- "userName":"juan123", 
- "password": "123456"
+ "userName":"czarate",
+ "password": "12345"
 }
 
 ### USUARIO DUEÑO DE MASCOTA
@@ -30,6 +30,16 @@ Content-Type: application/json
 Accept: application/json
 
 {
- "userName":"jose123", 
+ "userName":"jose1234",
  "password": "123456"
+}
+
+### CHRIS
+POST http://localhost:7777/v1/api/auth
+Content-Type: application/json
+Accept: application/json
+
+{
+  "userName":"aapaza",
+  "password": "pokemon"
 }

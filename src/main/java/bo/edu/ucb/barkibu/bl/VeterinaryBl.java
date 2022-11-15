@@ -38,6 +38,10 @@ public class VeterinaryBl {
         if (userDao.findUserIdByUserName(userName) == null) {
             throw new BarkibuException("SCTY-4000");
         }
+        // Verificamos que el usuario sea un veterinario
+        if(userDao.findVeterinarianByUserName(userName) == null) {
+            throw new BarkibuException("SCTY-4010");
+        }
         Veterinary veterinary = veterinaryDao.findVeterinaryByUserName(userName);
         if (veterinary == null) {
             throw new BarkibuException("SCTY-4004");
