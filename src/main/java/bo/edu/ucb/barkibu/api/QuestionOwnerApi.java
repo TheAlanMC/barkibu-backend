@@ -5,6 +5,7 @@ import bo.edu.ucb.barkibu.bl.VeterinaryBl;
 import bo.edu.ucb.barkibu.dto.QuestionOwnerDto;
 import bo.edu.ucb.barkibu.dto.ResponseDto;
 import bo.edu.ucb.barkibu.dto.VeterinaryDto;
+import bo.edu.ucb.barkibu.entity.QuestionOwner;
 import bo.edu.ucb.barkibu.util.AuthUtil;
 import bo.edu.ucb.barkibu.util.BarkibuException;
 import org.springframework.http.HttpStatus;
@@ -22,19 +23,17 @@ public class QuestionOwnerApi {
         this.questionOwnerBl = questionOwnerBl;
     }
 
-    @GetMapping("/{userName}")
-    public ResponseEntity<ResponseDto> getVeterinaryByUserName(@RequestHeader Map<String,String> headers, @PathVariable String userName) {
+    @GetMapping()
+    public ResponseEntity<ResponseDto> getOwnerByUserName(@RequestHeader Map<String,String> headers) {
         try {
             String jwt = AuthUtil.getTokenFromHeader(headers);
-            AuthUtil.getUserNameFromToken(jwt);
-            QuestionOwnerDto questionOwnerDto = questionOwnerBl.findOwnerByUserName(userName);
-            ResponseDto<QuestionOwnerDto> responseDto = new ResponseDto<>(questionOwnerDto, "SCTY-0000", null);
+            String userName= AuthUtil.getUserNameFromToken(jwt) ;
+            QuestionOwner questionOwner = questionOwnerBl.findOwnerByUserName(userName);
+            ResponseDto<QuestionOwner> responseDto = new ResponseDto<>(questionOwner, "SCTY-0000", null);
             return new ResponseEntity<>(responseDto, HttpStatus.OK);
         } catch (BarkibuException e) {
             ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
             return new ResponseEntity<>(responseDto, e.getHttpStatus());
         }
     }
-
-
 }

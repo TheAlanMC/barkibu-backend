@@ -77,6 +77,6 @@ public class QuestionOwnerDto {
             return false;
         }
         return true;
-    }
+}
 
 }

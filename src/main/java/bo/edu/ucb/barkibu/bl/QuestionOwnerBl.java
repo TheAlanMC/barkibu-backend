@@ -5,6 +5,7 @@ import bo.edu.ucb.barkibu.dao.UserDao;
 import bo.edu.ucb.barkibu.dto.QuestionOwnerDto;
 
 import bo.edu.ucb.barkibu.dto.VeterinaryDto;
+import bo.edu.ucb.barkibu.entity.PetQuestion;
 import bo.edu.ucb.barkibu.entity.QuestionOwner;
 import bo.edu.ucb.barkibu.entity.User;
 import bo.edu.ucb.barkibu.entity.Veterinary;
@@ -14,13 +15,21 @@ import org.springframework.stereotype.Service;
 @Service
 public class QuestionOwnerBl {
     private QuestionOwnerDao questionOwnerDao;
-    private final UserDao userDao;
 
-    public QuestionOwnerBl(QuestionOwnerDao questionOwnerDao, UserDao userDao) {
+
+    public QuestionOwnerBl(QuestionOwnerDao questionOwnerDao) {
         this.questionOwnerDao = questionOwnerDao;
-        this.userDao = userDao;
     }
-    public QuestionOwnerDto findOwnerByUserName(String userName){
+
+
+    public QuestionOwner findOwnerByUserName(String userName) {
+        QuestionOwner questionOwner = questionOwnerDao.findOwnerQuestionByUserName(userName);
+        if (questionOwner == null) {
+            throw new BarkibuException("SCTY-4005");
+        }
+        return questionOwner;
+    }
+   /* public QuestionOwner findOwnerByUserName(String userName){
         if (userDao.findUserIdByUserName(userName) == null) {
             throw new BarkibuException("SCTY-4000");
         }
@@ -28,13 +37,13 @@ public class QuestionOwnerBl {
         if (questionOwner == null) {
             throw new BarkibuException("SCTY-4004");
         }
-        QuestionOwnerDto questionOwnerDto = new QuestionOwnerDto();
-        questionOwnerDto.setProblem(questionOwner.getProblem());
-        questionOwnerDto.setDetailedDescription(questionOwner.getDetailedDescription());
-        questionOwnerDto.setAnswered(questionOwner.isAnswered());
-        questionOwnerDto.setQuestionDate(questionOwner.getQuestionDate());
+        QuestionOwner questionOwner1 = new QuestionOwner();
+        questionOwner.setQuestionId(questionOwner.getQuestionId());
+        questionOwner.setPhotoPath(questionOwner.getPhotoPath());
+        questionOwner.setProblem(questionOwner.getProblem());
+        questionOwner.setDetailedDescription(questionOwner.getDetailedDescription());
+        questionOwner.setQuestionDate(questionOwner.getQuestionDate());
 
-        return questionOwnerDto;
-    }
-
+        return questionOwner1;
+    }*/
 }
