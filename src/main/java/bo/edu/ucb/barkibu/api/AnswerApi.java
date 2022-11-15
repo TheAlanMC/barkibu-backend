@@ -69,7 +69,7 @@ public class AnswerApi {
         }
     }
 
-    @GetMapping("/{#answerId}/support")
+    @PostMapping("/{answerId}/support")
     public ResponseEntity<ResponseDto<String>> likeAnswer(@RequestHeader Map<String,String> headers ,@PathVariable Integer answerId) {
             try {
                 // Verificamos que el usuario este autenticado
