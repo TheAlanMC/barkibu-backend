@@ -22,7 +22,8 @@ public class UserBl {
         }
         // Verificamos que la contraseña actual sea correcta
         String currentPasswordInBCrypt = userDao.findPasswordByUserName(userName);
-        BCrypt.Result verifyResult = BCrypt.verifyer().verify(updatePasswordDto.getCurrentPassword().toCharArray(), currentPasswordInBCrypt);
+        BCrypt.Result verifyResult = BCrypt.verifyer().verify(updatePasswordDto.getCurrentPassword().toCharArray(),
+                currentPasswordInBCrypt);
         if (!verifyResult.verified) {
             throw new BarkibuException("SCTY-1010");
         }
