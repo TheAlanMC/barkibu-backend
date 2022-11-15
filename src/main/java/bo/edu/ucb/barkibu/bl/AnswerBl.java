@@ -23,6 +23,7 @@ public class AnswerBl {
             throw new BarkibuException("SCTY-4005");
         }
         Integer userId = userDao.findUserIdByUserName(userName);
+        // fixme: si hay mas de una respuesta por un error en la bd se rompe
         if (answerDao.findAnswerIdByQuestionIdAndUserId(answerDto.getQuestionId(), userId) != null) {
             throw new BarkibuException("SCTY-1012");
         }

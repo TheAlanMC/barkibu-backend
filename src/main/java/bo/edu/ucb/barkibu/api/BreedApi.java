@@ -2,7 +2,6 @@ package bo.edu.ucb.barkibu.api;
 
 import bo.edu.ucb.barkibu.bl.BreedBl;
 import bo.edu.ucb.barkibu.dto.BreedDto;
-import bo.edu.ucb.barkibu.dto.CategoryDto;
 import bo.edu.ucb.barkibu.dto.ResponseDto;
 import bo.edu.ucb.barkibu.util.AuthUtil;
 import bo.edu.ucb.barkibu.util.BarkibuException;
@@ -24,7 +23,8 @@ public class BreedApi {
     }
 
     @GetMapping("/{specieId}")
-    public ResponseEntity<ResponseDto> getAnswers(@RequestHeader Map<String,String> headers, @PathVariable Integer specieId) {
+    public ResponseEntity<ResponseDto> getAnswers(@RequestHeader Map<String, String> headers,
+            @PathVariable Integer specieId) {
         try {
             // Verificamos que el usuario este autenticado
             String jwt = AuthUtil.getTokenFromHeader(headers);
