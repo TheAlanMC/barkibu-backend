@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
-import static bo.edu.ucb.barkibu.util.ValidationUtil.isDateAfterToday;
+import static bo.edu.ucb.barkibu.util.ValidationUtil.isTimeAfterNow;
 
 @Service
 public class PetTreatmentBl {
@@ -20,7 +20,7 @@ public class PetTreatmentBl {
 
     public void createPetTreatment(PetTreatmentDto petTreatmentDto) {
         // Verificamos que la fecha de la última vacuna no sea mayor a la fecha actual
-        if (isDateAfterToday(petTreatmentDto.getTreatmentLastDate())) {
+        if (isTimeAfterNow(petTreatmentDto.getTreatmentLastDate())) {
             throw new BarkibuException("SCTY-1008");
         }
         PetTreatment petTreatment = new PetTreatment();

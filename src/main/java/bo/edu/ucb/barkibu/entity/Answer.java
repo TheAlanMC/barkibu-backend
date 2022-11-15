@@ -8,8 +8,6 @@ public class Answer {
     private Integer userId;
     private String answer;
     private String timeStamp;
-    private Integer petOwnerLike;
-    private Integer veterinarianLike;
     private String status;
     private Date txDate;
     private String txUser;
@@ -18,14 +16,12 @@ public class Answer {
     public Answer() {
     }
 
-    public Answer(Integer answerId, Integer questionId, Integer userId, String answer, String timeStamp, Integer petOwnerLike, Integer veterinarianLike, String status, Date txDate, String txUser, String txHost) {
+    public Answer(Integer answerId, Integer questionId, Integer userId, String answer, String timeStamp, String status, Date txDate, String txUser, String txHost) {
         this.answerId = answerId;
         this.questionId = questionId;
         this.userId = userId;
         this.answer = answer;
         this.timeStamp = timeStamp;
-        this.petOwnerLike = petOwnerLike;
-        this.veterinarianLike = veterinarianLike;
         this.status = status;
         this.txDate = txDate;
         this.txUser = txUser;
@@ -72,22 +68,6 @@ public class Answer {
         this.timeStamp = timeStamp;
     }
 
-    public Integer getPetOwnerLike() {
-        return petOwnerLike;
-    }
-
-    public void setPetOwnerLike(Integer petOwnerLike) {
-        this.petOwnerLike = petOwnerLike;
-    }
-
-    public Integer getVeterinarianLike() {
-        return veterinarianLike;
-    }
-
-    public void setVeterinarianLike(Integer veterinarianLike) {
-        this.veterinarianLike = veterinarianLike;
-    }
-
     public String getStatus() {
         return status;
     }
@@ -128,8 +108,6 @@ public class Answer {
                 ", userId=" + userId +
                 ", answer='" + answer + '\'' +
                 ", timeStamp='" + timeStamp + '\'' +
-                ", petOwnerLike=" + petOwnerLike +
-                ", veterinarianLike=" + veterinarianLike +
                 ", status='" + status + '\'' +
                 ", txDate=" + txDate +
                 ", txUser='" + txUser + '\'' +

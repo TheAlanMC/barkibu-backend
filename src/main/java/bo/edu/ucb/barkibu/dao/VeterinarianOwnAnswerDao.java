@@ -11,12 +11,14 @@ public interface VeterinarianOwnAnswerDao {
 
     @Select("""
             SELECT pet.name as pet_name, pet.photo_path, problem as question, answer,
-                sum(pet_owner_like)+sum(veterinarian_like) AS total_likes, question.time_stamp as answer_date
+                   count(user_answer_like_id) AS total_likes, question.time_stamp as answer_date
             FROM answer
             JOIN question ON answer.question_id = question.question_id
             JOIN pet ON question.pet_id = pet.pet_id
             JOIN "user" ON answer.user_id = "user".user_id
-            WHERE "user".user_name = #{userName}
+            LEFT JOIN user_answer_like ON answer.answer_id = user_answer_like.answer_id
+            AND user_answer_like.status = 'activo'
+            WHERE "user".user_name = 'czarate'
             AND answer.status = 'activo'
             AND question.status = 'activo'
             AND pet.status = 'activo'

@@ -4,11 +4,10 @@ import bo.edu.ucb.barkibu.dao.PetDao;
 import bo.edu.ucb.barkibu.dao.UserDao;
 import bo.edu.ucb.barkibu.dto.CreatePetDto;
 import bo.edu.ucb.barkibu.entity.Pet;
-import bo.edu.ucb.barkibu.entity.User;
 import bo.edu.ucb.barkibu.util.BarkibuException;
 import org.springframework.stereotype.Service;
 
-import static bo.edu.ucb.barkibu.util.ValidationUtil.isDateAfterToday;
+import static bo.edu.ucb.barkibu.util.ValidationUtil.isTimeAfterNow;
 
 @Service
 public class PetBl {
@@ -22,7 +21,7 @@ public class PetBl {
 
     public void createPet(String userName, CreatePetDto createPetDto) {
         // Verificamos que la fecha de nacimiento no sea mayor a la fecha actual
-        if (isDateAfterToday(createPetDto.getBornDate())) {
+        if (isTimeAfterNow(createPetDto.getBornDate())) {
             throw new  BarkibuException("SCTY-1008");
         }
         // Crear la mascota

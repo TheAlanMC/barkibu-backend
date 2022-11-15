@@ -11,9 +11,9 @@ public interface AnswerDao {
 
     @Insert("""
             INSERT INTO answer
-            (question_id, user_id, answer, time_stamp, pet_owner_like, veterinarian_like,status, tx_date, tx_user, tx_host)
+            (question_id, user_id, answer, time_stamp, status, tx_date, tx_user, tx_host)
             VALUES
-            (#{questionId}, #{userId}, #{answer}, now(), 0, 0, 'activo', now(), 'anonymus', 'localhost')
+            (#{questionId}, #{userId}, #{answer}, now(), 'activo', now(), 'anonymus', 'localhost')
             """)
     void addAnswer(Answer answer);
 

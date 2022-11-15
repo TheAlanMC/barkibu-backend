@@ -16,6 +16,8 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 
+import static bo.edu.ucb.barkibu.util.ValidationUtil.isTimeBeforeNow;
+
 @Service
 public class SecurityBl {
     private final UserDao userDao;
@@ -35,8 +37,7 @@ public class SecurityBl {
         }
         // Verificamos si el usuario esta bloqueado
         if(userDao.findFailedLoginTimeByUserName(credentials.getUserName()) != null) {
-            Date currentDateTime = new Date();
-            if (currentDateTime.before(userDao.findFailedLoginTimeByUserName(credentials.getUserName()))) {
+            if (!isTimeBeforeNow(userDao.findFailedLoginTimeByUserName(credentials.getUserName()))) {
                 throw new BarkibuException("SCTY-3001");
             }
         }
@@ -49,9 +50,9 @@ public class SecurityBl {
                 userDao.updateFailedLoginAttemptsByUserName(credentials.getUserName(), 1);
             }
             else {
+                // Incrementamos el contador de intentos fallidos
                 userDao.updateFailedLoginAttemptsByUserName(credentials.getUserName(), userDao.findFailedLoginAttemptsByUserName(credentials.getUserName()) + 1);
             }
-            // Incrementamos el contador de intentos fallidos
             // Si la contraseña es incorrecta, verificamos si el usuario tiene 3 intentos fallidos
             if (userDao.findFailedLoginAttemptsByUserName(credentials.getUserName()) == 3) {
                 // Si tiene 3 intentos fallidos, bloqueamos el usuario por 15 minutos

@@ -9,8 +9,13 @@ public class ValidationUtil {
     }
 
     // Verificamos si la fecha es posterior a la fecha actual
-    public static boolean isDateAfterToday(Date date) {
-        Date today = new Date();
-        return date.after(today);
+    public static boolean isTimeAfterNow(Date date) {
+        Date now = new Date();
+        return date.after(now);
+    }
+    // Verificamos si la fecha es anterior a la fecha actual
+    public static boolean isTimeBeforeNow(Date date) {
+        Date now = new Date();
+        return date.before(now);
     }
 }

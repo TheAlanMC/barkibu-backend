@@ -105,5 +105,27 @@ public interface UserDao {
             """)
     void updatePassword(User user);
 
+    @Select("""
+            SELECT "user".user_id, city_id, first_name, last_name, email, user_name, photo_path, description
+            FROM "user"
+            JOIN user_group ON user_group.user_id = "user".user_id
+            WHERE user_group.group_id = 3
+            AND user_name = #{userName}
+            AND "user".status = 'activo'
+            AND user_group.status = 'activo'
+            """)
+    User findVeterinarianByUserName(String userName);
+
+    @Select("""
+            SELECT "user".user_id, city_id, first_name, last_name, email, user_name, photo_path, description
+            FROM "user"
+            JOIN user_group ON user_group.user_id = "user".user_id
+            WHERE user_group.group_id = 2
+            AND user_name = #{userName}
+            AND "user".status = 'activo'
+            AND user_group.status = 'activo'
+            """)
+    User findPetOwnerByUserName(String userName);
+
 }
 
