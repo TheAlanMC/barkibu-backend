@@ -79,7 +79,6 @@ public class QuestionDetailBl {
             throw new BarkibuException("SCTY-4005");
         }
         // Obtener la lista de respuestas del veterinario
-        List<VeterinarianAnswer> veterinarianAnswers = veterinarianAnswerDao.findVeterinarianAnswersByQuestionId(questionId);
-        return veterinarianAnswers;
+        return veterinarianAnswerDao.findVeterinarianAnswersByQuestionId(questionId);
     }
 }

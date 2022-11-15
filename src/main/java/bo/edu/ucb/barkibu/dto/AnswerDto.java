@@ -1,7 +1,5 @@
 package bo.edu.ucb.barkibu.dto;
 
-import java.util.Date;
-
 public class AnswerDto {
     private Integer questionId;
     private String answer;
@@ -9,7 +7,7 @@ public class AnswerDto {
     public AnswerDto() {
     }
 
-    public AnswerDto(Integer questionId, String answer, Date timeStamp) {
+    public AnswerDto(Integer questionId, String answer) {
         this.questionId = questionId;
         this.answer = answer;
     }

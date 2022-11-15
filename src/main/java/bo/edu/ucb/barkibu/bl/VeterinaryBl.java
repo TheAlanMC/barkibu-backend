@@ -3,7 +3,6 @@ package bo.edu.ucb.barkibu.bl;
 import bo.edu.ucb.barkibu.dao.UserDao;
 import bo.edu.ucb.barkibu.dao.VeterinaryDao;
 import bo.edu.ucb.barkibu.dto.VeterinaryDto;
-import bo.edu.ucb.barkibu.entity.User;
 import bo.edu.ucb.barkibu.entity.Veterinary;
 import bo.edu.ucb.barkibu.util.BarkibuException;
 import org.springframework.stereotype.Service;

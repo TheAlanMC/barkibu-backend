@@ -1,6 +1,5 @@
 package bo.edu.ucb.barkibu.service;
 
-import org.apache.ibatis.mapping.Environment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;

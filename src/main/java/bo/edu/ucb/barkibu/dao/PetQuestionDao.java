@@ -10,7 +10,7 @@ import java.util.List;
 @Component
 public interface PetQuestionDao {
     @Select("""
-            SELECT question_id, pet.pet_id, name as pet_name, photo_path, problem, time_stamp as posted_date 
+            SELECT question_id, pet.pet_id, name as pet_name, photo_path, problem, time_stamp as posted_date
             FROM question
             JOIN pet ON question.pet_id = pet.pet_id
             JOIN breed ON pet.breed_id = breed.breed_id
@@ -42,7 +42,7 @@ public interface PetQuestionDao {
     Integer findPetIdByQuestionId(Integer questionId);
 
     @Select("""
-            SELECT symptom.symptom 
+            SELECT symptom.symptom
             FROM symptom_question
             JOIN symptom ON symptom_question.symptom_id = symptom.symptom_id
             WHERE symptom_question.question_id = #{questionId}

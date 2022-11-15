@@ -5,9 +5,9 @@ Accept: application/json
 
 {
   "firstName": "Jose",
-  "lastName": "Alvarez",
-  "email": "jose_alvarez@ucb.edu.bo",
-  "userName": "jose123",
+  "lastName": "Alvarado",
+  "email": "jose_alvarado@ucb.edu.bo",
+  "userName": "jose1234",
   "password": "123456",
   "confirmPassword": "123456"
 }

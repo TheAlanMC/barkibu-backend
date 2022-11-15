@@ -9,7 +9,7 @@ public interface VeterinarianRankingDao {
     // Ranking General de usuario veterinario
     @Select("""
             SELECT rank
-                FROM ( SELECT row_number() OVER (ORDER BY COUNT(user_answer_like_id) DESC NULLS LAST) as rank, 
+                FROM ( SELECT row_number() OVER (ORDER BY COUNT(user_answer_like_id) DESC NULLS LAST) as rank,
                        count(user_answer_like_id) as total_likes,  user_name FROM (
                        SELECT "user".user_id as veterinarian_id, user_name from "user"
                         JOIN user_group ON "user".user_id = user_group.user_id
@@ -32,7 +32,7 @@ public interface VeterinarianRankingDao {
     // Ranking Mensual de usuario veterinario
     @Select("""
             SELECT rank
-                FROM ( SELECT row_number() OVER (ORDER BY COUNT(user_answer_like_id) DESC NULLS LAST) as rank, 
+                FROM ( SELECT row_number() OVER (ORDER BY COUNT(user_answer_like_id) DESC NULLS LAST) as rank,
                        count(user_answer_like_id) as total_likes,  user_name FROM (
                        SELECT "user".user_id as veterinarian_id, user_name from "user"
                         JOIN user_group ON "user".user_id = user_group.user_id

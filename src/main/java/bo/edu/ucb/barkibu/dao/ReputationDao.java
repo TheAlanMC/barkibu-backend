@@ -37,7 +37,7 @@ public interface ReputationDao {
                   AND answer.status = 'activo'
                   AND "user".status = 'activo'
                   AND user_answer_like.status = 'activo'
-                  AND user_group.status = 'activo') AS total_veterinarian_like      
+                  AND user_group.status = 'activo') AS total_veterinarian_like     
             """)
     Reputation findReputationByUserName(String userName);
 }

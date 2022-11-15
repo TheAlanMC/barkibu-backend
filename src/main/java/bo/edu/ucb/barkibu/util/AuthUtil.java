@@ -2,9 +2,7 @@ package bo.edu.ucb.barkibu.util;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import org.springframework.http.HttpStatus;
 
 import java.util.List;
 import java.util.Map;
@@ -29,7 +27,7 @@ public class AuthUtil {
 
     // Obtenemos el token del header
     public static String getTokenFromHeader(Map<String,String> headers) {
-        String jwt ="";
+        String jwt;
         if (headers.get("Authorization") == null && headers.get("authorization") == null) {
             throw new BarkibuException("SCTY-2002");
         }
