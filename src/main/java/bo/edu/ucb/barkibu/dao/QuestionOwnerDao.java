@@ -9,7 +9,7 @@ import java.util.List;
 @Component
 public interface QuestionOwnerDao {
     @Select("""
-            SELECT pet.photo_path, question_id, problem as question, detailed_description, time_stamp
+            SELECT pet.photo_path, question_id, problem, detailed_description, time_stamp as questionDate
             FROM question
             JOIN category ON question.category_id = category.category_id
             JOIN pet ON question.pet_id = pet.pet_id
@@ -19,8 +19,8 @@ public interface QuestionOwnerDao {
             AND category.status = 'activo'
             AND pet.status = 'activo'
             AND "user".status = 'activo'
-            GROUP BY pet.photo_path, question_id, problem, detailed_description, question.time_stamp
-            ORDER BY question.time_stamp DESC;
+            GROUP BY pet.photo_path, question_id, problem, detailed_description, time_stamp
+            ORDER BY time_stamp DESC;
             """)
     QuestionOwner findOwnerQuestionByUserName(String userName);
 }

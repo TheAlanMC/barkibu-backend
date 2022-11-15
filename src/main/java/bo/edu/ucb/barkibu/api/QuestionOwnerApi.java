@@ -17,7 +17,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/v1/api/user/owner/question")
 public class QuestionOwnerApi {
-    private  QuestionOwnerBl questionOwnerBl;
+    private final QuestionOwnerBl questionOwnerBl;
 
     public QuestionOwnerApi(QuestionOwnerBl questionOwnerBl) {
         this.questionOwnerBl = questionOwnerBl;
@@ -27,7 +27,7 @@ public class QuestionOwnerApi {
     public ResponseEntity<ResponseDto> getOwnerByUserName(@RequestHeader Map<String,String> headers) {
         try {
             String jwt = AuthUtil.getTokenFromHeader(headers);
-            String userName= AuthUtil.getUserNameFromToken(jwt) ;
+            String userName= AuthUtil.getUserNameFromToken(jwt);
             QuestionOwner questionOwner = questionOwnerBl.findOwnerByUserName(userName);
             ResponseDto<QuestionOwner> responseDto = new ResponseDto<>(questionOwner, "SCTY-0000", null);
             return new ResponseEntity<>(responseDto, HttpStatus.OK);
