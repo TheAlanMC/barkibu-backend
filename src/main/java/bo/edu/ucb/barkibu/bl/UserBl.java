@@ -3,6 +3,8 @@ package bo.edu.ucb.barkibu.bl;
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import bo.edu.ucb.barkibu.dao.*;
 import bo.edu.ucb.barkibu.dto.*;
+
+
 import bo.edu.ucb.barkibu.entity.*;
 import bo.edu.ucb.barkibu.util.BarkibuException;
 import org.springframework.stereotype.Service;
@@ -42,6 +44,10 @@ public class UserBl {
         user.setPassword(password);
         this.userDao.updatePassword(user);
     }
+
+    public List<String> getGroups(String userName) {
+        return userDao.findGroupsByUserName(userName);
+    }
     public void updateUser(String userName, UpdateUserDto updateUserDto) {
         User user = userDao.findUserByUserName(userName);
         if (user == null) {
@@ -53,8 +59,5 @@ public class UserBl {
         user.setUserName(updateUserDto.getUserName());
 
         this.userDao.updateUser(user);
-    }
-    public List<String> getGroups(String userName) {
-        return userDao.findGroupsByUserName(userName);
     }
 }
