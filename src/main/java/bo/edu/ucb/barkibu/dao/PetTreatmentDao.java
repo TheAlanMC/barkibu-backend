@@ -1,5 +1,8 @@
 package bo.edu.ucb.barkibu.dao;
 
+
+import bo.edu.ucb.barkibu.dto.PetOwnTreatmentListDto;
+import bo.edu.ucb.barkibu.dto.PetTreatmentDto;
 import bo.edu.ucb.barkibu.entity.PetTreatment;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
@@ -18,11 +21,15 @@ public interface PetTreatmentDao {
     void createPetTreatment(PetTreatment petTreatment);
 
     @Select("""
-            SELECT pet_treatment.pet_id, treatment_last_date, treatment_next_date
+            SELECT pet_treatment.pet_treatment_id, pet_treatment.pet_id, treatment_last_date, treatment_next_date
             FROM pet_treatment
             JOIN pet ON pet_treatment.pet_id = pet.pet_id
+            JOIN treatment ON pet_treatment.treatment_id = treatment.treatment_id
             WHERE pet.pet_id = #{petId}
+            AND pet.status = 'activo'
+            AND pet_treatment.status = 'activo'
+            AND treatment.status = 'activo' 
             """)
-    List<PetTreatment> findTreatmentByPetId(Integer petId);
+    List<PetOwnTreatmentListDto> findTreatmentByPetId(Integer petId);
 }
 
