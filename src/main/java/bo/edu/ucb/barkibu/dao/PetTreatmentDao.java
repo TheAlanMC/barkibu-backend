@@ -2,7 +2,10 @@ package bo.edu.ucb.barkibu.dao;
 
 import bo.edu.ucb.barkibu.entity.PetTreatment;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public interface PetTreatmentDao {
@@ -13,4 +16,13 @@ public interface PetTreatmentDao {
             VALUES (#{treatmentId}, #{petId}, #{treatmentLastDate}, #{treatmentNextDate}, 'activo', now(), 'anonymus', 'localhost')
             """)
     void createPetTreatment(PetTreatment petTreatment);
+
+    @Select("""
+            SELECT pet_treatment.pet_id, treatment_last_date, treatment_next_date
+            FROM pet_treatment
+            JOIN pet ON pet_treatment.pet_id = pet.pet_id
+            WHERE pet.pet_id = #{petId}
+            """)
+    List<PetTreatment> findTreatmentByPetId(Integer petId);
 }
+

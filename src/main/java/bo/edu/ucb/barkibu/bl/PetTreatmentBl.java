@@ -3,10 +3,13 @@ package bo.edu.ucb.barkibu.bl;
 import bo.edu.ucb.barkibu.dao.PetTreatmentDao;
 import bo.edu.ucb.barkibu.dto.PetTreatmentDto;
 import bo.edu.ucb.barkibu.entity.PetTreatment;
+import bo.edu.ucb.barkibu.entity.QuestionOwner;
+import bo.edu.ucb.barkibu.entity.VeterinarianAnswer;
 import bo.edu.ucb.barkibu.util.BarkibuException;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 import static bo.edu.ucb.barkibu.util.ValidationUtil.isTimeAfterNow;
 
@@ -30,5 +33,22 @@ public class PetTreatmentBl {
         //TODO: ADD BL FOR NEXT DATE
         petTreatment.setTreatmentNextDate(new Date(petTreatment.getTreatmentLastDate().getTime() + 15768000000L));
         this.petTreatmentDao.createPetTreatment(petTreatment);
+    }
+    /*public List<PetTreatmentDto> findByPetId(Integer petId) {
+        PetTreatmentDto petTreatmentDto = PetTreatmentDao.findTreatmentByPetId(petId);
+        if (petTreatmentDto == null) {
+            throw new BarkibuException("SCTY-4005");
+        }
+        return PetTreatmentDao.findTreatmentByPetId(petId);
+    }
+
+     */
+    public List<PetTreatment> findPetById(Integer petId) {
+        // Verificamos que la mascota exista
+        if(petTreatmentDao.findTreatmentByPetId(petId) == null) {
+            throw new BarkibuException("SCTY-4005");
+        }
+        // Obtener la lista de tratamientos
+        return petTreatmentDao.findTreatmentByPetId(petId);
     }
 }
