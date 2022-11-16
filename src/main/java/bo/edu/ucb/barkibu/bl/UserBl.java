@@ -42,7 +42,18 @@ public class UserBl {
         user.setPassword(password);
         this.userDao.updatePassword(user);
     }
+    public void updateUser(String userName, UpdateUserDto updateUserDto) {
+        User user = userDao.findUserByUserName(userName);
+        if (user == null) {
+            throw new BarkibuException("SCTY-4000");
+        }
+        user.setFirstName(updateUserDto.getFirstName());
+        user.setLastName(updateUserDto.getLastName());
+        user.setEmail(updateUserDto.getEmail());
+        user.setUserName(updateUserDto.getUserName());
 
+        this.userDao.updateUser(user);
+    }
     public List<String> getGroups(String userName) {
         return userDao.findGroupsByUserName(userName);
     }
