@@ -36,4 +36,5 @@ public class QuestionOwnerApi {
             return new ResponseEntity<>(responseDto, e.getHttpStatus());
         }
     }
+
 }
