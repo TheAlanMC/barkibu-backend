@@ -7,6 +7,8 @@ import bo.edu.ucb.barkibu.entity.*;
 import bo.edu.ucb.barkibu.util.BarkibuException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserBl {
     private final UserDao userDao;
@@ -39,5 +41,9 @@ public class UserBl {
         String password = BCrypt.withDefaults().hashToString(12, updatePasswordDto.getNewPassword().toCharArray());
         user.setPassword(password);
         this.userDao.updatePassword(user);
+    }
+
+    public List<String> getGroups(String userName) {
+        return userDao.findGroupsByUserName(userName);
     }
 }

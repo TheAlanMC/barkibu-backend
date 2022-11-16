@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 import static bo.edu.ucb.barkibu.util.HttpMessageUtil.httpMessageUtilMap;
@@ -43,6 +44,21 @@ public class UserApi {
             String statusCode = "SCTY-1001";
             ResponseDto<String> responseDto = new ResponseDto<>(null, statusCode, httpMessageUtilMap.get(statusCode).getMessage());
             return new ResponseEntity<>(responseDto, httpMessageUtilMap.get(statusCode).getHttpStatus());
+        }
+    }
+
+    // Obtiene la lista de grupos de un usuario
+    @GetMapping("/group")
+    public ResponseEntity<ResponseDto> getGroups(@RequestHeader Map<String,String> headers) {
+        try {
+            // Verificamos que el usuario este autenticado
+            String jwt = AuthUtil.getTokenFromHeader(headers);
+            String userName = AuthUtil.getUserNameFromToken(jwt);
+            ResponseDto<List<String>> responseDto = new ResponseDto<>(userBl.getGroups(userName), "SCTY-0000", null);
+            return new ResponseEntity<>(responseDto, HttpStatus.OK);
+        } catch (BarkibuException e) {
+            ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
+            return new ResponseEntity<>(responseDto, e.getHttpStatus());
         }
     }
 
