@@ -138,5 +138,14 @@ public interface UserDao {
             AND "user".status = 'activo';           
             """)
     List<String> findGroupsByUserName(String userName);
+    //Actualiza datos del usuario
+    @Update("""
+            UPDATE "user"
+            SET first_name = #{firstName}, last_name = #{lastName}, email = #{email},
+                user_name = #{userName}
+            WHERE user_id = #{userId}
+            AND status = 'activo'
+            """)
+    void updateUser(User user);
 }
 
