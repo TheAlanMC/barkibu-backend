@@ -64,6 +64,10 @@ public class RecoveryAccountBl {
         if (userDao.findUserIdByEmail(recoveryPasswordReqDto.getEmail()) == null) {
             throw new BarkibuException("SCTY-4000");
         }
+        // Verificamos que haya una solicitud de recuperacion de cuenta activa
+        if (recoveryAccountDao.findRecoveryAccountByUserId(userDao.findUserIdByEmail(recoveryPasswordReqDto.getEmail())) == null) {
+            throw new BarkibuException("SCTY-4012");
+        }
         RecoveryAccount recoveryAccount;
         Integer userId = userDao.findUserIdByEmail(recoveryPasswordReqDto.getEmail());
         recoveryAccount = recoveryAccountDao.findRecoveryAccountByUserId(userId);
@@ -82,6 +86,10 @@ public class RecoveryAccountBl {
         // Verificamos que el email exista
         if (userDao.findUserIdByEmail(recoveryPasswordDto.getEmail()) == null) {
             throw new BarkibuException("SCTY-4000");
+        }
+        // Verificamos que haya una solicitud de recuperacion de cuenta activa
+        if (recoveryAccountDao.findRecoveryAccountByUserId(userDao.findUserIdByEmail(recoveryPasswordDto.getEmail())) == null) {
+            throw new BarkibuException("SCTY-4012");
         }
         RecoveryAccount recoveryAccount;
         Integer userId = userDao.findUserIdByEmail(recoveryPasswordDto.getEmail());
