@@ -5,6 +5,7 @@ import bo.edu.ucb.barkibu.entity.PetInfo;
 import bo.edu.ucb.barkibu.entity.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -30,6 +31,14 @@ public interface PetDao {
             AND status = 'activo'
             """)
     User findPetByPetName(String userName);
-
+    //Actualiza datos de la mascota
+    @Update("""
+            UPDATE pet
+            SET name = #{name}, gender = #{gender}, castrated = #{castrated},
+                born_date = #{born_date}, breed_id = #{breedId}, chip_number = #{chip_number}
+            WHERE pet_id = #{petId}
+            AND status = 'activo'
+            """)
+    void updatePet(Pet pet);
 
 }

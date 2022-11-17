@@ -16,7 +16,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqb3NlMTIzN
 }
 
 
-###
+###Datos de la mascota por ID
 GET http://localhost:7777/v1/api/pet/1
 Content-Type: application/json
 Accept: application/json
