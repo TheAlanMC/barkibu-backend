@@ -4,6 +4,7 @@ import bo.edu.ucb.barkibu.dao.PetTreatmentDao;
 import bo.edu.ucb.barkibu.dto.PetOwnTreatmentListDto;
 import bo.edu.ucb.barkibu.dto.PetTreatmentDto;
 import bo.edu.ucb.barkibu.entity.PetTreatment;
+import bo.edu.ucb.barkibu.entity.PetTreatmentList;
 import bo.edu.ucb.barkibu.util.BarkibuException;
 import org.springframework.stereotype.Service;
 
@@ -42,7 +43,7 @@ public class PetTreatmentBl {
     }
 
      */
-    public List<PetOwnTreatmentListDto> findPetById(Integer petId) {
+    public List<PetTreatmentList> findPetById(Integer petId) {
         // Verificamos que la mascota exista
         if(petTreatmentDao.findTreatmentByPetId(petId) == null) {
             throw new BarkibuException("SCTY-4005");

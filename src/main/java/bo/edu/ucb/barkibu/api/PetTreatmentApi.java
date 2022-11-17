@@ -4,6 +4,7 @@ import bo.edu.ucb.barkibu.bl.PetTreatmentBl;
 import bo.edu.ucb.barkibu.dto.PetOwnTreatmentListDto;
 import bo.edu.ucb.barkibu.dto.PetTreatmentDto;
 import bo.edu.ucb.barkibu.dto.ResponseDto;
+import bo.edu.ucb.barkibu.entity.PetTreatmentList;
 import bo.edu.ucb.barkibu.util.AuthUtil;
 import bo.edu.ucb.barkibu.util.BarkibuException;
 import org.springframework.http.HttpStatus;
@@ -52,8 +53,8 @@ public class PetTreatmentApi {
             // Verificamos que el usuario este autenticado
             String jwt = AuthUtil.getTokenFromHeader(headers);
             AuthUtil.getUserNameFromToken(jwt);
-            List<PetOwnTreatmentListDto> petTreatmentList = petTreatmentBl.findPetById(petId);
-            ResponseDto<List<PetOwnTreatmentListDto>> responseDto = new ResponseDto<>(petTreatmentList, "SCTY-0000", null);
+            List<PetTreatmentList> petTreatmentList = petTreatmentBl.findPetById(petId);
+            ResponseDto<List<PetTreatmentList>> responseDto = new ResponseDto<>(petTreatmentList, "SCTY-0000", null);
             return new ResponseEntity<>(responseDto, HttpStatus.OK);
         } catch (BarkibuException e) {
             ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
