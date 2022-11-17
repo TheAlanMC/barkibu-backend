@@ -5,11 +5,12 @@ import bo.edu.ucb.barkibu.dao.QuestionDao;
 import bo.edu.ucb.barkibu.dao.UserDao;
 import bo.edu.ucb.barkibu.dto.CreateQuestionDto;
 import bo.edu.ucb.barkibu.entity.Question;
+import org.springframework.stereotype.Service;
 
-
+@Service
 public class QuestionBl {
     private QuestionDao questionDao;
-    private UserDao userDao;
+    private final UserDao userDao;
 
     public QuestionBl(QuestionDao questionDao, UserDao userDao) {
         this.questionDao = questionDao;
@@ -19,6 +20,7 @@ public class QuestionBl {
     public void createQuestion(String userName, CreateQuestionDto createQuestionDto) {
         // Crear la consulta
         Question question = new Question();
+        //question.setUserId(userDao.findUserIdByUserName(userName));
         question.setUserId(userDao.findUserIdByUserName(userName));
         question.setCategoryId(createQuestionDto.getCategoryId());
         question.setPetId(createQuestionDto.getPetId());
