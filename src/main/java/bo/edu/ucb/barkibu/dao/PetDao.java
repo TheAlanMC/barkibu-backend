@@ -1,7 +1,10 @@
 package bo.edu.ucb.barkibu.dao;
 
 import bo.edu.ucb.barkibu.entity.Pet;
+import bo.edu.ucb.barkibu.entity.PetInfo;
+import bo.edu.ucb.barkibu.entity.User;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -13,7 +16,20 @@ public interface PetDao {
             VALUES (#{userId}, #{breedId}, #{name}, #{gender}, #{castrated}, #{bornDate}, #{photoPath}, #{chipNumber}, 'activo', now(), 'anonymus', 'localhost')
             """)
     void createPet(Pet pet);
-
+    // Muestra datos de la mascota
+    @Select("""
+            SELECT name,  born_date, chip_number FROM pet
+            WHERE pet_id = #{petId}
+            AND pet.status = 'activo'
+            """)
+    Pet findPetInfoByPetId(Integer petId);
+    @Select("""
+            SELECT user_id, city_id, first_name, last_name, email, user_name, photo_path, description
+            FROM "user"
+            WHERE user_name = #{userName}
+            AND status = 'activo'
+            """)
+    User findPetByPetName(String userName);
 
 
 }
