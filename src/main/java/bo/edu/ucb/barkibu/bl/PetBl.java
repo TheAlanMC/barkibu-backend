@@ -2,13 +2,12 @@ package bo.edu.ucb.barkibu.bl;
 
 import bo.edu.ucb.barkibu.dao.PetDao;
 import bo.edu.ucb.barkibu.dao.UserDao;
-import bo.edu.ucb.barkibu.dto.CreatePetDto;
-import bo.edu.ucb.barkibu.dto.PetDataDto;
-import bo.edu.ucb.barkibu.dto.PetInfoDto;
-import bo.edu.ucb.barkibu.dto.VeterinarianInfoDto;
+import bo.edu.ucb.barkibu.dto.*;
 import bo.edu.ucb.barkibu.entity.*;
 import bo.edu.ucb.barkibu.util.BarkibuException;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 import static bo.edu.ucb.barkibu.util.ValidationUtil.isTimeAfterNow;
 
@@ -52,5 +51,24 @@ public class PetBl {
         petInfoDto.setBorn_date(pet.getBornDate());
         petInfoDto.setChip_number(pet.getChipNumber());
         return petInfoDto;
+    }
+    public List<String> getGroups(String name) {
+        return userDao.findGroupsByUserName(name);
+    }
+    public void updatePet(Integer PetId, UpdatePetDto updatePetDto) {
+
+        System.out.print(PetId);
+        Pet pet = petDao.findPetByPetName(PetId);
+        if (pet == null) {
+            throw new BarkibuException("SCTY-4000");
+        }
+        pet.setName(updatePetDto.getName());
+        pet.setGender(updatePetDto.getGender());
+        pet.setBreedId(updatePetDto.getBreedId());
+        pet.setCastrated(updatePetDto.getCastrated());
+        pet.setBornDate(updatePetDto.getBornDate());
+        pet.setChipNumber(updatePetDto.getChipNumber());
+
+        this.petDao.updatePet(pet);
     }
 }

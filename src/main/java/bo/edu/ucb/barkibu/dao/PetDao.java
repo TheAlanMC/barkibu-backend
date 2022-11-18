@@ -25,18 +25,26 @@ public interface PetDao {
             """)
     Pet findPetInfoByPetId(Integer petId);
     @Select("""
-            SELECT user_id, city_id, first_name, last_name, email, user_name, photo_path, description
-            FROM "user"
-            WHERE user_name = #{userName}
+            SELECT name, breed_id, gender, castrated, born_date, chip_number
+            FROM pet
+            WHERE pet_id = #{PetId}
+            AND pet.status = 'activo'
+            """)
+    Pet findPetByPetName(Integer PetId);
+
+    @Select("""
+            SELECT name, breed_id, gender, castrated, born_date, chip_number
+            FROM pet
+            WHERE name = #{petId}
             AND status = 'activo'
             """)
-    User findPetByPetName(String userName);
+    Pet findPetByPetId(Integer userName);
     //Actualiza datos de la mascota
     @Update("""
             UPDATE pet
             SET name = #{name}, gender = #{gender}, castrated = #{castrated},
-                born_date = #{born_date}, breed_id = #{breedId}, chip_number = #{chip_number}
-            WHERE pet_id = #{petId}
+                born_date = #{bornDate}, breed_id = #{breedId}, chip_number = #{chipNumber}
+            WHERE pet_id = 2
             AND status = 'activo'
             """)
     void updatePet(Pet pet);

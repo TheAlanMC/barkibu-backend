@@ -47,7 +47,7 @@ public class PetApi {
     //Información de la mascota por su ID
     @GetMapping("/{specieId}")
     public ResponseEntity<ResponseDto> getPetInfo(@RequestHeader Map<String, String> headers, @PathVariable Integer specieId) {
-        System.out.print("Unu");
+
         try {
             // Verificamos que el usuario este autenticado
             String jwt = AuthUtil.getTokenFromHeader(headers);
@@ -58,6 +58,30 @@ public class PetApi {
         } catch (BarkibuException e) {
             ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
             return new ResponseEntity<>(responseDto, e.getHttpStatus());
+        }
+    }
+    // Actualiza los datos de una mascota por id
+    @PutMapping("/update/{pet_id}")
+    public ResponseEntity<ResponseDto<String>> updatePet(@RequestHeader Map<String,String> headers, @RequestBody UpdatePetDto updatePetDto,@PathVariable Integer pet_id
+
+                                                        ) {
+        if (updatePetDto.validate()) {
+            try {
+                // Verificamos que el usuario este autenticado
+                String jwt = AuthUtil.getTokenFromHeader(headers);
+                String userName = AuthUtil.getUserNameFromToken(jwt); // REVISAR
+                petBl.updatePet(pet_id, updatePetDto);
+                ResponseDto<String> responseDto = new ResponseDto<>("Pet Updated", "SCTY-0000", null);
+                return new ResponseEntity<>(responseDto, HttpStatus.OK);
+            } catch (BarkibuException e) {
+                ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
+                return new ResponseEntity<>(responseDto, e.getHttpStatus());
+            }
+        }
+        else {
+            String statusCode = "SCTY-1001";
+            ResponseDto<String> responseDto = new ResponseDto<>(null, statusCode, httpMessageUtilMap.get(statusCode).getMessage());
+            return new ResponseEntity<>(responseDto, httpMessageUtilMap.get(statusCode).getHttpStatus());
         }
     }
 

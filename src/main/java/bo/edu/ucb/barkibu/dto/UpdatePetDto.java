@@ -7,16 +7,18 @@ public class UpdatePetDto {
     private String gender;
     private Integer breedId;
     private Boolean castrated;
-    private Date born_date;
-    private String chip_number;
+    private Date bornDate;
+    private String chipNumber;
+    public UpdatePetDto(){
+    }
 
-    public UpdatePetDto(String name, String gender, Integer breedId, Boolean castrated, Date born_date, String chip_number) {
+    public UpdatePetDto(String name, String gender, Integer breedId, Boolean castrated, Date bornDate, String chipNumber) {
         this.name = name;
         this.gender = gender;
         this.breedId = breedId;
         this.castrated = castrated;
-        this.born_date = born_date;
-        this.chip_number = chip_number;
+        this.bornDate = bornDate;
+        this.chipNumber = chipNumber;
     }
 
     public String getName() {
@@ -51,20 +53,20 @@ public class UpdatePetDto {
         this.castrated = castrated;
     }
 
-    public Date getBorn_date() {
-        return born_date;
+    public Date getBornDate() {
+        return bornDate;
     }
 
-    public void setBorn_date(Date born_date) {
-        this.born_date = born_date;
+    public void setBornDate(Date bornDate) {
+        this.bornDate = bornDate;
     }
 
-    public String getChip_number() {
-        return chip_number;
+    public String getChipNumber() {
+        return chipNumber;
     }
 
-    public void setChip_number(String chip_number) {
-        this.chip_number = chip_number;
+    public void setChipNumber(String chipNumber) {
+        this.chipNumber = chipNumber;
     }
 
     @Override
@@ -74,10 +76,12 @@ public class UpdatePetDto {
                 ", gender='" + gender + '\'' +
                 ", breedId=" + breedId +
                 ", castrated=" + castrated +
-                ", born_date=" + born_date +
-                ", chip_number='" + chip_number + '\'' +
+                ", bornDate=" + bornDate +
+                ", chipNumber='" + chipNumber + '\'' +
                 '}';
     }
+
+   //Revisar
     public boolean validate() {
         if (name == null || name.isEmpty()){
             return false;
@@ -85,20 +89,12 @@ public class UpdatePetDto {
         if (gender == null || gender.isEmpty()){
             return false;
         }
-        if (breedId == null ){
-            return false;
-        }
-        if (castrated == null ){
-            return false;
-        }
-        if (born_date == null ){
-            return false;
-        }
-        if (chip_number == null || chip_number.isEmpty()){
+        if (chipNumber == null || chipNumber.isEmpty()){
             return false;
         }
 
         return true;
     }
+
 }
 
