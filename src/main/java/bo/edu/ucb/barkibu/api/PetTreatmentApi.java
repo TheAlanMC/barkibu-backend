@@ -1,10 +1,7 @@
 package bo.edu.ucb.barkibu.api;
 
 import bo.edu.ucb.barkibu.bl.PetTreatmentBl;
-import bo.edu.ucb.barkibu.dto.PetOwnTreatmentListDto;
-import bo.edu.ucb.barkibu.dto.PetTreatmentDto;
-import bo.edu.ucb.barkibu.dto.RecoveryPasswordDto;
-import bo.edu.ucb.barkibu.dto.ResponseDto;
+import bo.edu.ucb.barkibu.dto.*;
 import bo.edu.ucb.barkibu.entity.PetTreatmentList;
 import bo.edu.ucb.barkibu.util.AuthUtil;
 import bo.edu.ucb.barkibu.util.BarkibuException;
@@ -80,4 +77,26 @@ public class PetTreatmentApi {
             return new ResponseEntity<>(responseDto, httpMessageUtilMap.get(statusCode).getHttpStatus());
         }
     }*/
+    @PutMapping()
+    public ResponseEntity<ResponseDto<String>> updatePetTreatment(@RequestHeader Map<String, String> headers, @RequestBody  PetTreatmentDto petTreatmentDto) {
+        if (petTreatmentDto.validate()) {
+            try {
+                // Verificamos que el usuario este autenticado
+                String jwt = AuthUtil.getTokenFromHeader(headers);
+                String username = AuthUtil.getUserNameFromToken(jwt);
+                AuthUtil.verifyHasRole(jwt, "EDITAR TRATAMIENTOS DE LA MASCOTA");
+                petTreatmentBl.updatePetTreatmentDate(petTreatmentDto);
+                ResponseDto<String> responseDto = new ResponseDto<>("Treatment Updated", "SCTY-0000", null);
+                return new ResponseEntity<>(responseDto, HttpStatus.OK);
+            } catch (BarkibuException e) {
+                ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
+                return new ResponseEntity<>(responseDto, e.getHttpStatus());
+            }
+        } else {
+            String statusCode = "SCTY-1001";
+            ResponseDto<String> responseDto = new ResponseDto<>(null, statusCode,
+                    httpMessageUtilMap.get(statusCode).getMessage());
+            return new ResponseEntity<>(responseDto, httpMessageUtilMap.get(statusCode).getHttpStatus());
+        }
+    }
 }

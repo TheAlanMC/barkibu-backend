@@ -37,11 +37,11 @@ public interface PetTreatmentDao {
 
     @Update("""
             UPDATE pet_treatment
-            SET status = treatment_last_date
+            SET treatment_last_date = #{treatmentLastDate}
             WHERE pet_id = #{petId}
             AND treatment_id = #{treatmentId}
             AND status = 'activo'
             """)
-    void updatePetTreatmentDate(PetTreatmentList petTreatmentList);
+    void updatePetTreatmentDate(PetTreatment petTreatment);
 }
 

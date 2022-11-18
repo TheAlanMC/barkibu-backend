@@ -1,8 +1,10 @@
 package bo.edu.ucb.barkibu.bl;
 
 import bo.edu.ucb.barkibu.dao.PetTreatmentDao;
+import bo.edu.ucb.barkibu.dto.AnswerDto;
 import bo.edu.ucb.barkibu.dto.PetOwnTreatmentListDto;
 import bo.edu.ucb.barkibu.dto.PetTreatmentDto;
+import bo.edu.ucb.barkibu.entity.Answer;
 import bo.edu.ucb.barkibu.entity.PetTreatment;
 import bo.edu.ucb.barkibu.entity.PetTreatmentList;
 import bo.edu.ucb.barkibu.util.BarkibuException;
@@ -51,15 +53,20 @@ public class PetTreatmentBl {
         // Obtener la lista de tratamientos
         return petTreatmentDao.findTreatmentByPetId(petId);
     }
-/*
-    public PetTreatmentList updateDate(Integer petId, Integer treatmentId){
-        PetTreatmentList petTreatment = new PetTreatmentList();
-        petTreatment.setPetId(petId);
-        petTreatment.setTreatmentId(treatmentId);
 
-        return petTreatmentDao.updatePetTreatmentDate(petId,treatmentId);
+    public void updatePetTreatmentDate(PetTreatmentDto petTreatmentDto) {
+        if(petTreatmentDto.getPetId() == null) {
+            throw new BarkibuException("SCTY-4005");
+        }
+
+        if (petTreatmentDto.getTreatmentId() == null) {
+            throw new BarkibuException("SCTY-4006");
+        }
+        PetTreatment petTreatment = new PetTreatment();
+        petTreatment.setPetId(petTreatmentDto.getPetId());
+        petTreatment.setTreatmentId(petTreatmentDto.getTreatmentId());
+        petTreatment.setTreatmentLastDate(petTreatmentDto.getTreatmentLastDate());
+        this.petTreatmentDao.updatePetTreatmentDate(petTreatment);
     }
 
-
- */
 }
