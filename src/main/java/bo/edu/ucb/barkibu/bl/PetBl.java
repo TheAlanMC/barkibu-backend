@@ -3,7 +3,10 @@ package bo.edu.ucb.barkibu.bl;
 import bo.edu.ucb.barkibu.dao.PetDao;
 import bo.edu.ucb.barkibu.dao.UserDao;
 import bo.edu.ucb.barkibu.dto.CreatePetDto;
-import bo.edu.ucb.barkibu.entity.Pet;
+import bo.edu.ucb.barkibu.dto.PetDataDto;
+import bo.edu.ucb.barkibu.dto.PetInfoDto;
+import bo.edu.ucb.barkibu.dto.VeterinarianInfoDto;
+import bo.edu.ucb.barkibu.entity.*;
 import bo.edu.ucb.barkibu.util.BarkibuException;
 import org.springframework.stereotype.Service;
 
@@ -36,5 +39,18 @@ public class PetBl {
         String chipNumber = "";
         pet.setChipNumber(chipNumber);
         this.petDao.createPet(pet);
+    }
+
+
+    public PetDataDto findPetInfoByPetId(Integer specieId) {
+        Pet pet = petDao.findPetInfoByPetId(specieId);
+        if (pet == null) {
+            throw new BarkibuException("SCTY-4000");
+        }
+        PetDataDto petInfoDto = new PetDataDto();
+        petInfoDto.setName(pet.getName());
+        petInfoDto.setBorn_date(pet.getBornDate());
+        petInfoDto.setChip_number(pet.getChipNumber());
+        return petInfoDto;
     }
 }

@@ -27,7 +27,7 @@ public interface PetTreatmentDao {
             FROM pet_treatment
             JOIN pet ON pet_treatment.pet_id = pet.pet_id
             JOIN treatment ON pet_treatment.treatment_id = treatment.treatment_id
-            WHERE pet.pet_id = 1
+            WHERE pet.pet_id = #{petId}
             AND pet.status = 'activo'
             AND pet_treatment.status = 'activo'
             AND treatment.status = 'activo'

@@ -24,6 +24,7 @@ public class BreedApi {
 
     @GetMapping("/{specieId}")
     public ResponseEntity<ResponseDto> getAnswers(@RequestHeader Map<String, String> headers,
+
             @PathVariable Integer specieId) {
         try {
             // Verificamos que el usuario este autenticado
