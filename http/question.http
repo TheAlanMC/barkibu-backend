@@ -22,8 +22,8 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhcGFuaXF1Z
 {
   "categoryId": "1",
   "petId": "1",
-  "problem": "Mi perro se comio un hueso",
-  "detailedDescription": "Mi perro vomita y no puede expulsar el hueso",
+  "problem": "Mi perro se cayo de un primer piso",
+  "detailedDescription": "Mi perro no puede caminar bien, le cuesta mover las patas traseras",
   "answered": "false",
   "questionDate": "2022-04-05"
 }

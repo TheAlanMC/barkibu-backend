@@ -22,5 +22,5 @@ public interface QuestionOwnerDao {
             GROUP BY pet.photo_path, question_id, problem, detailed_description, time_stamp
             ORDER BY time_stamp DESC;
             """)
-    QuestionOwner findOwnerQuestionByUserName(String userName);
+    List<QuestionOwner> findOwnerQuestionByUserName(String userName);
 }

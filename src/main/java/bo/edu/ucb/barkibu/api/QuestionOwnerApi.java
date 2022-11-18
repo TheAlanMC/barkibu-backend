@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -28,8 +29,8 @@ public class QuestionOwnerApi {
         try {
             String jwt = AuthUtil.getTokenFromHeader(headers);
             String userName= AuthUtil.getUserNameFromToken(jwt);
-            QuestionOwner questionOwner = questionOwnerBl.findOwnerByUserName(userName);
-            ResponseDto<QuestionOwner> responseDto = new ResponseDto<>(questionOwner, "SCTY-0000", null);
+            List<QuestionOwner> questionOwner = questionOwnerBl.findOwnerByUserName(userName);
+            ResponseDto<List<QuestionOwner>> responseDto = new ResponseDto<>(questionOwner, "SCTY-0000", null);
             return new ResponseEntity<>(responseDto, HttpStatus.OK);
         } catch (BarkibuException e) {
             ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
