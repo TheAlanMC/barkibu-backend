@@ -51,4 +51,15 @@ public class PetTreatmentBl {
         // Obtener la lista de tratamientos
         return petTreatmentDao.findTreatmentByPetId(petId);
     }
+/*
+    public PetTreatmentList updateDate(Integer petId, Integer treatmentId){
+        PetTreatmentList petTreatment = new PetTreatmentList();
+        petTreatment.setPetId(petId);
+        petTreatment.setTreatmentId(treatmentId);
+
+        return petTreatmentDao.updatePetTreatmentDate(petId,treatmentId);
+    }
+
+
+ */
 }

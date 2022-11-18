@@ -50,4 +50,19 @@ public interface PetQuestionDao {
             AND symptom_question.status = 'activo';
             """)
     List<String> findSymptomsByQuestionId(Integer questionId);
+
+
+    @Select("""
+              SELECT question_id, pet.pet_id, name as pet_name, photo_path, problem, time_stamp as posted_date
+                        FROM question
+                        JOIN pet ON question.pet_id = pet.pet_id
+                        JOIN breed ON pet.breed_id = breed.breed_id
+                        WHERE CAST(question.category_id AS TEXT) like '%' || #{categoryId}
+                        AND CAST(breed.specie_id AS TEXT) like '%' || #{specieId}
+                        AND question.problem like  '%' || #{answered} || '%'
+                        AND question.status = 'activo'
+                        AND pet.status = 'activo'
+                        ORDER BY time_stamp DESC;
+            """)
+    List<PetQuestion> findPetQuestionByKeyWord(QuestionVeterinarianFilterDto questionVeterinarianFilterDto);
 }

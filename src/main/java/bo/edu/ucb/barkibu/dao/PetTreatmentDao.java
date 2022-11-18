@@ -42,6 +42,6 @@ public interface PetTreatmentDao {
             AND treatment_id = #{treatmentId}
             AND status = 'activo'
             """)
-    void UpdatePetTratmentDate(Integer userId);
+    void updatePetTreatmentDate(PetTreatmentList petTreatmentList);
 }
 
