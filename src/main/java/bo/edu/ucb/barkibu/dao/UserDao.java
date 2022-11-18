@@ -132,7 +132,7 @@ public interface UserDao {
             SELECT group_name FROM "group"
             JOIN user_group ON "group".group_id = user_group.group_id
             JOIN "user" ON user_group.user_id = "user".user_id
-            WHERE "user".user_name = 'aapaza'
+            WHERE "user".user_name = #{userName}
             AND "group".status = 'activo'
             AND user_group.status = 'activo'
             AND "user".status = 'activo';           
