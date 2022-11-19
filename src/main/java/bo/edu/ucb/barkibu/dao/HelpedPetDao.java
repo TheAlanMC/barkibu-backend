@@ -10,20 +10,17 @@ import java.util.List;
 public interface HelpedPetDao {
 
     @Select("""
-            SELECT count(answer_id) as total_answers, specie FROM answer
-            JOIN question ON answer.question_id = question.question_id
-            JOIN pet ON question.pet_id = pet.pet_id
-            JOIN breed ON pet.breed_id = breed.breed_id
-            JOIN specie ON breed.specie_id = specie.specie_id
-            JOIN "user" ON answer.user_id = "user".user_id
-            WHERE user_name = #{userName}
-            AND answer.status = 'activo'
-            AND question.status = 'activo'
-            AND pet.status = 'activo'
-            AND breed.status = 'activo'
-            AND specie.status = 'activo'
-            AND "user".status = 'activo'
-            GROUP BY specie.specie
+            SELECT count (t1.specie_id) as total_answers, specie
+            FROM  (SELECT specie.specie_id, user_name FROM "user"
+                    JOIN answer ON "user".user_id = answer.user_id
+                    JOIN question ON answer.question_id = question.question_id
+                    JOIN pet ON question.pet_id = pet.pet_id
+                    JOIN breed ON pet.breed_id = breed.breed_id
+                    JOIN specie ON breed.specie_id = specie.specie_id
+                    WHERE user_name = #{userName}
+                    ) as t1
+            RIGHT JOIN specie ON t1.specie_id = specie.specie_id
+            GROUP BY specie
             """)
     List<HelpedPet> findHelpedPetByUserName(String userName);
 }

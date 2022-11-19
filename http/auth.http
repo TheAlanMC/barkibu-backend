@@ -11,7 +11,7 @@ Accept: application/json
 
 {
  "userName":"apanique",
- "password": "123456"
+ "password": "1234567"
 }
 
 ### USUARIO VETERINARIO
@@ -34,12 +34,12 @@ Accept: application/json
  "password": "123456"
 }
 
-### CHRIS
+### veterinario
 POST http://localhost:7777/v1/api/auth
 Content-Type: application/json
 Accept: application/json
 
 {
-  "userName":"aapaza",
-  "password": "pokemon"
+  "userName":"juan1234",
+  "password": "123456"
 }
