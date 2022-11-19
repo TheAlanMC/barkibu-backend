@@ -51,11 +51,12 @@ public class RecoveryAccountBl {
         expirationDate.setTime(expirationDate.getTime() + 86400000);
         recoveryAccount.setExpirationDate(expirationDate);
         // Enviamos el codigo de recuperacion por email
-        EmailService.sendEmail(recoveryAccountCodeReqDto.getEmail(), "Código de recuperación de cuenta", "Su código de recuperación de cuenta es: " + randomCode);
+        EmailService.sendEmail(recoveryAccountCodeReqDto.getEmail(), "Código de recuperación de cuenta",
+                "Su código de recuperación de cuenta es: " + randomCode);
         recoveryAccountDao.createRecoveryAccount(recoveryAccount);
     }
 
-    public void validateCode(RecoveryPasswordReqDto recoveryPasswordReqDto){
+    public void validateCode(RecoveryPasswordReqDto recoveryPasswordReqDto) {
         // Verificamos que el email tenga un formato valido
         if (!isEmailValid(recoveryPasswordReqDto.getEmail())) {
             throw new BarkibuException("SCTY-1004");
@@ -65,18 +66,21 @@ public class RecoveryAccountBl {
             throw new BarkibuException("SCTY-4000");
         }
         // Verificamos que haya una solicitud de recuperacion de cuenta activa
-        if (recoveryAccountDao.findRecoveryAccountByUserId(userDao.findUserIdByEmail(recoveryPasswordReqDto.getEmail())) == null) {
-            throw new BarkibuException("SCTY-4012");
+        if (recoveryAccountDao
+                .findRecoveryAccountByUserId(userDao.findUserIdByEmail(recoveryPasswordReqDto.getEmail())) == null) {
+            throw new BarkibuException("SCTY-4010");
         }
         RecoveryAccount recoveryAccount;
         Integer userId = userDao.findUserIdByEmail(recoveryPasswordReqDto.getEmail());
         recoveryAccount = recoveryAccountDao.findRecoveryAccountByUserId(userId);
         // Verificamos que el codigo sea correcto
-        BCrypt.Result verifyResult = BCrypt.verifyer().verify(recoveryPasswordReqDto.getHashCode().toCharArray(), recoveryAccount.getHashCode());
+        BCrypt.Result verifyResult = BCrypt.verifyer().verify(recoveryPasswordReqDto.getHashCode().toCharArray(),
+                recoveryAccount.getHashCode());
         if (!verifyResult.verified) {
             throw new BarkibuException("SCTY-1005");
         }
     }
+
     public void updatePassword(RecoveryPasswordDto recoveryPasswordDto) {
         User user = new User();
         // Verificamos que el email tenga un formato valido
@@ -88,14 +92,16 @@ public class RecoveryAccountBl {
             throw new BarkibuException("SCTY-4000");
         }
         // Verificamos que haya una solicitud de recuperacion de cuenta activa
-        if (recoveryAccountDao.findRecoveryAccountByUserId(userDao.findUserIdByEmail(recoveryPasswordDto.getEmail())) == null) {
-            throw new BarkibuException("SCTY-4012");
+        if (recoveryAccountDao
+                .findRecoveryAccountByUserId(userDao.findUserIdByEmail(recoveryPasswordDto.getEmail())) == null) {
+            throw new BarkibuException("SCTY-4010");
         }
         RecoveryAccount recoveryAccount;
         Integer userId = userDao.findUserIdByEmail(recoveryPasswordDto.getEmail());
         recoveryAccount = recoveryAccountDao.findRecoveryAccountByUserId(userId);
         // Verificamos que el token sea valido
-        BCrypt.Result verifyResult = BCrypt.verifyer().verify(recoveryPasswordDto.getHashCode().toCharArray(), recoveryAccount.getHashCode());
+        BCrypt.Result verifyResult = BCrypt.verifyer().verify(recoveryPasswordDto.getHashCode().toCharArray(),
+                recoveryAccount.getHashCode());
         if (!verifyResult.verified) {
             throw new BarkibuException("SCTY-1005");
         }
