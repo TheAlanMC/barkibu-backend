@@ -4,15 +4,17 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 public class AuthUtil {
     public final static String JWT_SECRET = "barkibu";
 
-    // Obtenemos el subject del token
+    // Obtenemos el subject del token y verificamos que no haya expirado y que sea valido
     public static String getUserNameFromToken(String jwtToken) {
         try{
+            isTokenExpired(jwtToken);
             String subject = JWT.require(Algorithm.HMAC256(JWT_SECRET))
                     .build()
                     .verify(jwtToken)
@@ -22,19 +24,47 @@ public class AuthUtil {
         catch (JWTVerificationException exception){
             throw new BarkibuException("SCTY-2001");
         }
-
+        catch (BarkibuException exception){
+            throw exception;
+        }
     }
 
+    public static void isTokenExpired(String jwtToken) {
+            boolean isTokenExpired = JWT.require(Algorithm.HMAC256(JWT_SECRET))
+                    .build()
+                    .verify(jwtToken)
+                    .getExpiresAt()
+                    .before(new Date());
+        if (isTokenExpired) {
+            throw new BarkibuException("SCTY-2002");
+        }
+    }
+
+    public static boolean isRefreshToken(String jwtToken) {
+        try{
+            Boolean refresh = JWT.require(Algorithm.HMAC256(JWT_SECRET))
+                    .build()
+                    .verify(jwtToken)
+                    .getClaim("refresh")
+                    .asBoolean();
+            return refresh;
+        }
+        catch (JWTVerificationException exception){
+            throw new BarkibuException("SCTY-2001");
+        }
+    }
+
+
+
     // Obtenemos el token del header
-    public static String getTokenFromHeader(Map<String,String> headers) {
+    public static String getTokenFromHeader(Map<String, String> headers) {
         String jwt;
         if (headers.get("Authorization") == null && headers.get("authorization") == null) {
-            throw new BarkibuException("SCTY-2002");
+            throw new BarkibuException("SCTY-2003");
         }
         if (headers.get("Authorization") != null) {
             jwt = headers.get("Authorization").split(" ")[1];
-        }
-        else {
+        } else {
             jwt = headers.get("authorization").split(" ")[1];
         }
         return jwt;
@@ -42,17 +72,17 @@ public class AuthUtil {
 
     // sVerificamos si el tiene el rol para ejecutar la accion
     public static void verifyHasRole(String jwt, String role) {
-        try{List<String> roles = JWT.require(Algorithm.HMAC256(JWT_SECRET))
-                .build()
-                .verify(jwt)
-                .getClaim("roles")
-                .asList(String.class);
-        if (!roles.contains(role)) {
-            throw new BarkibuException("SCTY-3000");
-        }}
-        catch (JWTVerificationException exception){
+        try {
+            List<String> roles = JWT.require(Algorithm.HMAC256(JWT_SECRET))
+                    .build()
+                    .verify(jwt)
+                    .getClaim("roles")
+                    .asList(String.class);
+            if (!roles.contains(role)) {
+                throw new BarkibuException("SCTY-3000");
+            }
+        } catch (JWTVerificationException exception) {
             throw new BarkibuException("SCTY-2001");
         }
     }
 }
-

@@ -22,6 +22,9 @@ import static bo.edu.ucb.barkibu.util.ValidationUtil.isTimeBeforeNow;
 public class SecurityBl {
     private final UserDao userDao;
     private final RoleDao roleDao;
+//    static Integer expirationTime = 3000000;
+    static Integer expirationTime = 60;
+
 
     public SecurityBl(UserDao userDao, RoleDao roleDao) {
         this.userDao = userDao;
@@ -68,12 +71,20 @@ public class SecurityBl {
         List<String> rolesAsString= roles.stream().map(Role::getRoleName).toList();
         String [] rolesAsArray = rolesAsString.toArray(new String[0]);
         // Creamos el token
-        // FIXME: CHANGE EXPIRATION TIME TO 300
-        Integer expirationTime = 3000000;
         result = generateTokenJwt(credentials.getUserName(),expirationTime, rolesAsArray);
+        return result;
+    }
 
-
-
+    public AuthResDto verifyRefreshToken(String token) {
+        AuthResDto result;
+        if (!AuthUtil.isRefreshToken(token)) {
+            throw new BarkibuException("SCTY-2001");
+        }
+        String userName = AuthUtil.getUserNameFromToken(token);
+        List<Role> roles = roleDao.findRolesByUserName(userName);
+        List<String> rolesAsString= roles.stream().map(Role::getRoleName).toList();
+        String [] rolesAsArray = rolesAsString.toArray(new String[0]);
+        result = generateTokenJwt(userName, expirationTime, rolesAsArray);
         return result;
     }
 

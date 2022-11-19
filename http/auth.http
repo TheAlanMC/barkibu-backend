@@ -43,3 +43,10 @@ Accept: application/json
   "userName":"juan1234",
   "password": "123456"
 }
+
+### Refresh Token
+
+POST http://localhost:7777/v1/api/auth/refresh-token
+Content-Type: application/json
+Accept: application/json
+Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhcGFuaXF1ZSIsImlzcyI6InVjYiIsInJlZnJlc2giOnRydWUsImV4cCI6MTY2ODkwMTY0NywiaWF0IjoxNjY4OTAxNTI3fQ.m1Jndrh857q6tWhLWEnej9bbQ8VxZu9_E-7QrCff0xk

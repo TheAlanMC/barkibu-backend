@@ -62,7 +62,8 @@ public class HttpMessageUtil {
         // Errores de tipo unauthorized (401) -- no autehnticado
         errorHashMap.put("SCTY-2000", new HttpMessageUtil("Invalid credentials", HttpStatus.UNAUTHORIZED));
         errorHashMap.put("SCTY-2001", new HttpMessageUtil("Invalid token", HttpStatus.UNAUTHORIZED));
-        errorHashMap.put("SCTY-2002", new HttpMessageUtil("No token provided", HttpStatus.UNAUTHORIZED));
+        errorHashMap.put("SCTY-2002", new HttpMessageUtil("Expired token", HttpStatus.UNAUTHORIZED));
+        errorHashMap.put("SCTY-2003", new HttpMessageUtil("No token provided", HttpStatus.UNAUTHORIZED));
         // Errores de tipo forbidden (403) -- no autorizado
         errorHashMap.put("SCTY-3000",
                 new HttpMessageUtil("User is not allowed to access this resource", HttpStatus.FORBIDDEN));

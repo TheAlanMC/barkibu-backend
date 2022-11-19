@@ -38,4 +38,16 @@ public class AuthApi {
             return new ResponseEntity<>(responseDto, httpMessageUtilMap.get(statusCode).getHttpStatus());
         }
     }
+
+    // refrescar token
+    @PostMapping("/refresh-token")
+    public ResponseEntity<ResponseDto> refreshToken(@RequestHeader("Authorization") String token) {
+        try {
+            ResponseDto<AuthResDto> responseDto = new ResponseDto<>(securityBl.verifyRefreshToken(token), "SCTY-0000", null);
+            return new ResponseEntity<>(responseDto, HttpStatus.OK);
+        } catch (BarkibuException e) {
+            ResponseDto<AuthResDto> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
+            return new ResponseEntity<>(responseDto, e.getHttpStatus());
+        }
+    }
 }
