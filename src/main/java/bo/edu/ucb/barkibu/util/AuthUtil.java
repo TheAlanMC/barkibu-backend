@@ -3,6 +3,8 @@ package bo.edu.ucb.barkibu.util;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.exceptions.SignatureVerificationException;
+import com.auth0.jwt.exceptions.TokenExpiredException;
 
 import java.util.Date;
 import java.util.List;
@@ -14,29 +16,17 @@ public class AuthUtil {
     // Obtenemos el subject del token y verificamos que no haya expirado y que sea valido
     public static String getUserNameFromToken(String jwtToken) {
         try{
-            isTokenExpired(jwtToken);
             String subject = JWT.require(Algorithm.HMAC256(JWT_SECRET))
                     .build()
                     .verify(jwtToken)
                     .getSubject();
             return subject;
         }
-        catch (JWTVerificationException exception){
-            throw new BarkibuException("SCTY-2001");
-        }
-        catch (BarkibuException exception){
-            throw exception;
-        }
-    }
-
-    public static void isTokenExpired(String jwtToken) {
-            boolean isTokenExpired = JWT.require(Algorithm.HMAC256(JWT_SECRET))
-                    .build()
-                    .verify(jwtToken)
-                    .getExpiresAt()
-                    .before(new Date());
-        if (isTokenExpired) {
+        catch (TokenExpiredException exception){
             throw new BarkibuException("SCTY-2002");
+        }
+        catch (SignatureVerificationException exception){
+            throw new BarkibuException("SCTY-2001");
         }
     }
 
@@ -49,12 +39,13 @@ public class AuthUtil {
                     .asBoolean();
             return refresh;
         }
-        catch (JWTVerificationException exception){
+        catch (TokenExpiredException exception){
+            throw new BarkibuException("SCTY-2002");
+        }
+        catch (SignatureVerificationException exception){
             throw new BarkibuException("SCTY-2001");
         }
     }
-
-
 
     // Obtenemos el token del header
     public static String getTokenFromHeader(Map<String, String> headers) {

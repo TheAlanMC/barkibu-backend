@@ -23,7 +23,7 @@ public class SecurityBl {
     private final UserDao userDao;
     private final RoleDao roleDao;
 //    static Integer expirationTime = 3000000;
-    static Integer expirationTime = 60;
+    static Integer tokenExpirationTime = 60;
 
 
     public SecurityBl(UserDao userDao, RoleDao roleDao) {
@@ -71,7 +71,7 @@ public class SecurityBl {
         List<String> rolesAsString= roles.stream().map(Role::getRoleName).toList();
         String [] rolesAsArray = rolesAsString.toArray(new String[0]);
         // Creamos el token
-        result = generateTokenJwt(credentials.getUserName(),expirationTime, rolesAsArray);
+        result = generateTokenJwt(credentials.getUserName(), tokenExpirationTime, rolesAsArray);
         return result;
     }
 
@@ -80,11 +80,12 @@ public class SecurityBl {
         if (!AuthUtil.isRefreshToken(token)) {
             throw new BarkibuException("SCTY-2001");
         }
+        System.out.println("Token: " + token);
         String userName = AuthUtil.getUserNameFromToken(token);
         List<Role> roles = roleDao.findRolesByUserName(userName);
         List<String> rolesAsString= roles.stream().map(Role::getRoleName).toList();
         String [] rolesAsArray = rolesAsString.toArray(new String[0]);
-        result = generateTokenJwt(userName, expirationTime, rolesAsArray);
+        result = generateTokenJwt(userName, tokenExpirationTime, rolesAsArray);
         return result;
     }
 
