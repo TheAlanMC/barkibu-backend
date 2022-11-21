@@ -22,9 +22,8 @@ import static bo.edu.ucb.barkibu.util.ValidationUtil.isTimeBeforeNow;
 public class SecurityBl {
     private final UserDao userDao;
     private final RoleDao roleDao;
-//    static Integer expirationTime = 3000000;
-    static Integer tokenExpirationTime = 60;
-
+    static Integer tokenExpirationTime = 3000000;
+//    static Integer tokenExpirationTime = 60;
 
     public SecurityBl(UserDao userDao, RoleDao roleDao) {
         this.userDao = userDao;
@@ -49,12 +48,8 @@ public class SecurityBl {
         if (!verifyResult.verified) {
             // Si la contraseña es incorrecta, verificamos si es el primer intento fallido
             if (userDao.findFailedLoginAttemptsByUserName(credentials.getUserName()) == null) {
-                // Si es el primer intento fallido, iniciamos el contador de intentos fallidos
-                userDao.updateFailedLoginAttemptsByUserName(credentials.getUserName(), 1);
-            }
-            else {
-                // Incrementamos el contador de intentos fallidos
-                userDao.updateFailedLoginAttemptsByUserName(credentials.getUserName(), userDao.findFailedLoginAttemptsByUserName(credentials.getUserName()) + 1);
+                // Si es el primer intento fallido, iniciamos el contador de intentos fallidos sino, incrementamos el contador
+                userDao.updateFailedLoginAttemptsByUserName(credentials.getUserName(), (userDao.findFailedLoginAttemptsByUserName(credentials.getUserName()) == null) ? 1 : userDao.findFailedLoginAttemptsByUserName(credentials.getUserName()) + 1);
             }
             // Si la contraseña es incorrecta, verificamos si el usuario tiene 3 intentos fallidos
             if (userDao.findFailedLoginAttemptsByUserName(credentials.getUserName()) == 3) {

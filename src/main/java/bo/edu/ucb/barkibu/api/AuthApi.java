@@ -4,10 +4,13 @@ import bo.edu.ucb.barkibu.bl.SecurityBl;
 import bo.edu.ucb.barkibu.dto.AuthReqDto;
 import bo.edu.ucb.barkibu.dto.AuthResDto;
 import bo.edu.ucb.barkibu.dto.ResponseDto;
+import bo.edu.ucb.barkibu.util.AuthUtil;
 import bo.edu.ucb.barkibu.util.BarkibuException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 import static bo.edu.ucb.barkibu.util.HttpMessageUtil.httpMessageUtilMap;
 
@@ -41,9 +44,10 @@ public class AuthApi {
 
     // refrescar token
     @PostMapping("/refresh-token")
-    public ResponseEntity<ResponseDto> refreshToken(@RequestHeader("Authorization") String token) {
+    public ResponseEntity<ResponseDto> refreshToken(@RequestHeader Map<String, String> headers) {
         try {
-            ResponseDto<AuthResDto> responseDto = new ResponseDto<>(securityBl.verifyRefreshToken(token), "SCTY-0000", null);
+            String jwt = AuthUtil.getTokenFromHeader(headers);
+            ResponseDto<AuthResDto> responseDto = new ResponseDto<>(securityBl.verifyRefreshToken(jwt), "SCTY-0000", null);
             return new ResponseEntity<>(responseDto, HttpStatus.OK);
         } catch (BarkibuException e) {
             ResponseDto<AuthResDto> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());

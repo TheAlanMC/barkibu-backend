@@ -17,16 +17,11 @@ import static bo.edu.ucb.barkibu.util.ValidationUtil.isEmailValid;
 public class UserVeterinarianBl {
     private final UserDao userDao;
     private final UserVeterinarianDao userVeterinarianDao;
-    private final CityDao cityDao;
-    private final StateDao stateDao;
-    private final CountryDao countryDao;
 
-    public UserVeterinarianBl(UserDao userDao, UserVeterinarianDao userVeterinarianDao, CityDao cityDao, StateDao stateDao, CountryDao countryDao) {
+
+    public UserVeterinarianBl(UserDao userDao, UserVeterinarianDao userVeterinarianDao) {
         this.userDao = userDao;
         this.userVeterinarianDao = userVeterinarianDao;
-        this.cityDao = cityDao;
-        this.stateDao = stateDao;
-        this.countryDao = countryDao;
     }
 
     public void createVeterinarianUser(CreateUserDto createUserDto) {
@@ -67,28 +62,7 @@ public class UserVeterinarianBl {
         if (user == null) {
             throw new BarkibuException("SCTY-4000");
         }
-        City city = cityDao.findCityByCityId(user.getCityId());
-        if (city == null) {
-            throw new BarkibuException("SCTY-4001");
-        }
-        State state = stateDao.findStateByStateId(city.getStateId());
-        if (state == null) {
-            throw new BarkibuException("SCTY-4002");
-        }
-        Country country = countryDao.findCountryByCountryId(state.getCountryId());
-        if (country == null) {
-            throw new BarkibuException("SCTY-4003");
-        }
-        VeterinarianUserDto veterinarianUserDto = new VeterinarianUserDto();
-        veterinarianUserDto.setFirstName(user.getFirstName());
-        veterinarianUserDto.setLastName(user.getLastName());
-        veterinarianUserDto.setCityId(city.getCityId());
-        veterinarianUserDto.setStateId(state.getStateId());
-        veterinarianUserDto.setCountryId(country.getCountryId());
-        veterinarianUserDto.setUserName(user.getUserName());
-        veterinarianUserDto.setEmail(user.getEmail());
-        veterinarianUserDto.setDescription(user.getDescription());
-        veterinarianUserDto.setPhotoPath(user.getPhotoPath());
+        VeterinarianUserDto veterinarianUserDto = userDao.findVeterinarianUserByUserName(userName);
         return veterinarianUserDto;
     }
 

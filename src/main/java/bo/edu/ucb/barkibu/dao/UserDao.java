@@ -1,5 +1,6 @@
 package bo.edu.ucb.barkibu.dao;
 
+import bo.edu.ucb.barkibu.dto.VeterinarianUserDto;
 import bo.edu.ucb.barkibu.entity.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
@@ -125,5 +126,19 @@ public interface UserDao {
             AND status = 'activo'
             """)
     void updateUser(User user);
+
+    @Select("""
+            SELECT first_name, last_name, city.city_id, state.state_id, country.country_id, user_name, email, description, photo_path
+            FROM "user"
+            LEFT JOIN city ON "user".city_id = city.city_id
+            AND city.status = 'activo'
+            LEFT JOIN state ON city.state_id = state.state_id
+            AND state.status = 'activo'
+            LEFT JOIN country ON state.country_id = country.country_id
+            AND country.status = 'activo'          
+            WHERE user_name = #{userName}
+            AND "user".status = 'activo'
+            """)
+    VeterinarianUserDto findVeterinarianUserByUserName(String userName);
 }
 
