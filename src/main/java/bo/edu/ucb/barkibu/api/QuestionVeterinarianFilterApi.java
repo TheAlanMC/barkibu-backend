@@ -27,7 +27,7 @@ public class QuestionVeterinarianFilterApi {
     }
 
     @GetMapping()
-    public ResponseEntity<ResponseDto> getVeterinarianQuestion(@RequestHeader Map<String,String> headers, @RequestBody QuestionVeterinarianFilterDto questionVeterinarianFilterDto, @RequestParam(defaultValue= "1") Integer page ,@RequestParam(defaultValue= "10", required = false) Integer pageSize ) {
+    public ResponseEntity<ResponseDto> getVeterinarianQuestion(@RequestHeader Map<String,String> headers, @RequestBody QuestionVeterinarianFilterDto questionVeterinarianFilterDto, @RequestParam(defaultValue= "1") Integer page ,@RequestParam(defaultValue= "10") Integer pageSize ) {
         if(questionVeterinarianFilterDto.validate()) {
             try {
                 // Verificamos que el usuario este autenticado

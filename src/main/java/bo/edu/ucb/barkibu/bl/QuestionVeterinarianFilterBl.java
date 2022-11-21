@@ -34,8 +34,10 @@ public class QuestionVeterinarianFilterBl {
                 throw new BarkibuException("SCTY-4007");
             }
         }
-        return petQuestionDao.findPetQuestionsByVeterinarianFilter(questionVeterinarianFilterDto, pageable);
+        List<PetQuestion> petQuestions = petQuestionDao.findPetQuestionsByVeterinarianFilter(questionVeterinarianFilterDto, pageable);
+        if (petQuestions.isEmpty()) {
+            throw new BarkibuException("SCTY-4005");
+        }
+        return petQuestions;
     }
-
-
 }

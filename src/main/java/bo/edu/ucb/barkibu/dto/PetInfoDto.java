@@ -1,13 +1,14 @@
 package bo.edu.ucb.barkibu.dto;
 
+import java.util.Date;
 import java.util.List;
 
 public class PetInfoDto {
     private String specie;
     private String breed;
     private String gender;
-    private String age;
-    private String castrated;
+    private Date bornDate;
+    private boolean castrated;
     private List<String> symptoms;
 
     public PetInfoDto() {
@@ -37,19 +38,19 @@ public class PetInfoDto {
         this.gender = gender;
     }
 
-    public String getAge() {
-        return age;
+    public Date getBornDate() {
+        return bornDate;
     }
 
-    public void setAge(String age) {
-        this.age = age;
+    public void setBornDate(Date bornDate) {
+        this.bornDate = bornDate;
     }
 
-    public String getCastrated() {
+    public boolean isCastrated() {
         return castrated;
     }
 
-    public void setCastrated(String castrated) {
+    public void setCastrated(boolean castrated) {
         this.castrated = castrated;
     }
 
@@ -67,8 +68,8 @@ public class PetInfoDto {
                 "specie='" + specie + '\'' +
                 ", breed='" + breed + '\'' +
                 ", gender='" + gender + '\'' +
-                ", age='" + age + '\'' +
-                ", castrated='" + castrated + '\'' +
+                ", bornDate=" + bornDate + '\'' +
+                ", castrated=" + castrated + '\'' +
                 ", symptoms=" + symptoms +
                 '}';
     }

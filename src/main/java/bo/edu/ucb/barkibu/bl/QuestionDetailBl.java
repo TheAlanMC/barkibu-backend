@@ -57,18 +57,8 @@ public class QuestionDetailBl {
         petInfoDto.setSpecie(petInfo.getSpecie());
         petInfoDto.setBreed(petInfo.getBreed());
         petInfoDto.setGender(petInfo.getGender());
-        // Condición para la edad de la mascota en meses o años
-        if (period.getYears() < 1) {
-            petInfoDto.setAge(period.getMonths() + " meses");
-        } else {
-            petInfoDto.setAge(period.getYears() + " años");
-        }
-        // Condición ver si la mascota es castrada o no
-        if (petInfo.getCastrated()) {
-            petInfoDto.setCastrated("Sí");
-        } else {
-            petInfoDto.setCastrated("No");
-        }
+        petInfoDto.setBornDate(bornDate);
+        petInfoDto.setCastrated(petInfo.getCastrated());
         petInfoDto.setSymptoms(symptoms);
         return petInfoDto;
     }
