@@ -81,64 +81,76 @@ public interface VeterinarianInfoDao {
                 AND "user".status = 'activo') AS total_answers
             CROSS JOIN
             (SELECT count(user_answer_like_id) AS total_pet_owner_like FROM answer
-                  JOIN "user" ON answer.user_id = "user".user_id
-                  JOIN user_answer_like ON answer.answer_id = user_answer_like.answer_id
-                  JOIN user_group ON user_answer_like.user_id = user_group.user_id
-                  WHERE group_id = 3
-                  AND liked = true
-                  AND user_name = #{userName}
-                  AND answer.status = 'activo'
-                  AND "user".status = 'activo'
-                  AND user_answer_like.status = 'activo'
-                  AND user_group.status = 'activo') AS total_pet_owner_like
-                  ) AS pet_owner_like
+                JOIN "user" u1 ON answer.user_id = u1.user_id
+                JOIN user_answer_like ON answer.answer_id = user_answer_like.answer_id
+                JOIN "user" u2 ON user_answer_like.user_id = u2.user_id
+                JOIN user_group ON u2.user_id = user_group.user_id
+                WHERE user_group.group_id = 2
+                AND u2.user_id NOT IN (SELECT user_id FROM user_group WHERE group_id != 2)
+                AND liked = true
+                AND u1.user_name = #{userName}
+                AND answer.status = 'activo'
+                AND u1.status = 'activo'
+                AND u2.status = 'activo'
+                AND user_answer_like.status = 'activo'
+                AND user_group.status = 'activo') AS total_pet_owner_like
             CROSS JOIN
-            (SELECT count(user_answer_like_id) AS total_veterinarian_like  FROM answer
-                  JOIN "user" ON answer.user_id = "user".user_id
-                  JOIN user_answer_like ON answer.answer_id = user_answer_like.answer_id
-                  JOIN user_group ON user_answer_like.user_id = user_group.user_id
-                  WHERE group_id = 2
-                  AND liked = true
-                  AND user_name = #{userName}
-                  AND answer.status = 'activo'
-                  AND "user".status = 'activo'
-                  AND user_answer_like.status = 'activo'
-                  AND user_group.status = 'activo') AS total_veterinarian_like     
+            (SELECT count(user_answer_like_id) AS total_veterinarian_like FROM answer
+                JOIN "user" u1 ON answer.user_id = u1.user_id
+                JOIN user_answer_like ON answer.answer_id = user_answer_like.answer_id
+                JOIN "user" u2 ON user_answer_like.user_id = u2.user_id
+                JOIN user_group ON u2.user_id = user_group.user_id
+                WHERE user_group.group_id = 3
+                AND liked = true
+                AND u1.user_name = #{userName}
+                AND answer.status = 'activo'
+                AND u1.status = 'activo'
+                AND u2.status = 'activo'
+                AND user_answer_like.status = 'activo'
+                AND user_group.status = 'activo') AS total_veterinarian_like)    
             """)
     Reputation findReputationByUserName(String userName);
 
     @Select("""
             SELECT count (t1.specie_id) as total_answers, specie
-            FROM  (SELECT specie.specie_id, user_name FROM "user"
+            FROM  (SELECT specie.specie_id, user_name 
+                    FROM "user"
                     JOIN answer ON "user".user_id = answer.user_id
                     JOIN question ON answer.question_id = question.question_id
                     JOIN pet ON question.pet_id = pet.pet_id
                     JOIN breed ON pet.breed_id = breed.breed_id
                     JOIN specie ON breed.specie_id = specie.specie_id
                     WHERE user_name = #{userName}
-                    ) as t1
+                    AND answer.status = 'activo'
+                    AND "user".status = 'activo'
+                    AND question.status = 'activo'
+                    AND pet.status = 'activo'
+                    AND breed.status = 'activo'
+                    AND specie.status = 'activo') AS t1
             RIGHT JOIN specie ON t1.specie_id = specie.specie_id
+            AND specie.status = 'activo'
             GROUP BY specie
             """)
     List<HelpedPet> findHelpedPetByUserName(String userName);
 
     @Select("""
-            SELECT pet.name as pet_name, pet.photo_path, problem as question, answer,
-                   count(user_answer_like_id) AS total_likes, question.time_stamp as answer_date
-            FROM answer
-            JOIN question ON answer.question_id = question.question_id
-            JOIN pet ON question.pet_id = pet.pet_id
-            JOIN "user" ON answer.user_id = "user".user_id
-            LEFT JOIN user_answer_like ON answer.answer_id = user_answer_like.answer_id
-            AND user_answer_like.status = 'activo'
-            WHERE "user".user_name = #{userName}
+            SELECT pet_name, photo_path, question, answer, count(user_answer_like_id) AS total_likes, answer_date
+            FROM  (SELECT answer_id, pet.name as pet_name, pet.photo_path, problem as question, answer,question.time_stamp as answer_date
+                    FROM answer
+                    JOIN question ON answer.question_id = question.question_id
+                    JOIN pet ON question.pet_id = pet.pet_id
+                    JOIN "user" ON answer.user_id = "user".user_id
+                    WHERE "user".user_name = #{userName}
+                    AND answer.status = 'activo'
+                    AND question.status = 'activo'
+                    AND pet.status = 'activo'
+                    AND "user".status = 'activo'
+                    ) AS t1
+            LEFT JOIN user_answer_like ON t1.answer_id = user_answer_like.answer_id
             AND liked = true
-            AND answer.status = 'activo'
-            AND question.status = 'activo'
-            AND pet.status = 'activo'
-            AND "user".status = 'activo'
-            GROUP BY pet.name, pet.photo_path, problem, answer, question.time_stamp
-            ORDER BY question.time_stamp DESC;
+            AND user_answer_like.status = 'activo'
+            GROUP BY pet_name, photo_path, question, answer, answer_date
+            ORDER BY answer_date DESC
             """)
     List<VeterinarianOwnAnswer> findVeterinarianAnswersByUserName(String userName);
 

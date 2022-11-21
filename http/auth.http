@@ -40,7 +40,7 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "userName":"juan1234",
+  "userName":"juan123",
   "password": "123456"
 }
 
