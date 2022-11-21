@@ -13,6 +13,7 @@ public interface CategoryDao {
             SELECT category_id, category
             FROM category
             WHERE status = 'activo'
+            ORDER BY category
             """)
     List<CategoryDto> findAll();
 

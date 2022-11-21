@@ -21,11 +21,9 @@ public class BreedApi {
     public BreedApi(BreedBl breedBl) {
         this.breedBl = breedBl;
     }
-
+    //todo: maybe only get all breeds
     @GetMapping("/{specieId}")
-    public ResponseEntity<ResponseDto> getAnswers(@RequestHeader Map<String, String> headers,
-
-            @PathVariable Integer specieId) {
+    public ResponseEntity<ResponseDto> getBreeds(@RequestHeader Map<String, String> headers, @PathVariable Integer specieId) {
         try {
             // Verificamos que el usuario este autenticado
             String jwt = AuthUtil.getTokenFromHeader(headers);

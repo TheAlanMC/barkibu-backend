@@ -13,6 +13,7 @@ public interface CountryDao {
             SELECT country_id, country
             FROM country
             WHERE status = 'activo'
+            ORDER BY country
             """)
     List<CountryDto> findAll();
 }

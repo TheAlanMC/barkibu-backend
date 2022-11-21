@@ -6,6 +6,7 @@ public class QuestionVeterinarianFilterDto {
     private String specieId;
     private String answered;
 
+
     public QuestionVeterinarianFilterDto() {
     }
 

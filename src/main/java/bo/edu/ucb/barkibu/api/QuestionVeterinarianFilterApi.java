@@ -6,6 +6,8 @@ import bo.edu.ucb.barkibu.dto.QuestionVeterinarianFilterDto;
 import bo.edu.ucb.barkibu.entity.PetQuestion;
 import bo.edu.ucb.barkibu.util.AuthUtil;
 import bo.edu.ucb.barkibu.util.BarkibuException;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,13 +27,14 @@ public class QuestionVeterinarianFilterApi {
     }
 
     @GetMapping()
-    public ResponseEntity<ResponseDto> getVeterinarianQuestion(@RequestHeader Map<String,String> headers, @RequestBody QuestionVeterinarianFilterDto questionVeterinarianFilterDto) {
+    public ResponseEntity<ResponseDto> getVeterinarianQuestion(@RequestHeader Map<String,String> headers, @RequestBody QuestionVeterinarianFilterDto questionVeterinarianFilterDto, @RequestParam(defaultValue= "1") Integer page ,@RequestParam(defaultValue= "10", required = false) Integer pageSize ) {
         if(questionVeterinarianFilterDto.validate()) {
             try {
                 // Verificamos que el usuario este autenticado
                 String jwt = AuthUtil.getTokenFromHeader(headers);
                 AuthUtil.getUserNameFromToken(jwt);
-                List<PetQuestion> petQuestions = questionVeterinarianFilterBl.findPetQuestionsByVeterinarianFilter(questionVeterinarianFilterDto);
+                Pageable pageable = PageRequest.of(page - 1, pageSize);
+                List<PetQuestion> petQuestions =questionVeterinarianFilterBl.findPetQuestionsByVeterinarianFilter(questionVeterinarianFilterDto, pageable);
                 ResponseDto<List<PetQuestion>> responseDto = new ResponseDto<>(petQuestions, "SCTY-0000", null);
                 return new ResponseEntity<>(responseDto, HttpStatus.OK);
             } catch (BarkibuException e) {

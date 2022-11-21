@@ -12,6 +12,7 @@ public interface CityDao {
             SELECT city_id, city, state_id
             FROM city
             WHERE status = 'activo'
+            ORDER BY city
             """)
     List<CityDto> findAll();
 }

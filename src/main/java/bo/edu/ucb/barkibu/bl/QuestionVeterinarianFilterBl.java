@@ -6,6 +6,7 @@ import bo.edu.ucb.barkibu.dao.SpecieDao;
 import bo.edu.ucb.barkibu.dto.QuestionVeterinarianFilterDto;
 import bo.edu.ucb.barkibu.entity.PetQuestion;
 import bo.edu.ucb.barkibu.util.BarkibuException;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public class QuestionVeterinarianFilterBl {
         this.specieDao = specieDao;
     }
 
-    public List<PetQuestion> findPetQuestionsByVeterinarianFilter(QuestionVeterinarianFilterDto questionVeterinarianFilterDto) {
+    public List<PetQuestion> findPetQuestionsByVeterinarianFilter(QuestionVeterinarianFilterDto questionVeterinarianFilterDto, Pageable pageable) {
         if (!questionVeterinarianFilterDto.getCategoryId().equals("")) {
             if (categoryDao.findCategoryByCategoryId(Integer.parseInt(questionVeterinarianFilterDto.getCategoryId())) == null) {
                 throw new BarkibuException("SCTY-4006");
@@ -33,6 +34,8 @@ public class QuestionVeterinarianFilterBl {
                 throw new BarkibuException("SCTY-4007");
             }
         }
-        return petQuestionDao.findPetQuestionsByVeterinarianFilter(questionVeterinarianFilterDto);
+        return petQuestionDao.findPetQuestionsByVeterinarianFilter(questionVeterinarianFilterDto, pageable);
     }
+
+
 }
