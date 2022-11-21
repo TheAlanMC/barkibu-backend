@@ -25,7 +25,7 @@ public class CategoryApi {
     }
 
     @GetMapping()
-    public ResponseEntity<ResponseDto> getAnswers(@RequestHeader Map<String,String> headers) {
+    public ResponseEntity<ResponseDto> getCategories(@RequestHeader Map<String,String> headers) {
         try {
             // Verificamos que el usuario este autenticado
             String jwt = AuthUtil.getTokenFromHeader(headers);
