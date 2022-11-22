@@ -140,5 +140,14 @@ public interface UserDao {
             AND "user".status = 'activo'
             """)
     VeterinarianUserDto findVeterinarianUserByUserName(String userName);
+    //Informacion de usuario
+    @Select("""
+            SELECT first_name, last_name, email, user_name
+            FROM "user"
+            WHERE user_name = #{userName}
+            AND status = 'activo'
+            """)
+    User findInfoUserByUserName(String userName);
+
 }
 

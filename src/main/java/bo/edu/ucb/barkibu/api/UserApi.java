@@ -6,6 +6,9 @@ import bo.edu.ucb.barkibu.dto.UpdatePasswordDto;
 
 
 import bo.edu.ucb.barkibu.dto.UpdateUserDto;
+import bo.edu.ucb.barkibu.dto.UserInfoDto;
+
+import bo.edu.ucb.barkibu.dto.VeterinarianInfoDto;
 import bo.edu.ucb.barkibu.util.AuthUtil;
 import bo.edu.ucb.barkibu.util.BarkibuException;
 import org.springframework.http.HttpStatus;
@@ -84,6 +87,19 @@ public class UserApi {
             return new ResponseEntity<>(responseDto, e.getHttpStatus());
         }
     }
-
+    @GetMapping()
+    public ResponseEntity<ResponseDto> getInfoUser(@RequestHeader Map<String,String> headers) {
+        try {
+            // Verificamos que el usuario este autenticado
+            String jwt = AuthUtil.getTokenFromHeader(headers);
+            String userName = AuthUtil.getUserNameFromToken(jwt);
+            UserInfoDto user = userBl.findUserInfoByUserName(userName);
+            ResponseDto<UserInfoDto> responseDto = new ResponseDto<>(user, "SCTY-0000", null);
+            return new ResponseEntity<>(responseDto, HttpStatus.OK);
+        } catch (BarkibuException e) {
+            ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
+            return new ResponseEntity<>(responseDto, e.getHttpStatus());
+        }
+    }
 
 }

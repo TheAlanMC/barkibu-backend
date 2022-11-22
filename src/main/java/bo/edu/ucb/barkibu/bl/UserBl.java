@@ -60,4 +60,17 @@ public class UserBl {
 
         this.userDao.updateUser(user);
     }
+
+    public UserInfoDto findUserInfoByUserName(String userName) {
+        User user = userDao.findInfoUserByUserName(userName);
+        if (user == null) {
+            throw new BarkibuException("SCTY-4000");
+        }
+        UserInfoDto userInfoDto = new UserInfoDto();
+        userInfoDto.setFirstName(user.getFirstName());
+        userInfoDto.setLastName(user.getLastName());
+        userInfoDto.setEmail(user.getEmail());
+        userInfoDto.setUserName(user.getUserName());
+        return userInfoDto;
+    }
 }
