@@ -15,9 +15,9 @@ public interface PetQuestionDao {
             FROM question
             JOIN pet ON question.pet_id = pet.pet_id
             JOIN breed ON pet.breed_id = breed.breed_id
-            WHERE CAST(question.category_id AS TEXT) like '%' || #{questionVeterinarianFilterDto.categoryId}
-            AND CAST(breed.specie_id AS TEXT) like '%' || #{questionVeterinarianFilterDto.specieId}
-            AND CAST(question.answered AS TEXT) like '%' || #{questionVeterinarianFilterDto.answered}
+            WHERE CAST(question.category_id AS TEXT) like '%' || #{questionVeterinarianFilterDto.categoryId} || '%'
+            AND CAST(breed.specie_id AS TEXT) like '%' || #{questionVeterinarianFilterDto.specieId} || '%'
+            AND CAST(question.answered AS TEXT) like '%' || #{questionVeterinarianFilterDto.answered} || '%'
             AND question.status = 'activo'
             AND pet.status = 'activo'
             ORDER BY time_stamp DESC

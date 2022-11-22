@@ -4,7 +4,7 @@ public class VeterinarianAnswer {
     private Integer answerId;
     private Boolean liked;
     private Boolean answered;
-    private String veterinarianName;
+    private String veterinarianFirstName;
     private String veterinarianLastName;
     private String answer;
     private Integer totalLikes;
@@ -13,11 +13,11 @@ public class VeterinarianAnswer {
     public VeterinarianAnswer() {
     }
 
-    public VeterinarianAnswer(Integer answerId, Boolean liked, Boolean answered, String veterinarianName, String veterinarianLastName, String answer, Integer totalLikes, String answerDate) {
+    public VeterinarianAnswer(Integer answerId, Boolean liked, Boolean answered, String veterinarianFirstName, String veterinarianLastName, String answer, Integer totalLikes, String answerDate) {
         this.answerId = answerId;
         this.liked = liked;
         this.answered = answered;
-        this.veterinarianName = veterinarianName;
+        this.veterinarianFirstName = veterinarianFirstName;
         this.veterinarianLastName = veterinarianLastName;
         this.answer = answer;
         this.totalLikes = totalLikes;
@@ -48,12 +48,12 @@ public class VeterinarianAnswer {
         this.answered = answered;
     }
 
-    public String getVeterinarianName() {
-        return veterinarianName;
+    public String getVeterinarianFirstName() {
+        return veterinarianFirstName;
     }
 
-    public void setVeterinarianName(String veterinarianName) {
-        this.veterinarianName = veterinarianName;
+    public void setVeterinarianFirstName(String veterinarianFirstName) {
+        this.veterinarianFirstName = veterinarianFirstName;
     }
 
     public String getVeterinarianLastName() {
@@ -94,7 +94,7 @@ public class VeterinarianAnswer {
                 "answerId=" + answerId +
                 ", liked=" + liked +
                 ", answered=" + answered +
-                ", veterinarianName='" + veterinarianName + '\'' +
+                ", veterinarianFirstName='" + veterinarianFirstName + '\'' +
                 ", veterinarianLastName='" + veterinarianLastName + '\'' +
                 ", answer='" + answer + '\'' +
                 ", totalLikes=" + totalLikes +

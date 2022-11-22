@@ -12,16 +12,16 @@ public interface VeterinarianAnswerDao {
             SELECT answer.answer_id,
                 CASE WHEN c.answer_id IS NULL THEN false ELSE true END AS liked,
                 CASE WHEN d.user_id IS NULL THEN false ELSE true END AS answered,
-                a.first_name as veterinarian_name, a.last_name as veterinarian_last_name,
+                a.first_name as veterinarian_first_name, a.last_name as veterinarian_last_name,
                 answer.answer, count(b.user_answer_like_id) as total_likes, answer.time_stamp as answer_date
             FROM answer
             JOIN "user" a ON answer.user_id = a.user_id
             LEFT JOIN user_answer_like b ON answer.answer_id = b.answer_id
             LEFT JOIN user_answer_like c ON answer.answer_id = c.answer_id
-            AND  c.user_id = (SELECT user_id FROM "user" WHERE user_name = 'apanique')
+            AND  c.user_id = (SELECT user_id FROM "user" WHERE user_name = #{userName})
             LEFT JOIN answer d ON answer.answer_id = d.answer_id
-            AND d.user_id = (SELECT user_id FROM "user" WHERE user_name = 'apanique')
-            WHERE answer.question_id = 1
+            AND d.user_id = (SELECT user_id FROM "user" WHERE user_name = #{userName})
+            WHERE answer.question_id = #{questionId}
             GROUP BY answer.answer_id, c.answer_id, d.user_id, a.first_name, a.last_name, answer.answer, answer.time_stamp
             ORDER BY total_likes DESC, answer_date DESC;
             """)
