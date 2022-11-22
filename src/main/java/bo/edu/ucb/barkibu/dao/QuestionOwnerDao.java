@@ -20,7 +20,7 @@ public interface QuestionOwnerDao {
             AND pet.status = 'activo'
             AND "user".status = 'activo'
             GROUP BY pet.photo_path, question_id, problem, detailed_description, time_stamp
-            ORDER BY time_stamp DESC;
+            ORDER BY time_stamp DESC
             """)
     List<QuestionOwner> findOwnerQuestionByUserName(String userName);
 }

@@ -2,6 +2,8 @@ package bo.edu.ucb.barkibu.entity;
 
 public class VeterinarianAnswer {
     private Integer answerId;
+    private Boolean liked;
+    private Boolean answered;
     private String veterinarianName;
     private String veterinarianLastName;
     private String answer;
@@ -11,8 +13,10 @@ public class VeterinarianAnswer {
     public VeterinarianAnswer() {
     }
 
-    public VeterinarianAnswer(Integer answerId, String veterinarianName, String veterinarianLastName, String answer, Integer totalLikes, String answerDate) {
+    public VeterinarianAnswer(Integer answerId, Boolean liked, Boolean answered, String veterinarianName, String veterinarianLastName, String answer, Integer totalLikes, String answerDate) {
         this.answerId = answerId;
+        this.liked = liked;
+        this.answered = answered;
         this.veterinarianName = veterinarianName;
         this.veterinarianLastName = veterinarianLastName;
         this.answer = answer;
@@ -26,6 +30,22 @@ public class VeterinarianAnswer {
 
     public void setAnswerId(Integer answerId) {
         this.answerId = answerId;
+    }
+
+    public Boolean getLiked() {
+        return liked;
+    }
+
+    public void setLiked(Boolean liked) {
+        this.liked = liked;
+    }
+
+    public Boolean getAnswered() {
+        return answered;
+    }
+
+    public void setAnswered(Boolean answered) {
+        this.answered = answered;
     }
 
     public String getVeterinarianName() {
@@ -48,16 +68,16 @@ public class VeterinarianAnswer {
         return answer;
     }
 
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
+
     public Integer getTotalLikes() {
         return totalLikes;
     }
 
     public void setTotalLikes(Integer totalLikes) {
         this.totalLikes = totalLikes;
-    }
-
-    public void setAnswer(String answer) {
-        this.answer = answer;
     }
 
     public String getAnswerDate() {
@@ -72,6 +92,8 @@ public class VeterinarianAnswer {
     public String toString() {
         return "VeterinarianAnswer{" +
                 "answerId=" + answerId +
+                ", liked=" + liked +
+                ", answered=" + answered +
                 ", veterinarianName='" + veterinarianName + '\'' +
                 ", veterinarianLastName='" + veterinarianLastName + '\'' +
                 ", answer='" + answer + '\'' +

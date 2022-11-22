@@ -26,15 +26,18 @@ public class QuestionVeterinarianFilterApi {
         this.questionVeterinarianFilterBl = questionVeterinarianFilterBl;
     }
 
-    @GetMapping()
-    public ResponseEntity<ResponseDto> getVeterinarianQuestion(@RequestHeader Map<String,String> headers, @RequestBody QuestionVeterinarianFilterDto questionVeterinarianFilterDto, @RequestParam(defaultValue= "1") Integer page ,@RequestParam(defaultValue= "10") Integer pageSize ) {
-        if(questionVeterinarianFilterDto.validate()) {
+    @PostMapping()
+    public ResponseEntity<ResponseDto> getVeterinarianQuestion(@RequestHeader Map<String, String> headers,
+            @RequestBody QuestionVeterinarianFilterDto questionVeterinarianFilterDto,
+            @RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer pageSize) {
+        if (questionVeterinarianFilterDto.validate()) {
             try {
                 // Verificamos que el usuario este autenticado
                 String jwt = AuthUtil.getTokenFromHeader(headers);
                 AuthUtil.getUserNameFromToken(jwt);
                 Pageable pageable = PageRequest.of(page - 1, pageSize);
-                List<PetQuestion> petQuestions =questionVeterinarianFilterBl.findPetQuestionsByVeterinarianFilter(questionVeterinarianFilterDto, pageable);
+                List<PetQuestion> petQuestions = questionVeterinarianFilterBl
+                        .findPetQuestionsByVeterinarianFilter(questionVeterinarianFilterDto, pageable);
                 ResponseDto<List<PetQuestion>> responseDto = new ResponseDto<>(petQuestions, "SCTY-0000", null);
                 return new ResponseEntity<>(responseDto, HttpStatus.OK);
             } catch (BarkibuException e) {
@@ -43,7 +46,8 @@ public class QuestionVeterinarianFilterApi {
             }
         } else {
             String statusCode = "SCTY-1001";
-            ResponseDto<String> responseDto = new ResponseDto<>(null, statusCode, httpMessageUtilMap.get(statusCode).getMessage());
+            ResponseDto<String> responseDto = new ResponseDto<>(null, statusCode,
+                    httpMessageUtilMap.get(statusCode).getMessage());
             return new ResponseEntity<>(responseDto, httpMessageUtilMap.get(statusCode).getHttpStatus());
         }
     }

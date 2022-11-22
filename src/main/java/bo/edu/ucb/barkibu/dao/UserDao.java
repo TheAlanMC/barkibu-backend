@@ -114,8 +114,8 @@ public interface UserDao {
             WHERE "user".user_name = #{userName}
             AND "group".status = 'activo'
             AND user_group.status = 'activo'
-            AND "user".status = 'activo';           
-            """)
+            AND "user".status = 'activo'
+           """)
     List<String> findGroupsByUserName(String userName);
     //Actualiza datos del usuario
     @Update("""
@@ -135,7 +135,7 @@ public interface UserDao {
             LEFT JOIN state ON city.state_id = state.state_id
             AND state.status = 'activo'
             LEFT JOIN country ON state.country_id = country.country_id
-            AND country.status = 'activo'          
+            AND country.status = 'activo'
             WHERE user_name = #{userName}
             AND "user".status = 'activo'
             """)

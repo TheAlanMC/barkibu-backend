@@ -9,17 +9,21 @@ import java.util.List;
 @Component
 public interface VeterinarianAnswerDao {
     @Select("""
-            SELECT answer.answer_id, first_name as veterinarian_name, last_name as veterinarian_last_name, answer, count(user_answer_like_id) as total_likes, time_stamp as answer_date
+            SELECT answer.answer_id,
+                CASE WHEN c.answer_id IS NULL THEN false ELSE true END AS liked,
+                CASE WHEN d.user_id IS NULL THEN false ELSE true END AS answered,
+                a.first_name as veterinarian_name, a.last_name as veterinarian_last_name,
+                answer.answer, count(b.user_answer_like_id) as total_likes, answer.time_stamp as answer_date
             FROM answer
-            JOIN "user" ON answer.user_id = "user".user_id
-            LEFT JOIN user_answer_like ON answer.answer_id = user_answer_like.answer_id
-            AND user_answer_like.status = 'activo'
-            WHERE question_id = #{questionId}
-            AND liked = true
-            AND answer.status = 'activo'
-            AND "user".status = 'activo'
-            GROUP BY answer.answer_id, first_name, last_name, answer, time_stamp
-            ORDER BY total_likes DESC;
+            JOIN "user" a ON answer.user_id = a.user_id
+            LEFT JOIN user_answer_like b ON answer.answer_id = b.answer_id
+            LEFT JOIN user_answer_like c ON answer.answer_id = c.answer_id
+            AND  c.user_id = (SELECT user_id FROM "user" WHERE user_name = 'apanique')
+            LEFT JOIN answer d ON answer.answer_id = d.answer_id
+            AND d.user_id = (SELECT user_id FROM "user" WHERE user_name = 'apanique')
+            WHERE answer.question_id = 1
+            GROUP BY answer.answer_id, c.answer_id, d.user_id, a.first_name, a.last_name, answer.answer, answer.time_stamp
+            ORDER BY total_likes DESC, answer_date DESC;
             """)
-    List<VeterinarianAnswer> findVeterinarianAnswersByQuestionId(Integer questionId);
+    List<VeterinarianAnswer> findVeterinarianAnswersByQuestionIdAndUserName(Integer questionId, String userName);
 }

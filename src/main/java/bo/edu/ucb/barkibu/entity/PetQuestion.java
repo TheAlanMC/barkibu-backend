@@ -7,16 +7,18 @@ public class PetQuestion{
     private String petName;
     private String photoPath;
     private String problem;
+    private String description;
     private Date postedDate;
 
     public PetQuestion() {
     }
 
-    public PetQuestion(Integer questionId, String petName, String photoPath, String problem, Date postedDate) {
+    public PetQuestion(Integer questionId, String petName, String photoPath, String problem, String description,Date postedDate) {
         this.questionId = questionId;
         this.petName = petName;
         this.photoPath = photoPath;
         this.problem = problem;
+        this.description = description;
         this.postedDate = postedDate;
     }
 
@@ -52,6 +54,14 @@ public class PetQuestion{
         this.problem = problem;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public Date getPostedDate() {
         return postedDate;
     }
@@ -63,10 +73,11 @@ public class PetQuestion{
     @Override
     public String toString() {
         return "PetQuestion{" +
-                "questionId=" + questionId +
+                "questionId=" + questionId + '\'' +
                 ", petName='" + petName + '\'' +
                 ", photoPath='" + photoPath + '\'' +
                 ", problem='" + problem + '\'' +
+                ", description='" + description + '\'' +
                 ", postedDate=" + postedDate +
                 '}';
     }

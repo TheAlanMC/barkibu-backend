@@ -31,7 +31,7 @@ public interface AnswerDao {
             FROM answer
             WHERE question_id = #{questionId}
             AND user_id = #{userId}
-            AND status='activo';
+            AND status='activo'
             """)
     Integer findAnswerIdByQuestionIdAndUserId(Integer questionId, Integer userId);
 
@@ -39,7 +39,7 @@ public interface AnswerDao {
             SELECT answer_id
             FROM answer
             WHERE answer_id = #{answerId}
-            AND status='activo';
+            AND status='activo'
             """)
     Integer findAnswerIdByAnswerId(Integer answerId);
 
@@ -49,7 +49,7 @@ public interface AnswerDao {
             WHERE answer_id = #{answerId}
             AND user_id = #{userId}
             AND liked = true
-            AND status='activo';
+            AND status='activo'
             """)
     Integer findUserAnswerLikeIdByAnswerIdAndUserId(Integer answerId, Integer userId);
 

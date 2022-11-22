@@ -14,20 +14,20 @@ public interface VeterinaryDao {
             JOIN "user" ON veterinary.user_id = "user".user_id
             WHERE user_name = #{userName}
             AND veterinary.status = 'activo'
-            AND "user".status = 'activo';
+            AND "user".status = 'activo'
             """)
     Veterinary findVeterinaryByUserName(String userName);
 
     @Insert("""
             INSERT INTO veterinary (user_id, name, address, latitude, longitude, description, status, tx_date, tx_user, tx_host)
-            VALUES (#{userId}, #{name}, #{address}, #{latitude}, #{longitude}, #{description}, 'activo', now(), 'anonymous', 'localhost');
+            VALUES (#{userId}, #{name}, #{address}, #{latitude}, #{longitude}, #{description}, 'activo', now(), 'anonymous', 'localhost')
             """)
     void createVeterinary(Veterinary veterinary);
 
     @Update("""
             UPDATE veterinary
             SET name = #{name}, address = #{address}, latitude = #{latitude}, longitude = #{longitude}, description = #{description}
-            WHERE user_id = #{userId};
+            WHERE user_id = #{userId}
             """)
     void updateVeterinary(Veterinary veterinary);
 

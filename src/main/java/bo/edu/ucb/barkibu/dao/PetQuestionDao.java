@@ -11,7 +11,7 @@ import java.util.List;
 @Component
 public interface PetQuestionDao {
     @Select("""
-            SELECT question_id, pet.pet_id, name as pet_name, photo_path, problem, time_stamp as posted_date
+            SELECT question_id, pet.pet_id, name as pet_name, photo_path, problem, detailed_description as description, time_stamp as posted_date
             FROM question
             JOIN pet ON question.pet_id = pet.pet_id
             JOIN breed ON pet.breed_id = breed.breed_id
@@ -27,7 +27,7 @@ public interface PetQuestionDao {
     List<PetQuestion> findPetQuestionsByVeterinarianFilter(QuestionVeterinarianFilterDto questionVeterinarianFilterDto, Pageable pageable);
 
     @Select("""
-            SELECT question_id, name as pet_name, photo_path, problem, time_stamp as posted_date
+            SELECT question_id, name as pet_name, photo_path, problem, detailed_description as description, time_stamp as posted_date
             FROM question
             JOIN pet ON question.pet_id = pet.pet_id
             WHERE question.question_id = #{questionId}
@@ -56,7 +56,7 @@ public interface PetQuestionDao {
 
 
     @Select("""
-              SELECT question_id, pet.pet_id, name as pet_name, photo_path, problem, time_stamp as posted_date
+              SELECT question_id, pet.pet_id, name as pet_name, photo_path, problem, detailed_description as description, time_stamp as posted_date
                         FROM question
                         JOIN pet ON question.pet_id = pet.pet_id
                         JOIN breed ON pet.breed_id = breed.breed_id

@@ -36,7 +36,7 @@ public class QuestionVeterinarianFilterBl {
         }
         List<PetQuestion> petQuestions = petQuestionDao.findPetQuestionsByVeterinarianFilter(questionVeterinarianFilterDto, pageable);
         if (petQuestions.isEmpty()) {
-            throw new BarkibuException("SCTY-4005");
+            throw new BarkibuException("SCTY-4011");
         }
         return petQuestions;
     }

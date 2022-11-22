@@ -14,7 +14,7 @@ public interface PetInfoDao {
             WHERE pet.pet_id = #{petId}
             AND pet.status = 'activo'
             AND breed.status = 'activo'
-            AND specie.status = 'activo';
+            AND specie.status = 'activo'
             """)
     PetInfo findPetInfoByPetId(Integer petId);
 }

@@ -58,8 +58,8 @@ public class QuestionDetailApi {
         try {
             // Verificamos que el usuario este autenticado
             String jwt = AuthUtil.getTokenFromHeader(headers);
-            AuthUtil.getUserNameFromToken(jwt);
-            List<VeterinarianAnswer> veterinarianAnswers = questionDetailBl.findVeterinarianAnswersByQuestionId(questionId);
+            String userName = AuthUtil.getUserNameFromToken(jwt);
+            List<VeterinarianAnswer> veterinarianAnswers = questionDetailBl.findVeterinarianAnswersByQuestionId(questionId,userName);
             ResponseDto<List<VeterinarianAnswer>> responseDto = new ResponseDto<>(veterinarianAnswers, "SCTY-0000", null);
             return new ResponseEntity<>(responseDto, HttpStatus.OK);
         } catch (BarkibuException e) {

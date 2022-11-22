@@ -1,6 +1,5 @@
 package bo.edu.ucb.barkibu.api;
 
-
 import bo.edu.ucb.barkibu.bl.QuestionOwnerFilterBl;
 import bo.edu.ucb.barkibu.bl.QuestionVeterinarianFilterBl;
 import bo.edu.ucb.barkibu.dto.QuestionVeterinarianFilterDto;
@@ -26,14 +25,17 @@ public class QuestionOwnerFilterApi {
         this.questionOwnerFilterBl = questionOwnerFilterBl;
     }
 
+    // TODO: REMOVE BODY FROM GET REQUEST
     @GetMapping()
-    public ResponseEntity<ResponseDto> getVeterinarianQuestion(@RequestHeader Map<String,String> headers, @RequestBody QuestionVeterinarianFilterDto questionVeterinarianFilterDto) {
-        if(questionVeterinarianFilterDto.validate()) {
+    public ResponseEntity<ResponseDto> getVeterinarianQuestion(@RequestHeader Map<String, String> headers,
+            @RequestBody QuestionVeterinarianFilterDto questionVeterinarianFilterDto) {
+        if (questionVeterinarianFilterDto.validate()) {
             try {
                 // Verificamos que el usuario este autenticado
                 String jwt = AuthUtil.getTokenFromHeader(headers);
                 AuthUtil.getUserNameFromToken(jwt);
-                List<PetQuestion> petQuestions = questionOwnerFilterBl.findPetQuestionByKeyWord(questionVeterinarianFilterDto);
+                List<PetQuestion> petQuestions = questionOwnerFilterBl
+                        .findPetQuestionByKeyWord(questionVeterinarianFilterDto);
                 ResponseDto<List<PetQuestion>> responseDto = new ResponseDto<>(petQuestions, "SCTY-0000", null);
                 return new ResponseEntity<>(responseDto, HttpStatus.OK);
             } catch (BarkibuException e) {
@@ -42,7 +44,8 @@ public class QuestionOwnerFilterApi {
             }
         } else {
             String statusCode = "SCTY-1001";
-            ResponseDto<String> responseDto = new ResponseDto<>(null, statusCode, httpMessageUtilMap.get(statusCode).getMessage());
+            ResponseDto<String> responseDto = new ResponseDto<>(null, statusCode,
+                    httpMessageUtilMap.get(statusCode).getMessage());
             return new ResponseEntity<>(responseDto, httpMessageUtilMap.get(statusCode).getHttpStatus());
         }
     }
