@@ -3,6 +3,7 @@ package bo.edu.ucb.barkibu.entity;
 import java.util.Date;
 
 public class PetInfo {
+    private Integer petId;
     private String name;
     private String specie;
     private String breed;
@@ -13,13 +14,22 @@ public class PetInfo {
     public PetInfo(){
     }
 
-    public PetInfo(String name, String specie, String breed, String photoPath, Date born_date, String chip_number) {
+    public PetInfo(Integer petId, String name, String specie, String breed, String photoPath, Date born_date, String chip_number) {
+        this.petId = petId;
         this.name = name;
         this.specie = specie;
         this.breed = breed;
         this.photoPath = photoPath;
         this.born_date = born_date;
         this.chip_number = chip_number;
+    }
+
+    public Integer getPetId() {
+        return petId;
+    }
+
+    public void setPetId(Integer petId) {
+        this.petId = petId;
     }
 
     public String getName() {

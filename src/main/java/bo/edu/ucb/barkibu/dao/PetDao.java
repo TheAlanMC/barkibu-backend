@@ -1,6 +1,7 @@
 package bo.edu.ucb.barkibu.dao;
 
 import bo.edu.ucb.barkibu.entity.Pet;
+import bo.edu.ucb.barkibu.entity.PetInfo;
 import bo.edu.ucb.barkibu.entity.PetInfoId;
 import bo.edu.ucb.barkibu.entity.QuestionOwner;
 import org.apache.ibatis.annotations.Insert;
@@ -20,12 +21,7 @@ public interface PetDao {
             """)
     void createPet(Pet pet);
     // Muestra datos de la mascota
-    @Select("""
-            SELECT name,  born_date, chip_number FROM pet
-            WHERE pet_id = #{petId}
-            AND pet.status = 'activo'
-            """)
-    Pet findPetInfoByPetId(Integer petId);
+
     @Select("""
             SELECT name, breed_id, gender, castrated, born_date, chip_number
             FROM pet
@@ -53,7 +49,7 @@ public interface PetDao {
     //Información de la mascota por id
 
     @Select("""
-            SELECT pet.name, breed,born_date, chip_number,specie,pet.photo_path from pet
+            SELECT pet.pet_id, pet.name, breed,born_date, chip_number,specie,pet.photo_path from pet
             		JOIN breed ON pet.breed_id = breed.breed_id
                     JOIN specie ON breed.specie_id = specie.specie_id
             		WHERE pet.pet_id= #{petId}
@@ -61,10 +57,10 @@ public interface PetDao {
                     AND breed.status = 'activo'
                     AND specie.status = 'activo'
             """)
-    PetInfoId findPetInfoById(Integer petId);
+    PetInfo findPetInfoByPetId(Integer petId);
     //Listado de mascotas por token usuario
     @Select("""		
-            SELECT pet.name, breed,born_date, chip_number,specie,pet.photo_path from pet
+            SELECT pet.pet_id, pet.name, breed,born_date, chip_number,specie,pet.photo_path from pet
             		JOIN breed ON pet.breed_id = breed.breed_id
                     JOIN specie ON breed.specie_id = specie.specie_id
             		JOIN "user" ON pet.user_id = "user".user_id
@@ -73,9 +69,8 @@ public interface PetDao {
                     AND breed.status = 'activo'
                     AND specie.status = 'activo'
                     AND "user".status = 'activo'
-                    
-                        
+                    ORDER BY pet.pet_id 
             """)
-    List<PetInfoId >findPetInfoByToken(String userName);
+    List<PetInfo>findPetInfoByUserName(String userName);
     //List<QuestionOwner> findOwnerQuestionByUserName(String userName);
 }
