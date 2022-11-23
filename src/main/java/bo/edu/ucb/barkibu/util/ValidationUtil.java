@@ -18,4 +18,8 @@ public class ValidationUtil {
         Date now = new Date();
         return date.before(now);
     }
+
+    public static boolean userNameHasBlankSpaces(String userName) {
+        return userName.contains(" ");
+    }
 }

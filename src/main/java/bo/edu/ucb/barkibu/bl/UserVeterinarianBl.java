@@ -9,6 +9,7 @@ import bo.edu.ucb.barkibu.entity.Country;
 import bo.edu.ucb.barkibu.entity.State;
 import bo.edu.ucb.barkibu.entity.User;
 import bo.edu.ucb.barkibu.util.BarkibuException;
+import bo.edu.ucb.barkibu.util.ValidationUtil;
 import org.springframework.stereotype.Service;
 
 import static bo.edu.ucb.barkibu.util.ValidationUtil.isEmailValid;
@@ -25,6 +26,10 @@ public class UserVeterinarianBl {
     }
 
     public void createVeterinarianUser(CreateUserDto createUserDto) {
+        // Verificamos que el nombre de usuario no tenga espacios en blanco
+        if (ValidationUtil.userNameHasBlankSpaces(createUserDto.getUserName())) {
+            throw new BarkibuException("SCTY-1013");
+        }
         // Verificamos que el username no exista
         if (userDao.findUserIdByUserName(createUserDto.getUserName()) != null) {
             throw new BarkibuException("SCTY-1002");
@@ -71,9 +76,13 @@ public class UserVeterinarianBl {
         if (user == null) {
             throw new BarkibuException("SCTY-4000");
         }
+        if (ValidationUtil.userNameHasBlankSpaces(veterinarianUserDto.getUserName())) {
+            throw new BarkibuException("SCTY-1013");
+        }
         if (userDao.findUserIdByUserName(veterinarianUserDto.getUserName()) != null && !user.getUserName().equals(veterinarianUserDto.getUserName())) {
             throw new BarkibuException("SCTY-1002");
         }
+
         if (userDao.findUserIdByEmail(veterinarianUserDto.getEmail()) != null && !user.getEmail().equals(veterinarianUserDto.getEmail())) {
             throw new BarkibuException("SCTY-1003");
         }

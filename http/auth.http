@@ -3,7 +3,7 @@
 ### Path Variable: http://localhost:7777/v1/api/auth/{user_id}
 ### Query Param: http://localhost:7777/v1/api/auth?user_id={user_id} Esto se utilzia para paginacion
 
-
+### 8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92 (123456) for test purpose
 ### USUARIO ADMIN
 POST http://localhost:7777/v1/api/auth
 Content-Type: application/json
@@ -11,7 +11,7 @@ Accept: application/json
 
 {
  "userName":"apanique",
- "password": "1234567"
+ "password": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92"
 }
 
 ### USUARIO VETERINARIO

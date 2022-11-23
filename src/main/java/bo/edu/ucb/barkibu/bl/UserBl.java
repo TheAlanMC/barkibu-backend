@@ -7,6 +7,7 @@ import bo.edu.ucb.barkibu.dto.*;
 
 import bo.edu.ucb.barkibu.entity.*;
 import bo.edu.ucb.barkibu.util.BarkibuException;
+import bo.edu.ucb.barkibu.util.ValidationUtil;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -52,6 +53,9 @@ public class UserBl {
         User user = userDao.findUserByUserName(userName);
         if (user == null) {
             throw new BarkibuException("SCTY-4000");
+        }
+        if (ValidationUtil.userNameHasBlankSpaces(updateUserDto.getUserName())) {
+            throw new BarkibuException("SCTY-1013");
         }
         user.setFirstName(updateUserDto.getFirstName());
         user.setLastName(updateUserDto.getLastName());

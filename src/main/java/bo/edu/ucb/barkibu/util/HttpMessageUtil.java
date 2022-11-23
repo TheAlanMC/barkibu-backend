@@ -59,6 +59,7 @@ public class HttpMessageUtil {
                 new HttpMessageUtil("New password must be different to current password", HttpStatus.BAD_REQUEST));
         errorHashMap.put("SCTY-1012", new HttpMessageUtil("Question already answered", HttpStatus.BAD_REQUEST));
         errorHashMap.put("SCTY-1013", new HttpMessageUtil("Answer already liked", HttpStatus.BAD_REQUEST));
+        errorHashMap.put("SCTY-1014", new HttpMessageUtil("Username cannot have spaces", HttpStatus.BAD_REQUEST));
         // Errores de tipo unauthorized (401) -- no autehnticado
         errorHashMap.put("SCTY-2000", new HttpMessageUtil("Invalid credentials", HttpStatus.UNAUTHORIZED));
         errorHashMap.put("SCTY-2001", new HttpMessageUtil("Invalid token", HttpStatus.UNAUTHORIZED));

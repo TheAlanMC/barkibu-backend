@@ -6,6 +6,7 @@ import bo.edu.ucb.barkibu.dao.UserPetOwnerDao;
 import bo.edu.ucb.barkibu.dto.CreateUserDto;
 import bo.edu.ucb.barkibu.entity.User;
 import bo.edu.ucb.barkibu.util.BarkibuException;
+import bo.edu.ucb.barkibu.util.ValidationUtil;
 import org.springframework.stereotype.Service;
 
 import static bo.edu.ucb.barkibu.util.ValidationUtil.isEmailValid;
@@ -24,6 +25,10 @@ public class UserPetOwnerBl {
         // Verificamos que el username no exista
         if (userDao.findUserIdByUserName(createUserDto.getUserName()) != null) {
             throw new BarkibuException("SCTY-1002");
+        }
+        // Verificamos que nombre de usuario no tenga espacios en blanco
+        if (ValidationUtil.userNameHasBlankSpaces(createUserDto.getUserName())) {
+            throw new BarkibuException("SCTY-1013");
         }
         // Verificamos que el email no exista
         if (userDao.findUserIdByEmail(createUserDto.getEmail()) != null) {
