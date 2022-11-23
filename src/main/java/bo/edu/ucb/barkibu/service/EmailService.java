@@ -4,15 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
 public class EmailService {
-    @Autowired
-    static
-    JavaMailSender javaMailSender;
+    private JavaMailSender javaMailSender;
 
     @Value("${spring.mail.username}")
     private static String from;
@@ -22,7 +21,8 @@ public class EmailService {
         this.javaMailSender = javaMailSender;
     }
 
-    public static void sendEmail(String to, String subject, String content) {
+    @Async
+    public void sendEmail(String to, String subject, String content) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(from);
         message.setTo(to);

@@ -21,10 +21,12 @@ public class RecoveryAccountBl {
 
     private final RecoveryAccountDao recoveryAccountDao;
     private final UserDao userDao;
+    private final EmailService emailService;
 
-    public RecoveryAccountBl(RecoveryAccountDao recoveryAccountDao, UserDao userDao) {
+    public RecoveryAccountBl(RecoveryAccountDao recoveryAccountDao, UserDao userDao , EmailService emailService) {
         this.recoveryAccountDao = recoveryAccountDao;
         this.userDao = userDao;
+        this.emailService = emailService;
     }
 
     public void createRecoveryAccount(RecoveryAccountCodeReqDto recoveryAccountCodeReqDto) {
@@ -51,7 +53,7 @@ public class RecoveryAccountBl {
         expirationDate.setTime(expirationDate.getTime() + 86400000);
         recoveryAccount.setExpirationDate(expirationDate);
         // Enviamos el codigo de recuperacion por email
-        EmailService.sendEmail(recoveryAccountCodeReqDto.getEmail(), "Código de recuperación de cuenta",
+        emailService.sendEmail(recoveryAccountCodeReqDto.getEmail(), "Código de recuperación de cuenta",
                 "Su código de recuperación de cuenta es: " + randomCode);
         recoveryAccountDao.createRecoveryAccount(recoveryAccount);
     }
