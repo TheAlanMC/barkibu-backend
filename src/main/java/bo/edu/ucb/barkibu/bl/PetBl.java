@@ -1,9 +1,11 @@
 package bo.edu.ucb.barkibu.bl;
 
 import bo.edu.ucb.barkibu.dao.PetDao;
+
 import bo.edu.ucb.barkibu.dao.UserDao;
 import bo.edu.ucb.barkibu.dto.*;
 import bo.edu.ucb.barkibu.entity.*;
+import bo.edu.ucb.barkibu.entity.PetInfoId;
 import bo.edu.ucb.barkibu.util.BarkibuException;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +18,13 @@ public class PetBl {
     private final PetDao petDao;
     private final UserDao userDao;
 
+
+
+
     public PetBl(PetDao petDao, UserDao userDao) {
         this.petDao = petDao;
         this.userDao = userDao;
+
     }
 
     public void createPet(String userName, CreatePetDto createPetDto) {
@@ -49,6 +55,23 @@ public class PetBl {
         petInfo.setBorn_date(pet.getBornDate());
         petInfo.setChip_number(pet.getChipNumber());
         return petInfo;
+    }
+
+    public PetInfoIdDto findPetInfoById(Integer specieId) {
+        PetInfoId petInfoId = petDao.findPetInfoById(specieId);
+        if (petInfoId == null) {
+           throw new BarkibuException("SCTY-4008");
+        }
+        PetInfoIdDto petInfoIdDto = new PetInfoIdDto();
+        petInfoIdDto.setName(petInfoId.getName());
+        petInfoIdDto.setSpecie(petInfoId.getSpecie());
+        petInfoIdDto.setBreed(petInfoId.getBreed());
+        petInfoIdDto.setChip_number(petInfoId.getChipNumber());
+        petInfoIdDto.setBorn_date(petInfoId.getBornDate());
+        petInfoIdDto.setPhotoPath(petInfoId.getPhotoPath());
+
+
+        return petInfoIdDto;
     }
     public List<String> getGroups(String name) {
         return userDao.findGroupsByUserName(name);

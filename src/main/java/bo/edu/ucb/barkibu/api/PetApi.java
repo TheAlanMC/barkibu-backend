@@ -53,8 +53,8 @@ public class PetApi {
             // Verificamos que el usuario este autenticado
             String jwt = AuthUtil.getTokenFromHeader(headers);
             AuthUtil.getUserNameFromToken(jwt);
-            PetInfo user = petBl.findPetInfoByPetId(petId);
-            ResponseDto<PetInfo> responseDto = new ResponseDto<>(user, "SCTY-0000", null);
+            PetInfoIdDto user = petBl.findPetInfoById(petId);
+            ResponseDto<PetInfoIdDto> responseDto = new ResponseDto<>(user, "SCTY-0000", null);
             return new ResponseEntity<>(responseDto, HttpStatus.OK);
         } catch (BarkibuException e) {
             ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());

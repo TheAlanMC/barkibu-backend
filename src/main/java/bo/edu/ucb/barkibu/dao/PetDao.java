@@ -1,6 +1,7 @@
 package bo.edu.ucb.barkibu.dao;
 
 import bo.edu.ucb.barkibu.entity.Pet;
+import bo.edu.ucb.barkibu.entity.PetInfoId;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -46,5 +47,16 @@ public interface PetDao {
             AND status = 'activo'
             """)
     void updatePet(Pet pet);
+    //Información de la mascota por id
 
+    @Select("""
+            SELECT pet.name, breed,born_date, chip_number,specie,pet.photo_path from pet
+            		JOIN breed ON pet.breed_id = breed.breed_id
+                    JOIN specie ON breed.specie_id = specie.specie_id
+            		WHERE pet.pet_id= #{petId}
+            		AND pet.status = 'activo'
+                    AND breed.status = 'activo'
+                    AND specie.status = 'activo'
+            """)
+    PetInfoId findPetInfoById(Integer petId);
 }
