@@ -22,13 +22,13 @@ public class BreedApi {
         this.breedBl = breedBl;
     }
     //todo: maybe only get all breeds
-    @GetMapping("/{specieId}")
-    public ResponseEntity<ResponseDto> getBreeds(@RequestHeader Map<String, String> headers, @PathVariable Integer specieId) {
+    @GetMapping()
+    public ResponseEntity<ResponseDto> getBreeds(@RequestHeader Map<String, String> headers) {
         try {
             // Verificamos que el usuario este autenticado
             String jwt = AuthUtil.getTokenFromHeader(headers);
             AuthUtil.getUserNameFromToken(jwt);
-            List<BreedDto> breedDtos = breedBl.findBreedBySpecieId(specieId);
+            List<BreedDto> breedDtos = breedBl.findAllBreeds();
             ResponseDto<List<BreedDto>> responseDto = new ResponseDto<>(breedDtos, "SCTY-0000", null);
             return new ResponseEntity<>(responseDto, HttpStatus.OK);
         } catch (BarkibuException e) {

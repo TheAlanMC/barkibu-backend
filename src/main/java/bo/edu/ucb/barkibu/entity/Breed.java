@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Breed {
     private Integer breedId;
-    private Integer speciesId;
+    private Integer specieId;
     private String breed;
     private String status;
     private Date txDate;
@@ -19,12 +19,12 @@ public class Breed {
         this.breedId = breedId;
     }
 
-    public Integer getSpeciesId() {
-        return speciesId;
+    public Integer getSpecieId() {
+        return specieId;
     }
 
-    public void setSpeciesId(Integer speciesId) {
-        this.speciesId = speciesId;
+    public void setSpecieId(Integer specieId) {
+        this.specieId = specieId;
     }
 
     public String getBreed() {
@@ -71,7 +71,7 @@ public class Breed {
     public String toString() {
         return "Breed{" +
                 "breedId=" + breedId +
-                ", speciesId=" + speciesId +
+                ", speciesId=" + specieId +
                 ", breed='" + breed + '\'' +
                 ", status='" + status + '\'' +
                 ", txDate=" + txDate +

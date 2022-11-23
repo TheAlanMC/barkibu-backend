@@ -9,10 +9,9 @@ import java.util.List;
 @Component
 public interface BreedDao {
     @Select("""
-            SELECT breed_id, breed
+            SELECT breed_id, specie_id, breed
             FROM breed
             WHERE status = 'activo'
-            AND specie_id = #{specieId}
             """)
-    List<Breed> findBreedBySpecieId(Integer specieId);
+    List<Breed> findAll();
 }
