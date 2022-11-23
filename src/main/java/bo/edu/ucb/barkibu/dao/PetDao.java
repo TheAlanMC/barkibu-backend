@@ -2,10 +2,13 @@ package bo.edu.ucb.barkibu.dao;
 
 import bo.edu.ucb.barkibu.entity.Pet;
 import bo.edu.ucb.barkibu.entity.PetInfoId;
+import bo.edu.ucb.barkibu.entity.QuestionOwner;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public interface PetDao {
@@ -59,4 +62,20 @@ public interface PetDao {
                     AND specie.status = 'activo'
             """)
     PetInfoId findPetInfoById(Integer petId);
+    //Listado de mascotas por token usuario
+    @Select("""		
+            SELECT pet.name, breed,born_date, chip_number,specie,pet.photo_path from pet
+            		JOIN breed ON pet.breed_id = breed.breed_id
+                    JOIN specie ON breed.specie_id = specie.specie_id
+            		JOIN "user" ON pet.user_id = "user".user_id
+            		WHERE "user".user_name= #{userName}
+            		AND pet.status = 'activo'
+                    AND breed.status = 'activo'
+                    AND specie.status = 'activo'
+                    AND "user".status = 'activo'
+                    
+                        
+            """)
+    List<PetInfoId >findPetInfoByToken(String userName);
+    //List<QuestionOwner> findOwnerQuestionByUserName(String userName);
 }

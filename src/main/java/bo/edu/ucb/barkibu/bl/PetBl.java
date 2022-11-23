@@ -90,4 +90,14 @@ public class PetBl {
 
         this.petDao.updatePet(pet);
     }
+    //Listado de las mascotas
+    public List<PetInfoId> findPetInfoByToken(String userName) {
+        // Verificamos que la mascota exista
+        if(petDao.findPetInfoByToken(userName) == null) {
+            throw new BarkibuException("SCTY-4005");
+        }
+        // Obtener la lista de tratamientos
+        return petDao.findPetInfoByToken(userName);
+    }
+
 }

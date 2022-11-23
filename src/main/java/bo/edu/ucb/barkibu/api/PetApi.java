@@ -3,12 +3,15 @@ package bo.edu.ucb.barkibu.api;
 import bo.edu.ucb.barkibu.bl.PetBl;
 import bo.edu.ucb.barkibu.dto.*;
 import bo.edu.ucb.barkibu.entity.PetInfo;
+import bo.edu.ucb.barkibu.entity.PetInfoId;
+import bo.edu.ucb.barkibu.entity.QuestionOwner;
 import bo.edu.ucb.barkibu.util.AuthUtil;
 import bo.edu.ucb.barkibu.util.BarkibuException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 import static bo.edu.ucb.barkibu.util.HttpMessageUtil.httpMessageUtilMap;
@@ -46,7 +49,7 @@ public class PetApi {
     }
 
     //Información de la mascota por su ID
-    @GetMapping("/pet-info/{petId}")
+    @GetMapping("/{petId}")
     public ResponseEntity<ResponseDto> getPetInfo(@RequestHeader Map<String, String> headers, @PathVariable Integer petId) {
 
         try {
@@ -83,6 +86,19 @@ public class PetApi {
             String statusCode = "SCTY-1001";
             ResponseDto<String> responseDto = new ResponseDto<>(null, statusCode, httpMessageUtilMap.get(statusCode).getMessage());
             return new ResponseEntity<>(responseDto, httpMessageUtilMap.get(statusCode).getHttpStatus());
+        }
+    }
+    @GetMapping("/pet-info/")
+    public ResponseEntity<ResponseDto> getOwnerByUserName(@RequestHeader Map<String,String> headers) {
+        try {
+            String jwt = AuthUtil.getTokenFromHeader(headers);
+            String userName= AuthUtil.getUserNameFromToken(jwt);
+            List<PetInfoId> petInfoId = petBl.findPetInfoByToken(userName);
+            ResponseDto<List<PetInfoId>> responseDto = new ResponseDto<>(petInfoId, "SCTY-0000", null);
+            return new ResponseEntity<>(responseDto, HttpStatus.OK);
+        } catch (BarkibuException e) {
+            ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
+            return new ResponseEntity<>(responseDto, e.getHttpStatus());
         }
     }
 
