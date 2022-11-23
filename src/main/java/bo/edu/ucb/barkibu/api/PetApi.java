@@ -46,14 +46,14 @@ public class PetApi {
     }
 
     //Información de la mascota por su ID
-    @GetMapping("/{specieId}")
-    public ResponseEntity<ResponseDto> getPetInfo(@RequestHeader Map<String, String> headers, @PathVariable Integer specieId) {
+    @GetMapping("/pet-info/{petId}")
+    public ResponseEntity<ResponseDto> getPetInfo(@RequestHeader Map<String, String> headers, @PathVariable Integer petId) {
 
         try {
             // Verificamos que el usuario este autenticado
             String jwt = AuthUtil.getTokenFromHeader(headers);
             AuthUtil.getUserNameFromToken(jwt);
-            PetInfo user = petBl.findPetInfoByPetId(specieId);
+            PetInfo user = petBl.findPetInfoByPetId(petId);
             ResponseDto<PetInfo> responseDto = new ResponseDto<>(user, "SCTY-0000", null);
             return new ResponseEntity<>(responseDto, HttpStatus.OK);
         } catch (BarkibuException e) {

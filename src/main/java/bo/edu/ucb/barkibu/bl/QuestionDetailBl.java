@@ -42,7 +42,7 @@ public class QuestionDetailBl {
             throw new BarkibuException("SCTY-4008");
         }
         // Obtener la información de la mascota
-        PetQuestionInfo petQuestionInfo = petQuestionInfoDao.findPetInfoByPetId(petQuestionDao.findPetIdByQuestionId(questionId));
+        PetQuestionInfo petQuestionInfo = petQuestionInfoDao.findPetQuestionInfoByPetId(petQuestionDao.findPetIdByQuestionId(questionId));
         // Obtener la lista de síntomas de la mascota
         List<String> symptoms = petQuestionDao.findSymptomsByQuestionId(questionId);
         // Cargar la información de la mascota en el DTO

@@ -16,5 +16,5 @@ public interface PetQuestionInfoDao {
             AND breed.status = 'activo'
             AND specie.status = 'activo'
             """)
-    PetQuestionInfo findPetInfoByPetId(Integer petId);
+    PetQuestionInfo findPetQuestionInfoByPetId(Integer petId);
 }
