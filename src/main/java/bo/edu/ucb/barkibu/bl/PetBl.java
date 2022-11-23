@@ -44,12 +44,34 @@ public class PetBl {
         this.petDao.createPet(pet);
     }
 
+
     public PetInfo findPetInfoByPetId(Integer petId) {
-        PetInfo petInfo = petDao.findPetInfoByPetId(petId);
-        if (petInfo == null) {
-           throw new BarkibuException("SCTY-4008");
+        Pet pet = petDao.findPetInfoByPetId(petId);
+        if (pet == null) {
+            throw new BarkibuException("SCTY-4008");
         }
+        PetInfo petInfo = new PetInfo();
+        petInfo.setName(pet.getName());
+        petInfo.setBorn_date(pet.getBornDate());
+        petInfo.setChip_number(pet.getChipNumber());
         return petInfo;
+    }
+
+    public PetInfoIdDto findPetInfoById(Integer specieId) {
+        PetInfoId petInfoId = petDao.findPetInfoById(specieId);
+        if (petInfoId == null) {
+            throw new BarkibuException("SCTY-4008");
+        }
+        PetInfoIdDto petInfoIdDto = new PetInfoIdDto();
+        petInfoIdDto.setName(petInfoId.getName());
+        petInfoIdDto.setSpecie(petInfoId.getSpecie());
+        petInfoIdDto.setBreed(petInfoId.getBreed());
+        petInfoIdDto.setChip_number(petInfoId.getChipNumber());
+        petInfoIdDto.setBorn_date(petInfoId.getBornDate());
+        petInfoIdDto.setPhotoPath(petInfoId.getPhotoPath());
+
+
+        return petInfoIdDto;
     }
     public List<String> getGroups(String name) {
         return userDao.findGroupsByUserName(name);
@@ -57,7 +79,7 @@ public class PetBl {
     public void updatePet(Integer PetId, UpdatePetDto updatePetDto) {
         Pet pet = petDao.findPetByPetName(PetId);
         if (pet == null) {
-            throw new BarkibuException("SCTY-4008");
+            throw new BarkibuException("SCTY-4009");
         }
         pet.setName(updatePetDto.getName());
         pet.setGender(updatePetDto.getGender());
@@ -69,14 +91,31 @@ public class PetBl {
         this.petDao.updatePet(pet);
     }
     //Listado de las mascotas
-    public List<PetInfo> findPetInfoByUserName(String userName) {
-        List<PetInfo> petInfos = petDao.findPetInfoByUserName(userName);
+    public List<PetInfoId> findPetInfoByToken(String userName) {
         // Verificamos que la mascota exista
-        if(petInfos.isEmpty()) {
-            throw new BarkibuException("SCTY-4008");
+        if(petDao.findPetInfoByToken(userName) == null) {
+            throw new BarkibuException("SCTY-4005");
         }
         // Obtener la lista de tratamientos
-        return petInfos;
+        return petDao.findPetInfoByToken(userName);
+    }
+    //Datos mascota perfil
+    public UpdatePetDto findPet(Integer specieId) {
+        Pet pet = petDao.finPetInfo(specieId);
+        if (pet == null) {
+            throw new BarkibuException("SCTY-4008");
+        }
+        UpdatePetDto updatePetDto = new UpdatePetDto();
+        updatePetDto.setName(pet.getName());
+        updatePetDto.setGender(pet.getGender());
+        updatePetDto.setBreedId(pet.getBreedId());
+        updatePetDto.setChipNumber(pet.getChipNumber());
+        updatePetDto.setCastrated(pet.isCastrated());
+        updatePetDto.setBornDate(pet.getBornDate());
+        updatePetDto.setPhotoPath(pet.getPhotoPath());
+
+
+        return updatePetDto;
     }
 
 }

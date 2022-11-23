@@ -21,7 +21,12 @@ public interface PetDao {
             """)
     void createPet(Pet pet);
     // Muestra datos de la mascota
-
+    @Select("""
+            SELECT name,  born_date, chip_number FROM pet
+            WHERE pet_id = #{petId}
+            AND pet.status = 'activo'
+            """)
+    Pet findPetInfoByPetId(Integer petId);
     @Select("""
             SELECT name, breed_id, gender, castrated, born_date, chip_number
             FROM pet
@@ -49,7 +54,7 @@ public interface PetDao {
     //Información de la mascota por id
 
     @Select("""
-            SELECT pet.pet_id, pet.name, breed,born_date, chip_number,specie,pet.photo_path from pet
+            SELECT pet.name, breed,born_date, chip_number,specie,pet.photo_path from pet
             		JOIN breed ON pet.breed_id = breed.breed_id
                     JOIN specie ON breed.specie_id = specie.specie_id
             		WHERE pet.pet_id= #{petId}
@@ -57,10 +62,10 @@ public interface PetDao {
                     AND breed.status = 'activo'
                     AND specie.status = 'activo'
             """)
-    PetInfo findPetInfoByPetId(Integer petId);
+    PetInfoId findPetInfoById(Integer petId);
     //Listado de mascotas por token usuario
     @Select("""		
-            SELECT pet.pet_id, pet.name, breed,born_date, chip_number,specie,pet.photo_path from pet
+            SELECT pet.name, breed,born_date, chip_number,specie,pet.photo_path from pet
             		JOIN breed ON pet.breed_id = breed.breed_id
                     JOIN specie ON breed.specie_id = specie.specie_id
             		JOIN "user" ON pet.user_id = "user".user_id
@@ -69,8 +74,20 @@ public interface PetDao {
                     AND breed.status = 'activo'
                     AND specie.status = 'activo'
                     AND "user".status = 'activo'
-                    ORDER BY pet.pet_id 
+                    
+                        
             """)
-    List<PetInfo>findPetInfoByUserName(String userName);
-    //List<QuestionOwner> findOwnerQuestionByUserName(String userName);
+    List<PetInfoId >findPetInfoByToken(String userName);
+    //Informacíon de la pantalla perfil mascota
+    @Select("""
+            SELECT pet.name,gender, pet.breed_id,born_date, castrated,chip_number,pet.photo_path from pet
+                        		JOIN breed ON pet.breed_id = breed.breed_id
+                                JOIN specie ON breed.specie_id = specie.specie_id
+                        		WHERE pet.pet_id= #{petId}
+                        		AND pet.status = 'activo'
+                                AND breed.status = 'activo'
+                                AND specie.status = 'activo'
+            """)
+    Pet finPetInfo(Integer petId);
 }
+
