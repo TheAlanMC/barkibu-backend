@@ -1,6 +1,6 @@
 package bo.edu.ucb.barkibu.dao;
 
-import bo.edu.ucb.barkibu.dto.VeterinarianInfoDto;
+import bo.edu.ucb.barkibu.entity.VeterinarianInfo;
 import bo.edu.ucb.barkibu.entity.HelpedPet;
 import bo.edu.ucb.barkibu.entity.Reputation;
 import bo.edu.ucb.barkibu.entity.VeterinarianOwnAnswer;
@@ -23,7 +23,7 @@ public interface VeterinarianInfoDao {
             WHERE user_name = #{userName}
             AND "user".status = 'activo'
             """)
-    VeterinarianInfoDto findVeterinarianInfoByUserName(String userName);
+    VeterinarianInfo findVeterinarianInfoByUserName(String userName);
 
     @Select("""
             SELECT rank

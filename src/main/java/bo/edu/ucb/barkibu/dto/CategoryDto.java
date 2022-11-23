@@ -7,6 +7,11 @@ public class CategoryDto {
     public CategoryDto() {
     }
 
+    public CategoryDto(Integer categoryId, String category) {
+        this.categoryId = categoryId;
+        this.category = category;
+    }
+
     public Integer getCategoryId() {
         return categoryId;
     }

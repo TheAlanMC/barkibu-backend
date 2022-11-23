@@ -1,8 +1,6 @@
 package bo.edu.ucb.barkibu.dao;
 
 
-import bo.edu.ucb.barkibu.dto.PetOwnTreatmentListDto;
-import bo.edu.ucb.barkibu.dto.PetTreatmentDto;
 import bo.edu.ucb.barkibu.entity.PetTreatment;
 import bo.edu.ucb.barkibu.entity.PetTreatmentList;
 import org.apache.ibatis.annotations.Insert;

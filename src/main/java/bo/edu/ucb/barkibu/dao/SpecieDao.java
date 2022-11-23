@@ -1,6 +1,6 @@
 package bo.edu.ucb.barkibu.dao;
 
-import bo.edu.ucb.barkibu.dto.SpecieDto;
+import bo.edu.ucb.barkibu.entity.Specie;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +12,7 @@ public interface SpecieDao {
             FROM specie
             WHERE status = 'activo'
             """)
-    List<SpecieDto> findAll();
+    List<Specie> findAll();
 
     @Select("""
             SELECT specie_id, specie
@@ -20,5 +20,5 @@ public interface SpecieDao {
             WHERE specie_id = #{specieId}
             AND status = 'activo'
             """)
-    SpecieDto findSpecieBySpecieId(Integer specieId);
+    Specie findSpecieBySpecieId(Integer specieId);
 }

@@ -9,16 +9,18 @@ public class UpdatePetDto {
     private Boolean castrated;
     private Date bornDate;
     private String chipNumber;
+    private  String photoPath;
     public UpdatePetDto(){
     }
 
-    public UpdatePetDto(String name, String gender, Integer breedId, Boolean castrated, Date bornDate, String chipNumber) {
+    public UpdatePetDto(String name, String gender, Integer breedId, Boolean castrated, Date bornDate, String chipNumber, String photoPath) {
         this.name = name;
         this.gender = gender;
         this.breedId = breedId;
         this.castrated = castrated;
         this.bornDate = bornDate;
         this.chipNumber = chipNumber;
+        this.photoPath = photoPath;
     }
 
     public String getName() {
@@ -69,6 +71,14 @@ public class UpdatePetDto {
         this.chipNumber = chipNumber;
     }
 
+    public String getPhotoPath() {
+        return photoPath;
+    }
+
+    public void setPhotoPath(String photoPath) {
+        this.photoPath = photoPath;
+    }
+
     @Override
     public String toString() {
         return "UpdatePetDto{" +
@@ -78,6 +88,7 @@ public class UpdatePetDto {
                 ", castrated=" + castrated +
                 ", bornDate=" + bornDate +
                 ", chipNumber='" + chipNumber + '\'' +
+                ", photoPath='" + photoPath + '\'' +
                 '}';
     }
 
@@ -92,9 +103,18 @@ public class UpdatePetDto {
         if (chipNumber == null || chipNumber.isEmpty()){
             return false;
         }
-
-        return true;
+        if (breedId == null || breedId == 0){
+            return false;
+        }
+        if (castrated == null){
+            return false;
+        }
+        if (bornDate == null){
+            return false;
+        }
+        if (photoPath == null || photoPath.isEmpty()){
+            return false;
+        }
+          return true;
     }
-
 }
-

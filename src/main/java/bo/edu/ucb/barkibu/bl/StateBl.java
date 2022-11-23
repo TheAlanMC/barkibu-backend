@@ -5,8 +5,10 @@ import bo.edu.ucb.barkibu.dao.StateDao;
 import bo.edu.ucb.barkibu.dto.CityDto;
 import bo.edu.ucb.barkibu.dto.StateDto;
 import bo.edu.ucb.barkibu.entity.City;
+import bo.edu.ucb.barkibu.entity.State;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,6 +20,11 @@ public class StateBl {
     }
 
     public List<StateDto> findAllStates() {
-        return stateDao.findAll();
+        List<State> states = stateDao.findAll();
+        List<StateDto> statesDto = new ArrayList<>();
+        for (State state : states) {
+            statesDto.add(new StateDto(state.getStateId(), state.getState(), state.getCountryId()));
+        }
+        return statesDto;
     }
 }

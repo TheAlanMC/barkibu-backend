@@ -1,7 +1,7 @@
 package bo.edu.ucb.barkibu.api;
 
 import bo.edu.ucb.barkibu.bl.QuestionDetailBl;
-import bo.edu.ucb.barkibu.dto.PetInfoDto;
+import bo.edu.ucb.barkibu.dto.PetDataDto;
 import bo.edu.ucb.barkibu.dto.ResponseDto;
 import bo.edu.ucb.barkibu.entity.PetQuestion;
 import bo.edu.ucb.barkibu.entity.VeterinarianAnswer;
@@ -44,8 +44,8 @@ public class QuestionDetailApi {
             // Verificamos que el usuario este autenticado
             String jwt = AuthUtil.getTokenFromHeader(headers);
             AuthUtil.getUserNameFromToken(jwt);
-            PetInfoDto petInfoDto = questionDetailBl.findPetInfoByQuestionId(questionId);
-            ResponseDto<PetInfoDto> responseDto = new ResponseDto<>(petInfoDto, "SCTY-0000", null);
+            PetDataDto petDataDto = questionDetailBl.findPetInfoByQuestionId(questionId);
+            ResponseDto<PetDataDto> responseDto = new ResponseDto<>(petDataDto, "SCTY-0000", null);
             return new ResponseEntity<>(responseDto, HttpStatus.OK);
         } catch (BarkibuException e) {
             ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());

@@ -2,10 +2,7 @@ package bo.edu.ucb.barkibu.api;
 
 import bo.edu.ucb.barkibu.bl.VeterinarianInfoBl;
 import bo.edu.ucb.barkibu.dto.*;
-import bo.edu.ucb.barkibu.entity.HelpedPet;
-import bo.edu.ucb.barkibu.entity.Reputation;
-import bo.edu.ucb.barkibu.entity.VeterinarianOwnAnswer;
-import bo.edu.ucb.barkibu.entity.VeterinarianRanking;
+import bo.edu.ucb.barkibu.entity.*;
 import bo.edu.ucb.barkibu.util.AuthUtil;
 import bo.edu.ucb.barkibu.util.BarkibuException;
 import org.springframework.http.HttpStatus;
@@ -31,8 +28,8 @@ public class VeterinarianInfoApi {
             // Verificamos que el usuario este autenticado
             String jwt = AuthUtil.getTokenFromHeader(headers);
             String userName = AuthUtil.getUserNameFromToken(jwt);
-            VeterinarianInfoDto user = veterinarianInfoBl.findUserVeterinarianByUserName(userName);
-            ResponseDto<VeterinarianInfoDto> responseDto = new ResponseDto<>(user, "SCTY-0000", null);
+            VeterinarianInfo user = veterinarianInfoBl.findUserVeterinarianByUserName(userName);
+            ResponseDto<VeterinarianInfo> responseDto = new ResponseDto<>(user, "SCTY-0000", null);
             return new ResponseEntity<>(responseDto, HttpStatus.OK);
         } catch (BarkibuException e) {
             ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
@@ -47,8 +44,8 @@ public class VeterinarianInfoApi {
             // Verificamos que el usuario este autenticado
             String jwt = AuthUtil.getTokenFromHeader(headers);
             AuthUtil.getUserNameFromToken(jwt);
-            VeterinarianInfoDto user = veterinarianInfoBl.findUserVeterinarianByUserName(userName);
-            ResponseDto<VeterinarianInfoDto> responseDto = new ResponseDto<>(user, "SCTY-0000", null);
+            VeterinarianInfo user = veterinarianInfoBl.findUserVeterinarianByUserName(userName);
+            ResponseDto<VeterinarianInfo> responseDto = new ResponseDto<>(user, "SCTY-0000", null);
             return new ResponseEntity<>(responseDto, HttpStatus.OK);
         } catch (BarkibuException e) {
             ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());

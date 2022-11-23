@@ -1,28 +1,26 @@
 package bo.edu.ucb.barkibu.bl;
 
-import bo.edu.ucb.barkibu.dao.PetInfoDao;
+import bo.edu.ucb.barkibu.dao.PetQuestionInfoDao;
 import bo.edu.ucb.barkibu.dao.PetQuestionDao;
 import bo.edu.ucb.barkibu.dao.VeterinarianAnswerDao;
-import bo.edu.ucb.barkibu.dto.PetInfoDto;
-import bo.edu.ucb.barkibu.entity.PetInfo;
+import bo.edu.ucb.barkibu.dto.PetDataDto;
+import bo.edu.ucb.barkibu.entity.PetQuestionInfo;
 import bo.edu.ucb.barkibu.entity.PetQuestion;
 import bo.edu.ucb.barkibu.entity.VeterinarianAnswer;
 import bo.edu.ucb.barkibu.util.BarkibuException;
 import org.springframework.stereotype.Service;
 
-import java.time.Period;
-import java.util.Date;
 import java.util.List;
 
 @Service
 public class QuestionDetailBl {
     PetQuestionDao petQuestionDao;
-    PetInfoDao petInfoDao;
+    PetQuestionInfoDao petQuestionInfoDao;
     VeterinarianAnswerDao veterinarianAnswerDao;
 
-    public QuestionDetailBl(PetQuestionDao petQuestionDao, PetInfoDao petInfoDao, VeterinarianAnswerDao veterinarianAnswerDao) {
+    public QuestionDetailBl(PetQuestionDao petQuestionDao, PetQuestionInfoDao petQuestionInfoDao, VeterinarianAnswerDao veterinarianAnswerDao) {
         this.petQuestionDao = petQuestionDao;
-        this.petInfoDao = petInfoDao;
+        this.petQuestionInfoDao = petQuestionInfoDao;
         this.veterinarianAnswerDao = veterinarianAnswerDao;
     }
 
@@ -34,7 +32,7 @@ public class QuestionDetailBl {
         return petQuestion;
     }
 
-    public PetInfoDto findPetInfoByQuestionId(Integer questionId) {
+    public PetDataDto findPetInfoByQuestionId(Integer questionId) {
         // Verificamos que la pregunta exista
         if(petQuestionDao.findPetQuestionByQuestionId(questionId) == null) {
             throw new BarkibuException("SCTY-4005");
@@ -44,18 +42,18 @@ public class QuestionDetailBl {
             throw new BarkibuException("SCTY-4008");
         }
         // Obtener la información de la mascota
-        PetInfo petInfo = petInfoDao.findPetInfoByPetId(petQuestionDao.findPetIdByQuestionId(questionId));
+        PetQuestionInfo petQuestionInfo = petQuestionInfoDao.findPetInfoByPetId(petQuestionDao.findPetIdByQuestionId(questionId));
         // Obtener la lista de síntomas de la mascota
         List<String> symptoms = petQuestionDao.findSymptomsByQuestionId(questionId);
         // Cargar la información de la mascota en el DTO
-        PetInfoDto petInfoDto = new PetInfoDto();
-        petInfoDto.setSpecie(petInfo.getSpecie());
-        petInfoDto.setBreed(petInfo.getBreed());
-        petInfoDto.setGender(petInfo.getGender());
-        petInfoDto.setBornDate(petInfo.getBornDate());
-        petInfoDto.setCastrated(petInfo.getCastrated());
-        petInfoDto.setSymptoms(symptoms);
-        return petInfoDto;
+        PetDataDto petDataDto = new PetDataDto();
+        petDataDto.setSpecie(petQuestionInfo.getSpecie());
+        petDataDto.setBreed(petQuestionInfo.getBreed());
+        petDataDto.setGender(petQuestionInfo.getGender());
+        petDataDto.setBornDate(petQuestionInfo.getBornDate());
+        petDataDto.setCastrated(petQuestionInfo.getCastrated());
+        petDataDto.setSymptoms(symptoms);
+        return petDataDto;
     }
 
     public List<VeterinarianAnswer> findVeterinarianAnswersByQuestionId(Integer questionId,String username) {

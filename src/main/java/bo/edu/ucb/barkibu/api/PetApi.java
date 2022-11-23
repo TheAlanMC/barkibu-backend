@@ -2,6 +2,7 @@ package bo.edu.ucb.barkibu.api;
 
 import bo.edu.ucb.barkibu.bl.PetBl;
 import bo.edu.ucb.barkibu.dto.*;
+import bo.edu.ucb.barkibu.entity.PetInfo;
 import bo.edu.ucb.barkibu.util.AuthUtil;
 import bo.edu.ucb.barkibu.util.BarkibuException;
 import org.springframework.http.HttpStatus;
@@ -52,8 +53,8 @@ public class PetApi {
             // Verificamos que el usuario este autenticado
             String jwt = AuthUtil.getTokenFromHeader(headers);
             AuthUtil.getUserNameFromToken(jwt);
-            PetDataDto user = petBl.findPetInfoByPetId(specieId);
-            ResponseDto<PetDataDto> responseDto = new ResponseDto<>(user, "SCTY-0000", null);
+            PetInfo user = petBl.findPetInfoByPetId(specieId);
+            ResponseDto<PetInfo> responseDto = new ResponseDto<>(user, "SCTY-0000", null);
             return new ResponseEntity<>(responseDto, HttpStatus.OK);
         } catch (BarkibuException e) {
             ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
@@ -61,7 +62,7 @@ public class PetApi {
         }
     }
     // Actualiza los datos de una mascota por id
-    @PutMapping("/update/{pet_id}")
+    @PutMapping("/{pet_id}")
     public ResponseEntity<ResponseDto<String>> updatePet(@RequestHeader Map<String,String> headers, @RequestBody UpdatePetDto updatePetDto,@PathVariable Integer pet_id
 
                                                         ) {
@@ -69,7 +70,7 @@ public class PetApi {
             try {
                 // Verificamos que el usuario este autenticado
                 String jwt = AuthUtil.getTokenFromHeader(headers);
-                String userName = AuthUtil.getUserNameFromToken(jwt); // REVISAR
+                AuthUtil.getUserNameFromToken(jwt);
                 petBl.updatePet(pet_id, updatePetDto);
                 ResponseDto<String> responseDto = new ResponseDto<>("Pet Updated", "SCTY-0000", null);
                 return new ResponseEntity<>(responseDto, HttpStatus.OK);

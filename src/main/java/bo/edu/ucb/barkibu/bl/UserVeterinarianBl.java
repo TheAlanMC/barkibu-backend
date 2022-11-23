@@ -3,10 +3,7 @@ package bo.edu.ucb.barkibu.bl;
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import bo.edu.ucb.barkibu.dao.*;
 import bo.edu.ucb.barkibu.dto.CreateUserDto;
-import bo.edu.ucb.barkibu.dto.VeterinarianUserDto;
-import bo.edu.ucb.barkibu.entity.City;
-import bo.edu.ucb.barkibu.entity.Country;
-import bo.edu.ucb.barkibu.entity.State;
+import bo.edu.ucb.barkibu.entity.VeterinarianUser;
 import bo.edu.ucb.barkibu.entity.User;
 import bo.edu.ucb.barkibu.util.BarkibuException;
 import bo.edu.ucb.barkibu.util.ValidationUtil;
@@ -62,16 +59,16 @@ public class UserVeterinarianBl {
         this.userVeterinarianDao.addVeterinarianGroup(userId);
     }
 
-    public VeterinarianUserDto getVeterinarianUser(String userName) {
+    public VeterinarianUser getVeterinarianUser(String userName) {
         User user = userDao.findUserByUserName(userName);
         if (user == null) {
             throw new BarkibuException("SCTY-4000");
         }
-        VeterinarianUserDto veterinarianUserDto = userDao.findVeterinarianUserByUserName(userName);
+        VeterinarianUser veterinarianUserDto = userDao.findVeterinarianUserByUserName(userName);
         return veterinarianUserDto;
     }
 
-    public void updateVeterinarianProfile(String userName, VeterinarianUserDto veterinarianUserDto) {
+    public void updateVeterinarianProfile(String userName, VeterinarianUser veterinarianUserDto) {
         User user = userDao.findUserByUserName(userName);
         if (user == null) {
             throw new BarkibuException("SCTY-4000");

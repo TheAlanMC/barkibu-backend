@@ -1,6 +1,6 @@
 package bo.edu.ucb.barkibu.dao;
 
-import bo.edu.ucb.barkibu.dto.CategoryDto;
+import bo.edu.ucb.barkibu.entity.Category;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +15,7 @@ public interface CategoryDao {
             WHERE status = 'activo'
             ORDER BY category
             """)
-    List<CategoryDto> findAll();
+    List<Category> findAll();
 
     @Select("""
             SELECT category_id, category
@@ -23,5 +23,5 @@ public interface CategoryDao {
             WHERE category_id = #{categoryId}
             AND status = 'activo'
             """)
-    CategoryDto findCategoryByCategoryId(Integer categoryId);
+    Category findCategoryByCategoryId(Integer categoryId);
 }

@@ -8,6 +8,12 @@ public class StateDto {
     public StateDto() {
     }
 
+    public StateDto(Integer stateId, String state, Integer countryId) {
+        this.stateId = stateId;
+        this.state = state;
+        this.countryId = countryId;
+    }
+
     public Integer getStateId() {
         return stateId;
     }

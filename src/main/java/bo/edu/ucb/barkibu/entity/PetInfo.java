@@ -1,24 +1,33 @@
 package bo.edu.ucb.barkibu.entity;
 
 import java.util.Date;
-import java.util.List;
 
 public class PetInfo {
+    private String name;
     private String specie;
     private String breed;
-    private String gender;
-    private Date bornDate;
-    private Boolean castrated;
+    private String photoPath;
+    private Date born_date;
+    private String chip_number;
 
-    public PetInfo() {
+    public PetInfo(){
     }
 
-    public PetInfo(String specie, String breed, String gender, Date bornDate, Boolean castrated, List<String> symptoms) {
+    public PetInfo(String name, String specie, String breed, String photoPath, Date born_date, String chip_number) {
+        this.name = name;
         this.specie = specie;
         this.breed = breed;
-        this.gender = gender;
-        this.bornDate = bornDate;
-        this.castrated = castrated;
+        this.photoPath = photoPath;
+        this.born_date = born_date;
+        this.chip_number = chip_number;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getSpecie() {
@@ -37,38 +46,39 @@ public class PetInfo {
         this.breed = breed;
     }
 
-    public String getGender() {
-        return gender;
+    public String getPhotoPath() {
+        return photoPath;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setPhotoPath(String photoPath) {
+        this.photoPath = photoPath;
     }
 
-    public Date getBornDate() {
-        return bornDate;
+    public Date getBorn_date() {
+        return born_date;
     }
 
-    public void setBornDate(Date bornDate) {
-        this.bornDate = bornDate;
+    public void setBorn_date(Date born_date) {
+        this.born_date = born_date;
     }
 
-    public Boolean getCastrated() {
-        return castrated;
+    public String getChip_number() {
+        return chip_number;
     }
 
-    public void setCastrated(Boolean castrated) {
-        this.castrated = castrated;
+    public void setChip_number(String chip_number) {
+        this.chip_number = chip_number;
     }
 
     @Override
     public String toString() {
         return "PetInfo{" +
-                "specie='" + specie + '\'' +
+                "name='" + name + '\'' +
+                ", specie='" + specie + '\'' +
                 ", breed='" + breed + '\'' +
-                ", gender='" + gender + '\'' +
-                ", bornDate=" + bornDate +
-                ", castrated=" + castrated +
+                ", photoPath='" + photoPath + '\'' +
+                ", born_date=" + born_date +
+                ", chip_number='" + chip_number + '\'' +
                 '}';
     }
 }

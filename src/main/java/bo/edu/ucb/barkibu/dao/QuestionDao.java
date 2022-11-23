@@ -1,6 +1,5 @@
 package bo.edu.ucb.barkibu.dao;
 
-import bo.edu.ucb.barkibu.entity.Pet;
 import bo.edu.ucb.barkibu.entity.Question;
 import org.apache.ibatis.annotations.Insert;
 import org.springframework.stereotype.Component;

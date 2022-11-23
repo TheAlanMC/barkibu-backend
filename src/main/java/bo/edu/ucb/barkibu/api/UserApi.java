@@ -8,7 +8,6 @@ import bo.edu.ucb.barkibu.dto.UpdatePasswordDto;
 import bo.edu.ucb.barkibu.dto.UpdateUserDto;
 import bo.edu.ucb.barkibu.dto.UserInfoDto;
 
-import bo.edu.ucb.barkibu.dto.VeterinarianInfoDto;
 import bo.edu.ucb.barkibu.util.AuthUtil;
 import bo.edu.ucb.barkibu.util.BarkibuException;
 import org.springframework.http.HttpStatus;

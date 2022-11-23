@@ -1,6 +1,5 @@
 package bo.edu.ucb.barkibu.dao;
 
-import bo.edu.ucb.barkibu.dto.StateDto;
 import bo.edu.ucb.barkibu.entity.State;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
@@ -15,5 +14,5 @@ public interface StateDao {
             WHERE status = 'activo'
             ORDER BY state
             """)
-    List<StateDto> findAll();
+    List<State> findAll();
 }

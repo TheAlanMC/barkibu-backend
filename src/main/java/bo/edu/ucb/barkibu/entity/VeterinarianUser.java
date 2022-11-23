@@ -1,6 +1,6 @@
-package bo.edu.ucb.barkibu.dto;
+package bo.edu.ucb.barkibu.entity;
 
-public class VeterinarianUserDto {
+public class VeterinarianUser {
     private String firstName;
     private String lastName;
     private Integer cityId;
@@ -11,10 +11,10 @@ public class VeterinarianUserDto {
     private String description;
     private String photoPath;
 
-    public VeterinarianUserDto() {
+    public VeterinarianUser() {
     }
 
-    public VeterinarianUserDto(String firstName, String lastName, Integer cityId, Integer stateId, Integer countryId, String userName, String email, String description, String photoPath) {
+    public VeterinarianUser(String firstName, String lastName, Integer cityId, Integer stateId, Integer countryId, String userName, String email, String description, String photoPath) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.cityId = cityId;

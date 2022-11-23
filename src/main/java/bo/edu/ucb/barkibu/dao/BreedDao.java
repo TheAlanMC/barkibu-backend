@@ -1,6 +1,6 @@
 package bo.edu.ucb.barkibu.dao;
 
-import bo.edu.ucb.barkibu.dto.BreedDto;
+import bo.edu.ucb.barkibu.entity.Breed;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
 
@@ -14,5 +14,5 @@ public interface BreedDao {
             WHERE status = 'activo'
             AND specie_id = #{specieId}
             """)
-    List<BreedDto> findBreedBySpecieId(Integer specieId);
+    List<Breed> findBreedBySpecieId(Integer specieId);
 }

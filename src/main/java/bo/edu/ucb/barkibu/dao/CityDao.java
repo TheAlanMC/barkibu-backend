@@ -1,6 +1,6 @@
 package bo.edu.ucb.barkibu.dao;
 
-import bo.edu.ucb.barkibu.dto.CityDto;
+import bo.edu.ucb.barkibu.entity.City;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
 
@@ -14,5 +14,5 @@ public interface CityDao {
             WHERE status = 'activo'
             ORDER BY city
             """)
-    List<CityDto> findAll();
+    List<City> findAll();
 }

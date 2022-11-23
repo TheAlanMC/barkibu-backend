@@ -1,10 +1,7 @@
 package bo.edu.ucb.barkibu.bl;
 
 import bo.edu.ucb.barkibu.dao.PetTreatmentDao;
-import bo.edu.ucb.barkibu.dto.AnswerDto;
-import bo.edu.ucb.barkibu.dto.PetOwnTreatmentListDto;
 import bo.edu.ucb.barkibu.dto.PetTreatmentDto;
-import bo.edu.ucb.barkibu.entity.Answer;
 import bo.edu.ucb.barkibu.entity.PetTreatment;
 import bo.edu.ucb.barkibu.entity.PetTreatmentList;
 import bo.edu.ucb.barkibu.util.BarkibuException;

@@ -1,11 +1,11 @@
 package bo.edu.ucb.barkibu.dao;
 
-import bo.edu.ucb.barkibu.entity.PetInfo;
+import bo.edu.ucb.barkibu.entity.PetQuestionInfo;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
 
 @Component
-public interface PetInfoDao {
+public interface PetQuestionInfoDao {
 
     @Select("""
             SELECT specie, breed, gender, born_date, castrated FROM pet
@@ -16,5 +16,5 @@ public interface PetInfoDao {
             AND breed.status = 'activo'
             AND specie.status = 'activo'
             """)
-    PetInfo findPetInfoByPetId(Integer petId);
+    PetQuestionInfo findPetInfoByPetId(Integer petId);
 }

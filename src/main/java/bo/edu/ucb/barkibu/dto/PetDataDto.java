@@ -4,43 +4,73 @@ import java.util.Date;
 import java.util.List;
 
 public class PetDataDto {
-    private String name;
-    private Date born_date;
-    private String chip_number;
+    private String specie;
+    private String breed;
+    private String gender;
+    private Date bornDate;
+    private boolean castrated;
+    private List<String> symptoms;
 
-    public PetDataDto(){
+    public PetDataDto() {
     }
 
-    public String getName() {
-        return name;
+    public String getSpecie() {
+        return specie;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setSpecie(String specie) {
+        this.specie = specie;
     }
 
-    public Date getBorn_date() {
-        return born_date;
+    public String getBreed() {
+        return breed;
     }
 
-    public void setBorn_date(Date born_date) {
-        this.born_date = born_date;
+    public void setBreed(String breed) {
+        this.breed = breed;
     }
 
-    public String getChip_number() {
-        return chip_number;
+    public String getGender() {
+        return gender;
     }
 
-    public void setChip_number(String chip_number) {
-        this.chip_number = chip_number;
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public Date getBornDate() {
+        return bornDate;
+    }
+
+    public void setBornDate(Date bornDate) {
+        this.bornDate = bornDate;
+    }
+
+    public boolean isCastrated() {
+        return castrated;
+    }
+
+    public void setCastrated(boolean castrated) {
+        this.castrated = castrated;
+    }
+
+    public List<String> getSymptoms() {
+        return symptoms;
+    }
+
+    public void setSymptoms(List<String> symptoms) {
+        this.symptoms = symptoms;
     }
 
     @Override
     public String toString() {
         return "PetDataDto{" +
-                "name='" + name + '\'' +
-                ", born_date=" + born_date +
-                ", chip_number='" + chip_number + '\'' +
+                "specie='" + specie + '\'' +
+                ", breed='" + breed + '\'' +
+                ", gender='" + gender + '\'' +
+                ", bornDate=" + bornDate + '\'' +
+                ", castrated=" + castrated + '\'' +
+                ", symptoms=" + symptoms +
                 '}';
     }
 }

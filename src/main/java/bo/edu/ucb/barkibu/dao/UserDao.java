@@ -1,6 +1,6 @@
 package bo.edu.ucb.barkibu.dao;
 
-import bo.edu.ucb.barkibu.dto.VeterinarianUserDto;
+import bo.edu.ucb.barkibu.entity.VeterinarianUser;
 import bo.edu.ucb.barkibu.entity.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
@@ -139,7 +139,7 @@ public interface UserDao {
             WHERE user_name = #{userName}
             AND "user".status = 'activo'
             """)
-    VeterinarianUserDto findVeterinarianUserByUserName(String userName);
+    VeterinarianUser findVeterinarianUserByUserName(String userName);
     //Informacion de usuario
     @Select("""
             SELECT first_name, last_name, email, user_name

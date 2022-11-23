@@ -1,17 +1,24 @@
-package bo.edu.ucb.barkibu.dto;
+package bo.edu.ucb.barkibu.entity;
 
 import java.util.Date;
 import java.util.List;
 
-public class PetInfoDto {
+public class PetQuestionInfo {
     private String specie;
     private String breed;
     private String gender;
     private Date bornDate;
-    private boolean castrated;
-    private List<String> symptoms;
+    private Boolean castrated;
 
-    public PetInfoDto() {
+    public PetQuestionInfo() {
+    }
+
+    public PetQuestionInfo(String specie, String breed, String gender, Date bornDate, Boolean castrated, List<String> symptoms) {
+        this.specie = specie;
+        this.breed = breed;
+        this.gender = gender;
+        this.bornDate = bornDate;
+        this.castrated = castrated;
     }
 
     public String getSpecie() {
@@ -46,31 +53,22 @@ public class PetInfoDto {
         this.bornDate = bornDate;
     }
 
-    public boolean isCastrated() {
+    public Boolean getCastrated() {
         return castrated;
     }
 
-    public void setCastrated(boolean castrated) {
+    public void setCastrated(Boolean castrated) {
         this.castrated = castrated;
-    }
-
-    public List<String> getSymptoms() {
-        return symptoms;
-    }
-
-    public void setSymptoms(List<String> symptoms) {
-        this.symptoms = symptoms;
     }
 
     @Override
     public String toString() {
-        return "PetInfoDto{" +
+        return "PetQuestionInfo{" +
                 "specie='" + specie + '\'' +
                 ", breed='" + breed + '\'' +
                 ", gender='" + gender + '\'' +
-                ", bornDate=" + bornDate + '\'' +
-                ", castrated=" + castrated + '\'' +
-                ", symptoms=" + symptoms +
+                ", bornDate=" + bornDate +
+                ", castrated=" + castrated +
                 '}';
     }
 }

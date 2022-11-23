@@ -7,11 +7,12 @@ public class CreatePetDto {
     private String gender;
     private Date bornDate;
     private String photoPath;
+    private String chipNumber;
 
     public CreatePetDto() {
     }
 
-    public CreatePetDto(Integer breedId, String name, String gender, Date bornDate, String photoPath) {
+    public CreatePetDto(Integer breedId, String name, String gender, Date bornDate, String photoPath, String chipNumber) {
         this.breedId = breedId;
         this.name = name;
         this.gender = gender;
@@ -57,6 +58,14 @@ public class CreatePetDto {
 
     public void setPhotoPath(String photoPath) {
         this.photoPath = photoPath;
+    }
+
+    public String getChipNumber() {
+        return chipNumber;
+    }
+
+    public void setChipNumber(String chipNumber) {
+        this.chipNumber = chipNumber;
     }
 
     @Override

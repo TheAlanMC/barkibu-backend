@@ -34,33 +34,29 @@ public class PetBl {
         pet.setGender(createPetDto.getGender());
         pet.setBornDate(createPetDto.getBornDate());
         pet.setPhotoPath(createPetDto.getPhotoPath());
-        // TODO: ADD BL TO CREATE CHIP NUMBER
-        String chipNumber = "";
-        pet.setChipNumber(chipNumber);
+        pet.setChipNumber(createPetDto.getChipNumber());
         this.petDao.createPet(pet);
     }
 
 
-    public PetDataDto findPetInfoByPetId(Integer specieId) {
-        Pet pet = petDao.findPetInfoByPetId(specieId);
+    public PetInfo findPetInfoByPetId(Integer petId) {
+        Pet pet = petDao.findPetInfoByPetId(petId);
         if (pet == null) {
-            throw new BarkibuException("SCTY-4000");
+            throw new BarkibuException("SCTY-4008");
         }
-        PetDataDto petInfoDto = new PetDataDto();
-        petInfoDto.setName(pet.getName());
-        petInfoDto.setBorn_date(pet.getBornDate());
-        petInfoDto.setChip_number(pet.getChipNumber());
-        return petInfoDto;
+        PetInfo petInfo = new PetInfo();
+        petInfo.setName(pet.getName());
+        petInfo.setBorn_date(pet.getBornDate());
+        petInfo.setChip_number(pet.getChipNumber());
+        return petInfo;
     }
     public List<String> getGroups(String name) {
         return userDao.findGroupsByUserName(name);
     }
     public void updatePet(Integer PetId, UpdatePetDto updatePetDto) {
-
-        System.out.print(PetId);
         Pet pet = petDao.findPetByPetName(PetId);
         if (pet == null) {
-            throw new BarkibuException("SCTY-4000");
+            throw new BarkibuException("SCTY-4009");
         }
         pet.setName(updatePetDto.getName());
         pet.setGender(updatePetDto.getGender());

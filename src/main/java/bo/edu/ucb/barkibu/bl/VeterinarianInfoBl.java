@@ -1,7 +1,7 @@
 package bo.edu.ucb.barkibu.bl;
 
 import bo.edu.ucb.barkibu.dao.*;
-import bo.edu.ucb.barkibu.dto.VeterinarianInfoDto;
+import bo.edu.ucb.barkibu.entity.VeterinarianInfo;
 import bo.edu.ucb.barkibu.entity.*;
 import bo.edu.ucb.barkibu.util.BarkibuException;
 import org.springframework.stereotype.Service;
@@ -18,7 +18,7 @@ public class VeterinarianInfoBl {
         this.veterinarianInfoDao = veterinarianInfoDao;
     }
 
-    public VeterinarianInfoDto findUserVeterinarianByUserName(String userName) {
+    public VeterinarianInfo findUserVeterinarianByUserName(String userName) {
         User user = userDao.findUserByUserName(userName);
         if (user == null) {
             throw new BarkibuException("SCTY-4000");

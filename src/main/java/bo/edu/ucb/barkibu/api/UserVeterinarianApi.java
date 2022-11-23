@@ -3,7 +3,7 @@ package bo.edu.ucb.barkibu.api;
 import bo.edu.ucb.barkibu.bl.UserVeterinarianBl;
 import bo.edu.ucb.barkibu.dto.CreateUserDto;
 import bo.edu.ucb.barkibu.dto.ResponseDto;
-import bo.edu.ucb.barkibu.dto.VeterinarianUserDto;
+import bo.edu.ucb.barkibu.entity.VeterinarianUser;
 import bo.edu.ucb.barkibu.util.AuthUtil;
 import bo.edu.ucb.barkibu.util.BarkibuException;
 import org.springframework.http.HttpStatus;
@@ -55,8 +55,8 @@ public class UserVeterinarianApi {
             String jwt = AuthUtil.getTokenFromHeader(headers);
             AuthUtil.verifyHasRole(jwt, "EDITAR INFORMACION DE VETERINARIO");
             String userName = AuthUtil.getUserNameFromToken(jwt);
-            VeterinarianUserDto veterinarianUserDto = userVeterinarianBl.getVeterinarianUser(userName);
-            ResponseDto<VeterinarianUserDto> responseDto = new ResponseDto<>(veterinarianUserDto, "SCTY-0000", null);
+            VeterinarianUser veterinarianUserDto = userVeterinarianBl.getVeterinarianUser(userName);
+            ResponseDto<VeterinarianUser> responseDto = new ResponseDto<>(veterinarianUserDto, "SCTY-0000", null);
             return new ResponseEntity<>(responseDto, HttpStatus.OK);
         } catch (BarkibuException e) {
             ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
@@ -66,7 +66,7 @@ public class UserVeterinarianApi {
 
     // Edita el perfil de un usuario veterinario por su token
     @PutMapping()
-    public ResponseEntity<ResponseDto<String>> updateVeterinarianProfile(@RequestHeader Map<String,String> headers, @RequestBody VeterinarianUserDto veterinarianUserDto) {
+    public ResponseEntity<ResponseDto<String>> updateVeterinarianProfile(@RequestHeader Map<String,String> headers, @RequestBody VeterinarianUser veterinarianUserDto) {
         if (veterinarianUserDto.validate()) {
             try {
                 // Verificamos que el usuario este autenticado
