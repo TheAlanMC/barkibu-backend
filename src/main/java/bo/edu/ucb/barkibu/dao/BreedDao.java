@@ -12,6 +12,7 @@ public interface BreedDao {
             SELECT breed_id, specie_id, breed
             FROM breed
             WHERE status = 'activo'
+            ORDER BY breed
             """)
     List<Breed> findAll();
 }

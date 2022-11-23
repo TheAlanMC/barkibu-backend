@@ -95,6 +95,9 @@ public class CreatePetDto {
         if(photoPath == null || photoPath.isEmpty()) {
             return false;
         }
+        if(breedId == null || breedId<1) {
+            return false;
+        }
             return true;
     }
 }

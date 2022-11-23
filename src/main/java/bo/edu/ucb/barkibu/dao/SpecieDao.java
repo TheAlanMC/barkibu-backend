@@ -11,6 +11,7 @@ public interface SpecieDao {
             SELECT specie_id, specie
             FROM specie
             WHERE status = 'activo'
+            ORDER BY specie
             """)
     List<Specie> findAll();
 
@@ -19,6 +20,7 @@ public interface SpecieDao {
             FROM specie
             WHERE specie_id = #{specieId}
             AND status = 'activo'
+            ORDER BY specie
             """)
     Specie findSpecieBySpecieId(Integer specieId);
 }
