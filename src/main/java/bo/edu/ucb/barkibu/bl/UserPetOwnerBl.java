@@ -28,7 +28,7 @@ public class UserPetOwnerBl {
         }
         // Verificamos que nombre de usuario no tenga espacios en blanco
         if (ValidationUtil.userNameHasBlankSpaces(createUserDto.getUserName())) {
-            throw new BarkibuException("SCTY-1013");
+            throw new BarkibuException("SCTY-1014");
         }
         // Verificamos que el email no exista
         if (userDao.findUserIdByEmail(createUserDto.getEmail()) != null) {

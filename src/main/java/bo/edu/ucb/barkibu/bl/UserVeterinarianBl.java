@@ -28,7 +28,7 @@ public class UserVeterinarianBl {
     public void createVeterinarianUser(CreateUserDto createUserDto) {
         // Verificamos que el nombre de usuario no tenga espacios en blanco
         if (ValidationUtil.userNameHasBlankSpaces(createUserDto.getUserName())) {
-            throw new BarkibuException("SCTY-1013");
+            throw new BarkibuException("SCTY-1014");
         }
         // Verificamos que el username no exista
         if (userDao.findUserIdByUserName(createUserDto.getUserName()) != null) {
@@ -77,7 +77,7 @@ public class UserVeterinarianBl {
             throw new BarkibuException("SCTY-4000");
         }
         if (ValidationUtil.userNameHasBlankSpaces(veterinarianUserDto.getUserName())) {
-            throw new BarkibuException("SCTY-1013");
+            throw new BarkibuException("SCTY-1014");
         }
         if (userDao.findUserIdByUserName(veterinarianUserDto.getUserName()) != null && !user.getUserName().equals(veterinarianUserDto.getUserName())) {
             throw new BarkibuException("SCTY-1002");

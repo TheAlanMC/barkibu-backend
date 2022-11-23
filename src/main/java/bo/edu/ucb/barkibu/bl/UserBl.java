@@ -55,7 +55,7 @@ public class UserBl {
             throw new BarkibuException("SCTY-4000");
         }
         if (ValidationUtil.userNameHasBlankSpaces(updateUserDto.getUserName())) {
-            throw new BarkibuException("SCTY-1013");
+            throw new BarkibuException("SCTY-1014");
         }
         user.setFirstName(updateUserDto.getFirstName());
         user.setLastName(updateUserDto.getLastName());
