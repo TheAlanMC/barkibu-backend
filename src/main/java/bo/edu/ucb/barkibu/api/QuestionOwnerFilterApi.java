@@ -26,9 +26,10 @@ public class QuestionOwnerFilterApi {
     }
 
     // TODO: REMOVE BODY FROM GET REQUEST
-    @GetMapping()
+    @PostMapping()
     public ResponseEntity<ResponseDto> getVeterinarianQuestion(@RequestHeader Map<String, String> headers,
-            @RequestBody QuestionVeterinarianFilterDto questionVeterinarianFilterDto) {
+            @RequestBody QuestionVeterinarianFilterDto questionVeterinarianFilterDto,
+            @RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer pageSize) {
         if (questionVeterinarianFilterDto.validate()) {
             try {
                 // Verificamos que el usuario este autenticado
