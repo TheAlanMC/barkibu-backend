@@ -2,8 +2,6 @@ package bo.edu.ucb.barkibu.dao;
 
 import bo.edu.ucb.barkibu.entity.Pet;
 import bo.edu.ucb.barkibu.entity.PetInfo;
-import bo.edu.ucb.barkibu.entity.PetInfoId;
-import bo.edu.ucb.barkibu.entity.QuestionOwner;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -20,74 +18,63 @@ public interface PetDao {
             VALUES (#{userId}, #{breedId}, #{name}, #{gender}, #{castrated}, #{bornDate}, #{photoPath}, #{chipNumber}, 'activo', now(), 'anonymus', 'localhost')
             """)
     void createPet(Pet pet);
-    // Muestra datos de la mascota
+
     @Select("""
-            SELECT name,  born_date, chip_number FROM pet
-            WHERE pet_id = #{petId}
-            AND pet.status = 'activo'
-            """)
-    Pet findPetInfoByPetId(Integer petId);
-    @Select("""
-            SELECT name, breed_id, gender, castrated, born_date, chip_number
+            SELECT pet_id, name, breed_id, gender, castrated, born_date, chip_number
             FROM pet
             WHERE pet_id = #{PetId}
             AND pet.status = 'activo'
             """)
-    Pet findPetByPetName(Integer PetId);
+    Pet findPetByPetId(Integer petId);
 
     @Select("""
-            SELECT name, breed_id, gender, castrated, born_date, chip_number
+            SELECT pet.pet_id, pet.name, specie, breed, pet.photo_path, born_date, chip_number, gender, castrated
             FROM pet
-            WHERE name = #{petId}
-            AND status = 'activo'
+            JOIN breed ON pet.breed_id = breed.breed_id
+            JOIN specie ON breed.specie_id = specie.specie_id
+            WHERE pet.pet_id = #{petId}
+            AND pet.status = 'activo'
+            AND breed.status = 'activo'
+            AND specie.status = 'activo'
+            ORDER BY pet.pet_id
             """)
-    Pet findPetByPetId(Integer userName);
+    PetInfo findPetInfoByPetId(Integer petId);
     //Actualiza datos de la mascota
     @Update("""
             UPDATE pet
             SET name = #{name}, gender = #{gender}, castrated = #{castrated},
-                born_date = #{bornDate}, breed_id = #{breedId}, chip_number = #{chipNumber}
-            WHERE pet_id = 2
+            born_date = #{bornDate}, breed_id = #{breedId}, chip_number = #{chipNumber}
+            WHERE pet_id = #{petId}
             AND status = 'activo'
             """)
     void updatePet(Pet pet);
-    //Información de la mascota por id
 
-    @Select("""
-            SELECT pet.name, breed,born_date, chip_number,specie,pet.photo_path from pet
-            		JOIN breed ON pet.breed_id = breed.breed_id
-                    JOIN specie ON breed.specie_id = specie.specie_id
-            		WHERE pet.pet_id= #{petId}
-            		AND pet.status = 'activo'
-                    AND breed.status = 'activo'
-                    AND specie.status = 'activo'
-            """)
-    PetInfoId findPetInfoById(Integer petId);
-    //Listado de mascotas por token usuario
+    //Listado de mascotas por nombre de usuario
     @Select("""		
-            SELECT pet.name, breed,born_date, chip_number,specie,pet.photo_path from pet
-            		JOIN breed ON pet.breed_id = breed.breed_id
-                    JOIN specie ON breed.specie_id = specie.specie_id
-            		JOIN "user" ON pet.user_id = "user".user_id
-            		WHERE "user".user_name= #{userName}
-            		AND pet.status = 'activo'
-                    AND breed.status = 'activo'
-                    AND specie.status = 'activo'
-                    AND "user".status = 'activo'
-                    
-                        
+            SELECT pet.pet_id, pet.name, specie, breed, pet.photo_path, born_date, chip_number, gender, castrated
+            FROM pet
+            JOIN breed ON pet.breed_id = breed.breed_id
+            JOIN specie ON breed.specie_id = specie.specie_id
+            JOIN "user" ON pet.user_id = "user".user_id
+            WHERE "user".user_name= #{userName}
+            AND pet.status = 'activo'
+            AND breed.status = 'activo'
+            AND specie.status = 'activo'
+            AND "user".status = 'activo'
+            ORDER BY pet.pet_id
             """)
-    List<PetInfoId >findPetInfoByToken(String userName);
+    List<PetInfo>findPetInfoByUserName(String userName);
+
     //Informacíon de la pantalla perfil mascota
     @Select("""
             SELECT pet.name,gender, pet.breed_id,born_date, castrated,chip_number,pet.photo_path from pet
-                        		JOIN breed ON pet.breed_id = breed.breed_id
-                                JOIN specie ON breed.specie_id = specie.specie_id
-                        		WHERE pet.pet_id= #{petId}
-                        		AND pet.status = 'activo'
-                                AND breed.status = 'activo'
-                                AND specie.status = 'activo'
+            JOIN breed ON pet.breed_id = breed.breed_id
+            JOIN specie ON breed.specie_id = specie.specie_id
+            WHERE pet.pet_id= #{petId}
+            AND pet.status = 'activo'
+            AND breed.status = 'activo'
+            AND specie.status = 'activo'
             """)
-    Pet finPetInfo(Integer petId);
+    Pet finPetByPetId(Integer petId);
 }
 

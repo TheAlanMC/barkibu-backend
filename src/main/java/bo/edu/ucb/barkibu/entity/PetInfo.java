@@ -8,20 +8,24 @@ public class PetInfo {
     private String specie;
     private String breed;
     private String photoPath;
-    private Date born_date;
-    private String chip_number;
+    private Date bornDate;
+    private String chipNumber;
+    private String gender;
+    private Boolean castrated;
 
     public PetInfo(){
     }
 
-    public PetInfo(Integer petId, String name, String specie, String breed, String photoPath, Date born_date, String chip_number) {
+    public PetInfo(Integer petId, String name, String specie, String breed, String photoPath, Date bornDate, String chip_number, String gender, Boolean castrated) {
         this.petId = petId;
         this.name = name;
         this.specie = specie;
         this.breed = breed;
         this.photoPath = photoPath;
-        this.born_date = born_date;
-        this.chip_number = chip_number;
+        this.bornDate = bornDate;
+        this.chipNumber = chip_number;
+        this.gender = gender;
+        this.castrated = castrated;
     }
 
     public Integer getPetId() {
@@ -64,31 +68,50 @@ public class PetInfo {
         this.photoPath = photoPath;
     }
 
-    public Date getBorn_date() {
-        return born_date;
+    public Date getBornDate() {
+        return bornDate;
     }
 
-    public void setBorn_date(Date born_date) {
-        this.born_date = born_date;
+    public void setBornDate(Date bornDate) {
+        this.bornDate = bornDate;
     }
 
-    public String getChip_number() {
-        return chip_number;
+    public String getChipNumber() {
+        return chipNumber;
     }
 
-    public void setChip_number(String chip_number) {
-        this.chip_number = chip_number;
+    public void setChipNumber(String chipNumber) {
+        this.chipNumber = chipNumber;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public Boolean getCastrated() {
+        return castrated;
+    }
+
+    public void setCastrated(Boolean castrated) {
+        this.castrated = castrated;
     }
 
     @Override
     public String toString() {
         return "PetInfo{" +
-                "name='" + name + '\'' +
+                "petId=" + petId +
+                ", name='" + name + '\'' +
                 ", specie='" + specie + '\'' +
                 ", breed='" + breed + '\'' +
                 ", photoPath='" + photoPath + '\'' +
-                ", born_date=" + born_date +
-                ", chip_number='" + chip_number + '\'' +
+                ", bornDate=" + bornDate +
+                ", chipNumber='" + chipNumber + '\'' +
+                ", gender='" + gender + '\'' +
+                ", castrated=" + castrated +
                 '}';
     }
 }

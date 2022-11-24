@@ -27,6 +27,7 @@ GET  http://localhost:7777/v1/api/pet/3
 Content-Type: application/json
 Accept: application/json
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjemFyYXRlIiwicm9sZXMiOlsiRURJVEFSIElORk9STUFDSU9OIERFIFZFVEVSSU5BUklPIiwiRURJVEFSIElORk9STUFDSU9OIERFIENMSU5JQ0EgVkVURVJJTkFSSUEiLCJQVUJMSUNBUiBSRVNQVUVTVEEiLCJFRElUQVIgUkVTUFVFU1RBIl0sImlzcyI6InVjYiIsInJlZnJlc2giOmZhbHNlLCJleHAiOjE2NzE0ODg1ODEsImlhdCI6MTY2ODQ4ODU4MX0.kIIOzz_O4Noczn0O3Z9vfxlKmBUljE8Z2Pn3RtjO9qg
+
 {
     "name": "Charil",
     "gender": "Macho",
@@ -34,10 +35,10 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjemFyYXRlI
     "bornDate": "2021-12-10T04:00:00.000+00:00",
     "breedId": "2",
     "chipNumber": "9075956746"
-
 }
+
 ###Info petcard by id
-GET  http://localhost:7777/v1/api/pet/pet-info/pet-id/1
+GET  http://localhost:7777/v1/api/pet/pet-info/1
 Content-Type: application/json
 Accept: application/json
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjemFyYXRlIiwicm9sZXMiOlsiRURJVEFSIElORk9STUFDSU9OIERFIFZFVEVSSU5BUklPIiwiRURJVEFSIElORk9STUFDSU9OIERFIENMSU5JQ0EgVkVURVJJTkFSSUEiLCJQVUJMSUNBUiBSRVNQVUVTVEEiLCJFRElUQVIgUkVTUFVFU1RBIl0sImlzcyI6InVjYiIsInJlZnJlc2giOmZhbHNlLCJleHAiOjE2NzE0ODg1ODEsImlhdCI6MTY2ODQ4ODU4MX0.kIIOzz_O4Noczn0O3Z9vfxlKmBUljE8Z2Pn3RtjO9qg

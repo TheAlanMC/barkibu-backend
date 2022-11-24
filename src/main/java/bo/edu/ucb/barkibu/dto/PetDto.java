@@ -2,7 +2,7 @@ package bo.edu.ucb.barkibu.dto;
 
 import java.util.Date;
 
-public class UpdatePetDto {
+public class PetDto {
     private String name;
     private String gender;
     private Integer breedId;
@@ -10,10 +10,10 @@ public class UpdatePetDto {
     private Date bornDate;
     private String chipNumber;
     private  String photoPath;
-    public UpdatePetDto(){
+    public PetDto(){
     }
 
-    public UpdatePetDto(String name, String gender, Integer breedId, Boolean castrated, Date bornDate, String chipNumber, String photoPath) {
+    public PetDto(String name, String gender, Integer breedId, Boolean castrated, Date bornDate, String chipNumber, String photoPath) {
         this.name = name;
         this.gender = gender;
         this.breedId = breedId;
@@ -81,7 +81,7 @@ public class UpdatePetDto {
 
     @Override
     public String toString() {
-        return "UpdatePetDto{" +
+        return "PetDto{" +
                 "name='" + name + '\'' +
                 ", gender='" + gender + '\'' +
                 ", breedId=" + breedId +

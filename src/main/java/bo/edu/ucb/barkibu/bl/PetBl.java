@@ -5,7 +5,6 @@ import bo.edu.ucb.barkibu.dao.PetDao;
 import bo.edu.ucb.barkibu.dao.UserDao;
 import bo.edu.ucb.barkibu.dto.*;
 import bo.edu.ucb.barkibu.entity.*;
-import bo.edu.ucb.barkibu.entity.PetInfoId;
 import bo.edu.ucb.barkibu.util.BarkibuException;
 import org.springframework.stereotype.Service;
 
@@ -18,9 +17,6 @@ public class PetBl {
     private final PetDao petDao;
     private final UserDao userDao;
 
-
-
-
     public PetBl(PetDao petDao, UserDao userDao) {
         this.petDao = petDao;
         this.userDao = userDao;
@@ -30,7 +26,7 @@ public class PetBl {
     public void createPet(String userName, CreatePetDto createPetDto) {
         // Verificamos que la fecha de nacimiento no sea mayor a la fecha actual
         if (isTimeAfterNow(createPetDto.getBornDate())) {
-            throw new  BarkibuException("SCTY-1008");
+            throw new BarkibuException("SCTY-1008");
         }
         // Crear la mascota
         Pet pet = new Pet();
@@ -44,42 +40,18 @@ public class PetBl {
         this.petDao.createPet(pet);
     }
 
-
     public PetInfo findPetInfoByPetId(Integer petId) {
-        Pet pet = petDao.findPetInfoByPetId(petId);
-        if (pet == null) {
+        PetInfo petInfo = petDao.findPetInfoByPetId(petId);
+        if (petInfo == null) {
             throw new BarkibuException("SCTY-4008");
         }
-        PetInfo petInfo = new PetInfo();
-        petInfo.setName(pet.getName());
-        petInfo.setBorn_date(pet.getBornDate());
-        petInfo.setChip_number(pet.getChipNumber());
         return petInfo;
     }
 
-    public PetInfoIdDto findPetInfoById(Integer specieId) {
-        PetInfoId petInfoId = petDao.findPetInfoById(specieId);
-        if (petInfoId == null) {
-            throw new BarkibuException("SCTY-4008");
-        }
-        PetInfoIdDto petInfoIdDto = new PetInfoIdDto();
-        petInfoIdDto.setName(petInfoId.getName());
-        petInfoIdDto.setSpecie(petInfoId.getSpecie());
-        petInfoIdDto.setBreed(petInfoId.getBreed());
-        petInfoIdDto.setChip_number(petInfoId.getChipNumber());
-        petInfoIdDto.setBorn_date(petInfoId.getBornDate());
-        petInfoIdDto.setPhotoPath(petInfoId.getPhotoPath());
-
-
-        return petInfoIdDto;
-    }
-    public List<String> getGroups(String name) {
-        return userDao.findGroupsByUserName(name);
-    }
-    public void updatePet(Integer PetId, UpdatePetDto updatePetDto) {
-        Pet pet = petDao.findPetByPetName(PetId);
+    public void updatePet(Integer petId, PetDto updatePetDto) {
+        Pet pet = petDao.findPetByPetId(petId);
         if (pet == null) {
-            throw new BarkibuException("SCTY-4009");
+            throw new BarkibuException("SCTY-4008");
         }
         pet.setName(updatePetDto.getName());
         pet.setGender(updatePetDto.getGender());
@@ -87,35 +59,33 @@ public class PetBl {
         pet.setCastrated(updatePetDto.getCastrated());
         pet.setBornDate(updatePetDto.getBornDate());
         pet.setChipNumber(updatePetDto.getChipNumber());
-
         this.petDao.updatePet(pet);
     }
-    //Listado de las mascotas
-    public List<PetInfoId> findPetInfoByToken(String userName) {
-        // Verificamos que la mascota exista
-        if(petDao.findPetInfoByToken(userName) == null) {
-            throw new BarkibuException("SCTY-4005");
+
+    // Listado de las mascotas
+    public List<PetInfo> findPetInfoByUserName(String userName) {
+        List<PetInfo> petInfos = petDao.findPetInfoByUserName(userName);
+        if (petInfos.isEmpty()) {
+            throw new BarkibuException("SCTY-4008");
         }
-        // Obtener la lista de tratamientos
-        return petDao.findPetInfoByToken(userName);
+        return petInfos;
     }
-    //Datos mascota perfil
-    public UpdatePetDto findPet(Integer specieId) {
-        Pet pet = petDao.finPetInfo(specieId);
+
+    // Datos mascota perfil
+    public PetDto findPetByPetId(Integer specieId) {
+        Pet pet = petDao.finPetByPetId(specieId);
         if (pet == null) {
             throw new BarkibuException("SCTY-4008");
         }
-        UpdatePetDto updatePetDto = new UpdatePetDto();
-        updatePetDto.setName(pet.getName());
-        updatePetDto.setGender(pet.getGender());
-        updatePetDto.setBreedId(pet.getBreedId());
-        updatePetDto.setChipNumber(pet.getChipNumber());
-        updatePetDto.setCastrated(pet.isCastrated());
-        updatePetDto.setBornDate(pet.getBornDate());
-        updatePetDto.setPhotoPath(pet.getPhotoPath());
-
-
-        return updatePetDto;
+        PetDto petDto = new PetDto();
+        petDto.setName(pet.getName());
+        petDto.setGender(pet.getGender());
+        petDto.setBreedId(pet.getBreedId());
+        petDto.setChipNumber(pet.getChipNumber());
+        petDto.setCastrated(pet.isCastrated());
+        petDto.setBornDate(pet.getBornDate());
+        petDto.setPhotoPath(pet.getPhotoPath());
+        return petDto;
     }
 
 }
