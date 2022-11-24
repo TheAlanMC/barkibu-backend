@@ -7,6 +7,8 @@ import bo.edu.ucb.barkibu.dto.UpdatePasswordDto;
 
 import bo.edu.ucb.barkibu.dto.UserDto;
 
+import bo.edu.ucb.barkibu.entity.Pet;
+import bo.edu.ucb.barkibu.entity.User;
 import bo.edu.ucb.barkibu.util.AuthUtil;
 import bo.edu.ucb.barkibu.util.BarkibuException;
 import org.springframework.http.HttpStatus;
@@ -77,6 +79,26 @@ public class UserApi {
             ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
             return new ResponseEntity<>(responseDto, e.getHttpStatus());
         }
+    }
+    //Eliminación de usuario por id
+    @PutMapping("/delete/{userName}")
+    public ResponseEntity<ResponseDto<String>> deleteUser(@RequestHeader Map<String, String> headers,
+                                                          @RequestBody User DeleteUser, @PathVariable String userName
+    ) {
+
+        try {
+            // Verificamos que el usuario este autenticado
+            String jwt = AuthUtil.getTokenFromHeader(headers);
+            AuthUtil.getUserNameFromToken(jwt);
+            AuthUtil.verifyHasRole(jwt, "EDITAR INFORMACION DE LA MASCOTA");
+            userBl.deleteUser(userName, DeleteUser);
+            ResponseDto<String> responseDto = new ResponseDto<>("Pet Delete", "SCTY-0000", null);
+            return new ResponseEntity<>(responseDto, HttpStatus.OK);
+        } catch (BarkibuException e) {
+            ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
+            return new ResponseEntity<>(responseDto, e.getHttpStatus());
+        }
+
     }
 
 }

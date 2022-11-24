@@ -61,4 +61,14 @@ public class UserBl {
         userDto.setUserName(user.getUserName());
         return userDto;
     }
+    //"Eliminación de usuario por id"
+    public void deleteUser(String userName, User deleteUser) {
+        User user = userDao.findUserByUserName(userName);
+        if (user == null) {
+            throw new BarkibuException("SCTY-4008");
+        }
+        user.setUserName(userName);
+        user.setStatus(deleteUser.getStatus());
+        this.userDao.deleteUser(user);
+    }
 }

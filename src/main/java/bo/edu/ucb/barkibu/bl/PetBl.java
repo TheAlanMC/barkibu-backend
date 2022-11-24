@@ -63,6 +63,16 @@ public class PetBl {
         pet.setChipNumber(petData.getChipNumber());
         this.petDao.updatePet(pet);
     }
+    //Eliminación mascota por id
+    public void deletePet(Integer petId, Pet deletePet) {
+        Pet pet = petDao.findPetByPetId(petId);
+        if (pet == null) {
+            throw new BarkibuException("SCTY-4008");
+        }
+        pet.setPetId(petId);
+        pet.setStatus(deletePet.getStatus());
+        this.petDao.updatePet(pet);
+    }
 
     // Listado de las mascotas
     public List<PetInfo> findPetInfoByUserName(String userName) {

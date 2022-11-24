@@ -152,7 +152,7 @@ public interface UserDao {
     @Update("""
             UPDATE "user"
             SET status = 'inactivo'
-            WHERE user_id = #{userId}
+            WHERE user_id = #{userName}
             AND status = 'activo'
             """)
     void deleteUser(User user);

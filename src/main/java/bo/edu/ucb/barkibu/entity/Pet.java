@@ -158,4 +158,10 @@ public class Pet {
                 ", txHost='" + txHost + '\'' +
                 '}';
     }
+    public boolean validate() {
+        if (status == null || status.isEmpty()){
+            return false;
+        }
+        return true;
+    }
 }

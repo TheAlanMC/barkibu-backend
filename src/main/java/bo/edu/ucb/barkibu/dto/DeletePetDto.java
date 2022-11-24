@@ -24,4 +24,5 @@ public class DeletePetDto {
                 "status='" + status + '\'' +
                 '}';
     }
+
 }
