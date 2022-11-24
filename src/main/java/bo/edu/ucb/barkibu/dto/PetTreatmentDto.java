@@ -6,14 +6,16 @@ public class PetTreatmentDto {
     private Integer treatmentId;
     private Integer petId;
     private Date treatmentLastDate;
+    private Date treatmentNextDate;
 
     public PetTreatmentDto() {
     }
 
-    public PetTreatmentDto(Integer treatmentId, Integer petId, Date treatmentLastDate) {
+    public PetTreatmentDto(Integer treatmentId, Integer petId, Date treatmentLastDate, Date treatmentNextDate) {
         this.treatmentId = treatmentId;
         this.petId = petId;
         this.treatmentLastDate = treatmentLastDate;
+        this.treatmentNextDate = treatmentNextDate;
     }
 
     public Integer getTreatmentId() {
@@ -40,8 +42,13 @@ public class PetTreatmentDto {
         this.treatmentLastDate = treatmentLastDate;
     }
 
+    public Date getTreatmentNextDate() {
+        return treatmentNextDate;
+    }
+
+
     public boolean validate() {
-        if(treatmentId == null || petId == null || treatmentLastDate == null) {
+        if(treatmentId == null || petId == null || treatmentLastDate == null || treatmentNextDate == null) {
             return false;
         }
     return true;

@@ -29,9 +29,27 @@ public interface PetTreatmentDao {
             AND pet.status = 'activo'
             AND pet_treatment.status = 'activo'
             AND treatment.status = 'activo'
+            AND treatment_last_date < now()
             GROUP BY pet.pet_id, treatment.treatment_id, treatment_last_date, treatment_next_date
+            ORDER BY treatment_last_date DESC
             """)
-    List<PetTreatmentList> findTreatmentByPetId(Integer petId);
+    List<PetTreatmentList> findTreatmentLastDateByPetId(Integer petId);
+
+    @Select("""
+            SELECT treatment.treatment_id, pet.pet_id, treatment, treatment_last_date, treatment_next_date
+            FROM pet_treatment
+            JOIN pet ON pet_treatment.pet_id = pet.pet_id
+            JOIN treatment ON pet_treatment.treatment_id = treatment.treatment_id
+            WHERE pet.pet_id = #{petId}
+            AND pet.status = 'activo'
+            AND pet_treatment.status = 'activo'
+            AND treatment.status = 'activo'
+            AND treatment_next_date >= now()
+            GROUP BY pet.pet_id, treatment.treatment_id, treatment_last_date, treatment_next_date
+            ORDER BY treatment_next_date ASC
+            """)
+    List<PetTreatmentList> findTreatmentNextDateByPetId(Integer petId);
+
 
     @Update("""
             UPDATE pet_treatment

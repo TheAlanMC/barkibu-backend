@@ -7,7 +7,8 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhcGFuaXF1Z
 {
     "petId": 1,
     "treatmentId": 3,
-    "treatmentLastDate": "2020-03-03"
+    "treatmentLastDate": "2020-03-03",
+      "treatmentNextDate": "2020-03-03",
 }
 ###
 GET  http://localhost:7777/v1/api/pet/treatment/1
