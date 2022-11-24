@@ -148,6 +148,15 @@ public interface UserDao {
             AND status = 'activo'
             """)
     User findInfoUserByUserName(String userName);
+    //"Eliminación" de usuario
+    @Update("""
+            UPDATE "user"
+            SET status = 'inactivo'
+            WHERE user_id = #{userId}
+            AND status = 'activo'
+            """)
+    void deleteUser(User user);
+
 
 }
 

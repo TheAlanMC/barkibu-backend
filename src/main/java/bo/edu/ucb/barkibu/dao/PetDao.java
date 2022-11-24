@@ -77,5 +77,13 @@ public interface PetDao {
             AND specie.status = 'activo'
             """)
     PetData findPetDataByPetId(Integer petId);
+    //Eliminación de mascota
+    @Update("""
+            UPDATE pet
+                        SET status = 'inactivo'
+                        WHERE pet_id= #{petId}
+            			AND status = 'activo'
+            """)
+    void deletePet(Pet pet);
 }
 
