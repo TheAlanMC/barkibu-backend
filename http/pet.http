@@ -38,7 +38,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjemFyYXRlI
 }
 
 ###Info petcard by id
-GET  http://localhost:7777/v1/api/pet/pet-info/1
+GET  http://localhost:7777/v1/api/pet/pet-info
 Content-Type: application/json
 Accept: application/json
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjemFyYXRlIiwicm9sZXMiOlsiRURJVEFSIElORk9STUFDSU9OIERFIFZFVEVSSU5BUklPIiwiRURJVEFSIElORk9STUFDSU9OIERFIENMSU5JQ0EgVkVURVJJTkFSSUEiLCJQVUJMSUNBUiBSRVNQVUVTVEEiLCJFRElUQVIgUkVTUFVFU1RBIl0sImlzcyI6InVjYiIsInJlZnJlc2giOmZhbHNlLCJleHAiOjE2NzE0ODg1ODEsImlhdCI6MTY2ODQ4ODU4MX0.kIIOzz_O4Noczn0O3Z9vfxlKmBUljE8Z2Pn3RtjO9qg
