@@ -7,6 +7,8 @@ import bo.edu.ucb.barkibu.dto.ResponseDto;
 import bo.edu.ucb.barkibu.entity.PetQuestion;
 import bo.edu.ucb.barkibu.util.AuthUtil;
 import bo.edu.ucb.barkibu.util.BarkibuException;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +27,6 @@ public class QuestionOwnerFilterApi {
         this.questionOwnerFilterBl = questionOwnerFilterBl;
     }
 
-    // TODO: REMOVE BODY FROM GET REQUEST
     @PostMapping()
     public ResponseEntity<ResponseDto> getVeterinarianQuestion(@RequestHeader Map<String, String> headers,
             @RequestBody QuestionVeterinarianFilterDto questionVeterinarianFilterDto,
@@ -35,8 +36,9 @@ public class QuestionOwnerFilterApi {
                 // Verificamos que el usuario este autenticado
                 String jwt = AuthUtil.getTokenFromHeader(headers);
                 AuthUtil.getUserNameFromToken(jwt);
+                Pageable pageable = PageRequest.of(page - 1, pageSize);
                 List<PetQuestion> petQuestions = questionOwnerFilterBl
-                        .findPetQuestionByKeyWord(questionVeterinarianFilterDto);
+                        .findPetQuestionByKeyWord(questionVeterinarianFilterDto,pageable);
                 ResponseDto<List<PetQuestion>> responseDto = new ResponseDto<>(petQuestions, "SCTY-0000", null);
                 return new ResponseEntity<>(responseDto, HttpStatus.OK);
             } catch (BarkibuException e) {

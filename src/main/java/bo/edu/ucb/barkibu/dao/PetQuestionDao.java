@@ -60,12 +60,15 @@ public interface PetQuestionDao {
                         FROM question
                         JOIN pet ON question.pet_id = pet.pet_id
                         JOIN breed ON pet.breed_id = breed.breed_id
-                        WHERE CAST(question.category_id AS TEXT) like '%' || #{categoryId}
-                        AND CAST(breed.specie_id AS TEXT) like '%' || #{specieId}
-                        AND question.problem like  '%' || #{answered} || '%'
+                        WHERE CAST(question.category_id AS TEXT) like '%' || #{questionVeterinarianFilterDto.categoryId} || '%'
+                        AND CAST(breed.specie_id AS TEXT) like '%' || #{questionVeterinarianFilterDto.specieId} || '%'
+                        AND question.problem like  '%' || #{questionVeterinarianFilterDto.answered} || '%'
+                        AND question.answered = true
                         AND question.status = 'activo'
                         AND pet.status = 'activo'
                         ORDER BY time_stamp DESC
+                        OFFSET (#{pageable.pageNumber} * #{pageable.pageSize})
+                        FETCH NEXT #{pageable.pageSize} ROWS ONLY
             """)
-    List<PetQuestion> findPetQuestionByKeyWord(QuestionVeterinarianFilterDto questionVeterinarianFilterDto);
+    List<PetQuestion> findPetQuestionByKeyWord(QuestionVeterinarianFilterDto questionVeterinarianFilterDto, Pageable pageable);
 }
