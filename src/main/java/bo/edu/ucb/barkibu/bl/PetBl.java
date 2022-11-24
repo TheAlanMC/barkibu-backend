@@ -48,17 +48,19 @@ public class PetBl {
         return petInfo;
     }
 
-    public void updatePet(Integer petId, PetDto updatePetDto) {
+    public void updatePet(Integer petId, PetData petData) {
         Pet pet = petDao.findPetByPetId(petId);
         if (pet == null) {
             throw new BarkibuException("SCTY-4008");
         }
-        pet.setName(updatePetDto.getName());
-        pet.setGender(updatePetDto.getGender());
-        pet.setBreedId(updatePetDto.getBreedId());
-        pet.setCastrated(updatePetDto.getCastrated());
-        pet.setBornDate(updatePetDto.getBornDate());
-        pet.setChipNumber(updatePetDto.getChipNumber());
+        pet.setPetId(petId);
+        pet.setName(petData.getName());
+        pet.setGender(petData.getGender());
+        pet.setCastrated(petData.getCastrated());
+        pet.setBreedId(petData.getBreedId());
+        pet.setBornDate(petData.getBornDate());
+        pet.setPhotoPath(petData.getPhotoPath());
+        pet.setChipNumber(petData.getChipNumber());
         this.petDao.updatePet(pet);
     }
 
@@ -72,20 +74,12 @@ public class PetBl {
     }
 
     // Datos mascota perfil
-    public PetDto findPetByPetId(Integer specieId) {
-        Pet pet = petDao.finPetByPetId(specieId);
-        if (pet == null) {
+    public PetData findPetByPetId(Integer petId) {
+        PetData petData = petDao.findPetDataByPetId(petId);
+        if (petData == null) {
             throw new BarkibuException("SCTY-4008");
         }
-        PetDto petDto = new PetDto();
-        petDto.setName(pet.getName());
-        petDto.setGender(pet.getGender());
-        petDto.setBreedId(pet.getBreedId());
-        petDto.setChipNumber(pet.getChipNumber());
-        petDto.setCastrated(pet.isCastrated());
-        petDto.setBornDate(pet.getBornDate());
-        petDto.setPhotoPath(pet.getPhotoPath());
-        return petDto;
+        return petData;
     }
 
 }

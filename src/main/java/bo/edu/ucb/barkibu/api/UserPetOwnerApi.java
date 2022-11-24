@@ -52,7 +52,7 @@ public class UserPetOwnerApi {
                 String jwt = AuthUtil.getTokenFromHeader(headers);
                 String userName = AuthUtil.getUserNameFromToken(jwt);
                 userPetOwnerBl.updatePetOwnerUser(userName, userDto);
-                ResponseDto<String> responseDto = new ResponseDto<>("User Updated", "SCTY-0000", null);
+                ResponseDto<String> responseDto = new ResponseDto<>("Pet Owner User Updated", "SCTY-0000", null);
                 return new ResponseEntity<>(responseDto, HttpStatus.OK);
             } catch (BarkibuException e) {
                 ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());

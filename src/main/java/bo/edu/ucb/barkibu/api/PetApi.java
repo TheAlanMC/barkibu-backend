@@ -2,6 +2,7 @@ package bo.edu.ucb.barkibu.api;
 
 import bo.edu.ucb.barkibu.bl.PetBl;
 import bo.edu.ucb.barkibu.dto.*;
+import bo.edu.ucb.barkibu.entity.PetData;
 import bo.edu.ucb.barkibu.entity.PetInfo;
 import bo.edu.ucb.barkibu.util.AuthUtil;
 import bo.edu.ucb.barkibu.util.BarkibuException;
@@ -68,16 +69,16 @@ public class PetApi {
     // Actualiza los datos de una mascota por id
     @PutMapping("/{pet_id}")
     public ResponseEntity<ResponseDto<String>> updatePet(@RequestHeader Map<String, String> headers,
-                                                         @RequestBody PetDto updatePetDto, @PathVariable Integer pet_id
+                                                         @RequestBody PetData updatePetData, @PathVariable Integer pet_id
 
     ) {
-        if (updatePetDto.validate()) {
+        if (updatePetData.validate()) {
             try {
                 // Verificamos que el usuario este autenticado
                 String jwt = AuthUtil.getTokenFromHeader(headers);
                 AuthUtil.getUserNameFromToken(jwt);
                 AuthUtil.verifyHasRole(jwt, "EDITAR INFORMACION DE LA MASCOTA");
-                petBl.updatePet(pet_id, updatePetDto);
+                petBl.updatePet(pet_id, updatePetData);
                 ResponseDto<String> responseDto = new ResponseDto<>("Pet Updated", "SCTY-0000", null);
                 return new ResponseEntity<>(responseDto, HttpStatus.OK);
             } catch (BarkibuException e) {
@@ -93,7 +94,7 @@ public class PetApi {
     }
 
     @GetMapping("/pet-info")
-    public ResponseEntity<ResponseDto> getOwnerByUserName(@RequestHeader Map<String, String> headers) {
+    public ResponseEntity<ResponseDto> getPetInfo(@RequestHeader Map<String, String> headers) {
         try {
             String jwt = AuthUtil.getTokenFromHeader(headers);
             String userName = AuthUtil.getUserNameFromToken(jwt);
@@ -108,15 +109,14 @@ public class PetApi {
 
     // Información de la cuenta de la mascota
     @GetMapping("/{petId}")
-    public ResponseEntity<ResponseDto> getPetInfoProfile(@RequestHeader Map<String, String> headers,
+    public ResponseEntity<ResponseDto> getPetInfoByPetId(@RequestHeader Map<String, String> headers,
             @PathVariable Integer petId) {
-
         try {
             // Verificamos que el usuario este autenticado
             String jwt = AuthUtil.getTokenFromHeader(headers);
             AuthUtil.getUserNameFromToken(jwt);
-            PetDto user = petBl.findPetByPetId(petId);
-            ResponseDto<PetDto> responseDto = new ResponseDto<>(user, "SCTY-0000", null);
+            PetData petData = petBl.findPetByPetId(petId);
+            ResponseDto<PetData> responseDto = new ResponseDto<>(petData, "SCTY-0000", null);
             return new ResponseEntity<>(responseDto, HttpStatus.OK);
         } catch (BarkibuException e) {
             ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());

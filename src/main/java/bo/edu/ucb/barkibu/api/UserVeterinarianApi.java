@@ -55,8 +55,8 @@ public class UserVeterinarianApi {
             String jwt = AuthUtil.getTokenFromHeader(headers);
             AuthUtil.verifyHasRole(jwt, "EDITAR INFORMACION DE VETERINARIO");
             String userName = AuthUtil.getUserNameFromToken(jwt);
-            VeterinarianUser veterinarianUserDto = userVeterinarianBl.getVeterinarianUser(userName);
-            ResponseDto<VeterinarianUser> responseDto = new ResponseDto<>(veterinarianUserDto, "SCTY-0000", null);
+            VeterinarianUser veterinarianUser = userVeterinarianBl.getVeterinarianUser(userName);
+            ResponseDto<VeterinarianUser> responseDto = new ResponseDto<>(veterinarianUser, "SCTY-0000", null);
             return new ResponseEntity<>(responseDto, HttpStatus.OK);
         } catch (BarkibuException e) {
             ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
@@ -66,14 +66,14 @@ public class UserVeterinarianApi {
 
     // Edita el perfil de un usuario veterinario por su token
     @PutMapping()
-    public ResponseEntity<ResponseDto<String>> updateVeterinarianProfile(@RequestHeader Map<String,String> headers, @RequestBody VeterinarianUser veterinarianUserDto) {
-        if (veterinarianUserDto.validate()) {
+    public ResponseEntity<ResponseDto<String>> updateVeterinarianProfile(@RequestHeader Map<String,String> headers, @RequestBody VeterinarianUser veterinarianUser) {
+        if (veterinarianUser.validate()) {
             try {
                 // Verificamos que el usuario este autenticado
                 String jwt = AuthUtil.getTokenFromHeader(headers);
                 AuthUtil.verifyHasRole(jwt, "EDITAR INFORMACION DE VETERINARIO");
                 String userName = AuthUtil.getUserNameFromToken(jwt);
-                userVeterinarianBl.updateVeterinarianProfile(userName, veterinarianUserDto);
+                userVeterinarianBl.updateVeterinarianProfile(userName, veterinarianUser);
                 ResponseDto<String> responseDto = new ResponseDto<>("Profile Updated", "SCTY-0000", null);
                 return new ResponseEntity<>(responseDto, HttpStatus.OK);
             } catch (BarkibuException e) {

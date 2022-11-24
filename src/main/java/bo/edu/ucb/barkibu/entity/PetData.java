@@ -1,22 +1,24 @@
-package bo.edu.ucb.barkibu.dto;
+package bo.edu.ucb.barkibu.entity;
 
 import java.util.Date;
 
-public class PetDto {
+public class PetData {
     private String name;
     private String gender;
     private Integer breedId;
+    private Integer specieId;
     private Boolean castrated;
     private Date bornDate;
     private String chipNumber;
     private  String photoPath;
-    public PetDto(){
+    public PetData(){
     }
 
-    public PetDto(String name, String gender, Integer breedId, Boolean castrated, Date bornDate, String chipNumber, String photoPath) {
+    public PetData(String name, String gender, Integer breedId, Integer specieId, Boolean castrated, Date bornDate, String chipNumber, String photoPath) {
         this.name = name;
         this.gender = gender;
         this.breedId = breedId;
+        this.specieId = specieId;
         this.castrated = castrated;
         this.bornDate = bornDate;
         this.chipNumber = chipNumber;
@@ -45,6 +47,14 @@ public class PetDto {
 
     public void setBreedId(Integer breedId) {
         this.breedId = breedId;
+    }
+
+    public Integer getSpecieId() {
+        return specieId;
+    }
+
+    public void setSpecieId(Integer specieId) {
+        this.specieId = specieId;
     }
 
     public Boolean getCastrated() {
@@ -81,10 +91,11 @@ public class PetDto {
 
     @Override
     public String toString() {
-        return "PetDto{" +
+        return "PetData{" +
                 "name='" + name + '\'' +
                 ", gender='" + gender + '\'' +
                 ", breedId=" + breedId +
+                ", specieId=" + specieId +
                 ", castrated=" + castrated +
                 ", bornDate=" + bornDate +
                 ", chipNumber='" + chipNumber + '\'' +
@@ -100,9 +111,6 @@ public class PetDto {
         if (gender == null || gender.isEmpty()){
             return false;
         }
-        if (chipNumber == null || chipNumber.isEmpty()){
-            return false;
-        }
         if (breedId == null || breedId == 0){
             return false;
         }
@@ -110,9 +118,6 @@ public class PetDto {
             return false;
         }
         if (bornDate == null){
-            return false;
-        }
-        if (photoPath == null || photoPath.isEmpty()){
             return false;
         }
           return true;
