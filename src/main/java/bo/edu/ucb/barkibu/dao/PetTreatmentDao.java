@@ -31,7 +31,7 @@ public interface PetTreatmentDao {
             AND treatment.status = 'activo'
             AND treatment_last_date < now()
             GROUP BY pet.pet_id, treatment.treatment_id, treatment_last_date, treatment_next_date
-            ORDER BY treatment_last_date DESC
+            ORDER BY treatment_next_date DESC
             """)
     List<PetTreatmentList> findTreatmentLastDateByPetId(Integer petId);
 

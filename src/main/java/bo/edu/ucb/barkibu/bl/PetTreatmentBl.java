@@ -27,6 +27,11 @@ public class PetTreatmentBl {
         if (isTimeAfterNow(petTreatmentDto.getTreatmentLastDate())) {
             throw new BarkibuException("SCTY-1008");
         }
+// Verificamos que la fecha de la próxima vacuna sea mayor a la fecha actual
+        if (isTimeAfterNow(petTreatmentDto.getTreatmentNextDate())) {
+            throw new BarkibuException("SCTY-1015");
+        }
+
         PetTreatment petTreatment = new PetTreatment();
         petTreatment.setPetId(petTreatmentDto.getPetId());
         petTreatment.setTreatmentId(petTreatmentDto.getTreatmentId());
