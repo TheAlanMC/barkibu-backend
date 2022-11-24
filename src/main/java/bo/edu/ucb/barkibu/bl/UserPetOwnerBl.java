@@ -4,6 +4,7 @@ import at.favre.lib.crypto.bcrypt.BCrypt;
 import bo.edu.ucb.barkibu.dao.UserDao;
 import bo.edu.ucb.barkibu.dao.UserPetOwnerDao;
 import bo.edu.ucb.barkibu.dto.CreateUserDto;
+import bo.edu.ucb.barkibu.dto.UserDto;
 import bo.edu.ucb.barkibu.entity.User;
 import bo.edu.ucb.barkibu.util.BarkibuException;
 import bo.edu.ucb.barkibu.util.ValidationUtil;
@@ -59,4 +60,31 @@ public class UserPetOwnerBl {
         this.userPetOwnerDao.addPetOwnerGroup(userId);
     }
 
+    public void updatePetOwnerUser(String userName, UserDto userDto) {
+        User user = userDao.findUserByUserName(userName);
+        if (user == null) {
+            throw new BarkibuException("SCTY-4000");
+        }
+        if (ValidationUtil.userNameHasBlankSpaces(userDto.getUserName())) {
+            throw new BarkibuException("SCTY-1014");
+        }
+        user.setFirstName(userDto.getFirstName());
+        user.setLastName(userDto.getLastName());
+        user.setEmail(userDto.getEmail());
+        user.setUserName(userDto.getUserName());
+        this.userDao.updateUser(user);
+    }
+
+    public UserDto getPetOwnerUser(String userName) {
+        User user = userDao.findUserByUserName(userName);
+        if (user == null) {
+            throw new BarkibuException("SCTY-4000");
+        }
+        UserDto userDto = new UserDto();
+        userDto.setFirstName(user.getFirstName());
+        userDto.setLastName(user.getLastName());
+        userDto.setEmail(user.getEmail());
+        userDto.setUserName(user.getUserName());
+        return userDto;
+    }
 }
