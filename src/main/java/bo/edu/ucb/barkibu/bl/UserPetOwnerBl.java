@@ -68,6 +68,16 @@ public class UserPetOwnerBl {
         if (ValidationUtil.userNameHasBlankSpaces(userDto.getUserName())) {
             throw new BarkibuException("SCTY-1014");
         }
+        if (userDao.findUserIdByUserName(userDto.getUserName()) != null && !user.getUserName().equals(userDto.getUserName())) {
+            throw new BarkibuException("SCTY-1002");
+        }
+
+        if (userDao.findUserIdByEmail(userDto.getEmail()) != null && !user.getEmail().equals(userDto.getEmail())) {
+            throw new BarkibuException("SCTY-1003");
+        }
+        if (!isEmailValid(userDto.getEmail())) {
+            throw new BarkibuException("SCTY-1004");
+        }
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());
         user.setEmail(userDto.getEmail());
