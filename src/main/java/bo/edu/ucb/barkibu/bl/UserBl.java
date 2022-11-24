@@ -7,7 +7,6 @@ import bo.edu.ucb.barkibu.dto.*;
 
 import bo.edu.ucb.barkibu.entity.*;
 import bo.edu.ucb.barkibu.util.BarkibuException;
-import bo.edu.ucb.barkibu.util.ValidationUtil;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -49,32 +48,17 @@ public class UserBl {
     public List<String> getGroups(String userName) {
         return userDao.findGroupsByUserName(userName);
     }
-    public void updateUser(String userName, UpdateUserDto updateUserDto) {
-        User user = userDao.findUserByUserName(userName);
-        if (user == null) {
-            throw new BarkibuException("SCTY-4000");
-        }
-        if (ValidationUtil.userNameHasBlankSpaces(updateUserDto.getUserName())) {
-            throw new BarkibuException("SCTY-1014");
-        }
-        user.setFirstName(updateUserDto.getFirstName());
-        user.setLastName(updateUserDto.getLastName());
-        user.setEmail(updateUserDto.getEmail());
-        user.setUserName(updateUserDto.getUserName());
 
-        this.userDao.updateUser(user);
-    }
-
-    public UserInfoDto findUserInfoByUserName(String userName) {
+    public UserDto findUserInfoByUserName(String userName) {
         User user = userDao.findInfoUserByUserName(userName);
         if (user == null) {
             throw new BarkibuException("SCTY-4000");
         }
-        UserInfoDto userInfoDto = new UserInfoDto();
-        userInfoDto.setFirstName(user.getFirstName());
-        userInfoDto.setLastName(user.getLastName());
-        userInfoDto.setEmail(user.getEmail());
-        userInfoDto.setUserName(user.getUserName());
-        return userInfoDto;
+        UserDto userDto = new UserDto();
+        userDto.setFirstName(user.getFirstName());
+        userDto.setLastName(user.getLastName());
+        userDto.setEmail(user.getEmail());
+        userDto.setUserName(user.getUserName());
+        return userDto;
     }
 }
