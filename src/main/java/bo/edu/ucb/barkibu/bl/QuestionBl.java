@@ -3,8 +3,8 @@ package bo.edu.ucb.barkibu.bl;
 
 import bo.edu.ucb.barkibu.dao.QuestionDao;
 import bo.edu.ucb.barkibu.dao.UserDao;
-import bo.edu.ucb.barkibu.dto.CreateQuestionDto;
 import bo.edu.ucb.barkibu.entity.Question;
+import bo.edu.ucb.barkibu.entity.SymptomQuestion;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,17 +17,20 @@ public class QuestionBl {
         this.userDao = userDao;
     }
 
-    public void createQuestion(String userName, CreateQuestionDto createQuestionDto) {
+    public void createQuestion(String userName, SymptomQuestion symptomQuestion) {
         // Crear la consulta
         Question question = new Question();
-        //question.setUserId(userDao.findUserIdByUserName(userName));
         question.setUserId(userDao.findUserIdByUserName(userName));
-        question.setCategoryId(createQuestionDto.getCategoryId());
-        question.setPetId(createQuestionDto.getPetId());
-        question.setProblem(createQuestionDto.getProblem());
-        question.setDetailedDescription(createQuestionDto.getDetailedDescription());
-        question.setAnswered(createQuestionDto.isAnswered());
-        question.setQuestionDate(createQuestionDto.getQuestionDate());
+        question.setCategoryId(symptomQuestion.getCategoryId());
+        question.setPetId(symptomQuestion.getPetId());
+        question.setProblem(symptomQuestion.getProblem());
+        question.setDetailedDescription(symptomQuestion.getDetailedDescription());
         this.questionDao.createQuestion(question);
+        // Obtenemos el id de la consulta
+        question.setQuestionId(this.questionDao.findQuestionId(userName));
+        // Crear los intomas
+        for (Integer symptomId : symptomQuestion.getSymptomIdList()) {
+            this.questionDao.createSymptomQuestion(symptomId, question.getQuestionId());
+        }
     }
 }
