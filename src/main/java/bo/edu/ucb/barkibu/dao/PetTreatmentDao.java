@@ -29,7 +29,7 @@ public interface PetTreatmentDao {
             AND pet.status = 'activo'
             AND pet_treatment.status = 'activo'
             AND treatment.status = 'activo'
-            AND treatment_last_date < now()
+            AND treatment_next_date < now()
             GROUP BY pet.pet_id, treatment.treatment_id, treatment_last_date, treatment_next_date
             ORDER BY treatment_next_date DESC
             """)

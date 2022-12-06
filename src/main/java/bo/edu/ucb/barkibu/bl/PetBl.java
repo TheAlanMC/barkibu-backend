@@ -64,14 +64,12 @@ public class PetBl {
         this.petDao.updatePet(pet);
     }
     //Eliminación mascota por id
-    public void deletePet(Integer petId, Pet deletePet) {
+    public void deletePet(Integer petId) {
         Pet pet = petDao.findPetByPetId(petId);
         if (pet == null) {
             throw new BarkibuException("SCTY-4008");
         }
-        pet.setPetId(petId);
-        pet.setStatus(deletePet.getStatus());
-        this.petDao.updatePet(pet);
+        this.petDao.deletePet(petId);
     }
 
     // Listado de las mascotas

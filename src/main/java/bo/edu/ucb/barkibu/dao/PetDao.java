@@ -84,6 +84,6 @@ public interface PetDao {
                         WHERE pet_id= #{petId}
             			AND status = 'activo'
             """)
-    void deletePet(Pet pet);
+    void deletePet(Integer petId);
 }
 

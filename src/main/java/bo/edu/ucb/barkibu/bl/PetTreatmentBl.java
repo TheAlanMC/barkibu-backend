@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 import static bo.edu.ucb.barkibu.util.ValidationUtil.isTimeAfterNow;
+import static bo.edu.ucb.barkibu.util.ValidationUtil.isTimeBeforeNow;
 
 @Service
 public class PetTreatmentBl {
@@ -24,11 +25,11 @@ public class PetTreatmentBl {
 
     public void createPetTreatment(PetTreatmentDto petTreatmentDto) {
         // Verificamos que la fecha de la última vacuna no sea mayor a la fecha actual
-        if (isTimeAfterNow(petTreatmentDto.getTreatmentLastDate())) {
+        if (!isTimeBeforeNow(petTreatmentDto.getTreatmentLastDate())) {
             throw new BarkibuException("SCTY-1008");
         }
-// Verificamos que la fecha de la próxima vacuna sea mayor a la fecha actual
-        if (isTimeAfterNow(petTreatmentDto.getTreatmentNextDate())) {
+        // Verificamos que la fecha de la próxima vacuna sea mayor a la fecha actual
+        if (!isTimeAfterNow(petTreatmentDto.getTreatmentNextDate())) {
             throw new BarkibuException("SCTY-1015");
         }
 
@@ -45,11 +46,11 @@ public class PetTreatmentBl {
         if(petDao.findPetByPetId(petId) == null) {
             throw new BarkibuException("SCTY-4008");
         }
-        List <PetTreatmentList> petTreatmentList = petTreatmentDao.findTreatmentLastDateByPetId(petId);
-        List <PetTreatmentList> petTreatmentList2 = petTreatmentDao.findTreatmentNextDateByPetId(petId);
-        petTreatmentList.addAll(petTreatmentList2);
+        List <PetTreatmentList> petTreatmentListLAstDate = petTreatmentDao.findTreatmentLastDateByPetId(petId);
+        List <PetTreatmentList> petTreatmentListNextDate = petTreatmentDao.findTreatmentNextDateByPetId(petId);
+        petTreatmentListNextDate.addAll(petTreatmentListLAstDate);
         // Obtener la lista de tratamientos
-        return petTreatmentList;
+        return petTreatmentListNextDate;
     }
 
     public void updatePetTreatmentDate(PetTreatmentDto petTreatmentDto) {

@@ -7,6 +7,7 @@ import bo.edu.ucb.barkibu.entity.PetData;
 import bo.edu.ucb.barkibu.entity.PetInfo;
 import bo.edu.ucb.barkibu.util.AuthUtil;
 import bo.edu.ucb.barkibu.util.BarkibuException;
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -93,31 +94,6 @@ public class PetApi {
             return new ResponseEntity<>(responseDto, httpMessageUtilMap.get(statusCode).getHttpStatus());
         }
     }
-    //Eliminación de mascota por id
-    @PutMapping("/delete/{pet_id}")
-    public ResponseEntity<ResponseDto<String>> deletePet(@RequestHeader Map<String, String> headers,
-                                                         @RequestBody Pet DeletePet, @PathVariable Integer pet_id
-    ) {
-        if (DeletePet.validate()) {
-            try {
-                // Verificamos que el usuario este autenticado
-                String jwt = AuthUtil.getTokenFromHeader(headers);
-                AuthUtil.getUserNameFromToken(jwt);
-                AuthUtil.verifyHasRole(jwt, "EDITAR INFORMACION DE LA MASCOTA");
-                petBl.deletePet(pet_id, DeletePet);
-                ResponseDto<String> responseDto = new ResponseDto<>("Pet Delete", "SCTY-0000", null);
-                return new ResponseEntity<>(responseDto, HttpStatus.OK);
-            } catch (BarkibuException e) {
-                ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
-                return new ResponseEntity<>(responseDto, e.getHttpStatus());
-            }
-        } else {
-            String statusCode = "SCTY-1001";
-            ResponseDto<String> responseDto = new ResponseDto<>(null, statusCode,
-                    httpMessageUtilMap.get(statusCode).getMessage());
-            return new ResponseEntity<>(responseDto, httpMessageUtilMap.get(statusCode).getHttpStatus());
-        }
-    }
     @GetMapping("/pet-info")
     public ResponseEntity<ResponseDto> getPetInfo(@RequestHeader Map<String, String> headers) {
         try {
@@ -142,6 +118,23 @@ public class PetApi {
             AuthUtil.getUserNameFromToken(jwt);
             PetData petData = petBl.findPetByPetId(petId);
             ResponseDto<PetData> responseDto = new ResponseDto<>(petData, "SCTY-0000", null);
+            return new ResponseEntity<>(responseDto, HttpStatus.OK);
+        } catch (BarkibuException e) {
+            ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
+            return new ResponseEntity<>(responseDto, e.getHttpStatus());
+        }
+    }
+
+    @DeleteMapping("/{petId}")
+    public ResponseEntity<ResponseDto> deletePet(@RequestHeader Map<String, String> headers,
+            @PathVariable Integer petId) {
+        try {
+            // Verificamos que el usuario este autenticado
+            String jwt = AuthUtil.getTokenFromHeader(headers);
+            AuthUtil.getUserNameFromToken(jwt);
+            AuthUtil.verifyHasRole(jwt, "EDITAR INFORMACION DE LA MASCOTA");
+            petBl.deletePet(petId);
+            ResponseDto<String> responseDto = new ResponseDto<>("Pet Deleted", "SCTY-0000", null);
             return new ResponseEntity<>(responseDto, HttpStatus.OK);
         } catch (BarkibuException e) {
             ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());

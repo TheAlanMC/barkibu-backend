@@ -48,7 +48,16 @@ public class PetTreatmentDto {
 
 
     public boolean validate() {
-        if(treatmentId == null || petId == null || treatmentLastDate == null || treatmentNextDate == null) {
+        if(treatmentId == null || treatmentId< 1) {
+            return false;
+        }
+        if(petId == null || petId< 1) {
+            return false;
+        }
+        if(treatmentLastDate == null) {
+            return false;
+        }
+        if(treatmentNextDate == null) {
             return false;
         }
     return true;

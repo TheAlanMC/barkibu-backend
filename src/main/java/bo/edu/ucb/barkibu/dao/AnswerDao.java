@@ -32,6 +32,7 @@ public interface AnswerDao {
             WHERE question_id = #{questionId}
             AND user_id = #{userId}
             AND status='activo'
+            LIMIT 1
             """)
     Integer findAnswerIdByQuestionIdAndUserId(Integer questionId, Integer userId);
 
@@ -60,4 +61,12 @@ public interface AnswerDao {
             (#{userId}, #{answerId}, true, 'activo', now(), 'anonymus', 'localhost')
             """)
     void likeAnswer(Integer answerId, Integer userId);
+
+    @Update("""
+            UPDATE question
+            SET answered = true
+            WHERE question_id = #{questionId}
+            AND status='activo'
+            """)
+    void markQuestionAsAnswered(Integer questionId);
 }
