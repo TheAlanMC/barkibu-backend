@@ -29,7 +29,8 @@ public class AuthApi {
     public ResponseEntity<ResponseDto> authentication(@RequestBody AuthReqDto authReqDto) {
         if (authReqDto.validate()) {
             try {
-                ResponseDto<AuthResDto> responseDto = new ResponseDto<>(securityBl.authenticate(authReqDto), "SCTY-0000", null);
+                ResponseDto<AuthResDto> responseDto = new ResponseDto<>(securityBl.authenticate(authReqDto),
+                        "SCTY-0000", null);
                 return new ResponseEntity<>(responseDto, HttpStatus.OK);
             } catch (BarkibuException e) {
                 ResponseDto<AuthResDto> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
@@ -37,7 +38,8 @@ public class AuthApi {
             }
         } else {
             String statusCode = "SCTY-1001";
-            ResponseDto<String> responseDto = new ResponseDto<>(null, statusCode, httpMessageUtilMap.get(statusCode).getMessage());
+            ResponseDto<String> responseDto = new ResponseDto<>(null, statusCode,
+                    httpMessageUtilMap.get(statusCode).getMessage());
             return new ResponseEntity<>(responseDto, httpMessageUtilMap.get(statusCode).getHttpStatus());
         }
     }
@@ -47,7 +49,8 @@ public class AuthApi {
     public ResponseEntity<ResponseDto> refreshToken(@RequestHeader Map<String, String> headers) {
         try {
             String jwt = AuthUtil.getTokenFromHeader(headers);
-            ResponseDto<AuthResDto> responseDto = new ResponseDto<>(securityBl.verifyRefreshToken(jwt), "SCTY-0000", null);
+            ResponseDto<AuthResDto> responseDto = new ResponseDto<>(securityBl.verifyRefreshToken(jwt), "SCTY-0000",
+                    null);
             return new ResponseEntity<>(responseDto, HttpStatus.OK);
         } catch (BarkibuException e) {
             ResponseDto<AuthResDto> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());

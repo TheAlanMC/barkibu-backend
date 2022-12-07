@@ -1,7 +1,6 @@
 package bo.edu.ucb.barkibu.api;
 
 import bo.edu.ucb.barkibu.bl.CityBl;
-import bo.edu.ucb.barkibu.dto.CategoryDto;
 import bo.edu.ucb.barkibu.dto.CityDto;
 import bo.edu.ucb.barkibu.dto.ResponseDto;
 import bo.edu.ucb.barkibu.util.AuthUtil;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.Map;
 
-
 @RestController
 @RequestMapping("/v1/api/city")
 public class CityApi {
@@ -25,8 +23,9 @@ public class CityApi {
     public CityApi(CityBl cityBl) {
         this.cityBl = cityBl;
     }
+
     @GetMapping()
-    public ResponseEntity<ResponseDto> getCities(@RequestHeader Map<String,String> headers) {
+    public ResponseEntity<ResponseDto> getCities(@RequestHeader Map<String, String> headers) {
         try {
             // Verificamos que el usuario este autenticado
             String jwt = AuthUtil.getTokenFromHeader(headers);

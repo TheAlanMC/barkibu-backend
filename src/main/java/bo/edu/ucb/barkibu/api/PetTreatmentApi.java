@@ -2,7 +2,6 @@ package bo.edu.ucb.barkibu.api;
 
 import bo.edu.ucb.barkibu.bl.PetTreatmentBl;
 import bo.edu.ucb.barkibu.dto.*;
-import bo.edu.ucb.barkibu.entity.PetTreatmentList;
 import bo.edu.ucb.barkibu.util.AuthUtil;
 import bo.edu.ucb.barkibu.util.BarkibuException;
 import org.springframework.http.HttpStatus;
@@ -25,8 +24,9 @@ public class PetTreatmentApi {
 
     // Regitra un tratamiento para una mascota
     @PostMapping()
-    public ResponseEntity<ResponseDto<String>> createPetTreatment(@RequestHeader Map<String,String> headers, @RequestBody PetTreatmentDto petTreatmentDto) {
-        if (petTreatmentDto.validate()){
+    public ResponseEntity<ResponseDto<String>> createPetTreatment(@RequestHeader Map<String, String> headers,
+            @RequestBody PetTreatmentDto petTreatmentDto) {
+        if (petTreatmentDto.validate()) {
             try {
                 String jwt = AuthUtil.getTokenFromHeader(headers);
                 AuthUtil.verifyHasRole(jwt, "REGISTRAR TRATAMIENTOS DE LA MASCOTA");
@@ -37,22 +37,23 @@ public class PetTreatmentApi {
                 ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
                 return new ResponseEntity<>(responseDto, e.getHttpStatus());
             }
-        }
-        else {
+        } else {
             String statusCode = "SCTY-1001";
-            ResponseDto<String> responseDto = new ResponseDto<>(null, statusCode, httpMessageUtilMap.get(statusCode).getMessage());
+            ResponseDto<String> responseDto = new ResponseDto<>(null, statusCode,
+                    httpMessageUtilMap.get(statusCode).getMessage());
             return new ResponseEntity<>(responseDto, httpMessageUtilMap.get(statusCode).getHttpStatus());
         }
     }
 
     @GetMapping("/{petId}")
-    public ResponseEntity<ResponseDto> getPetTreatment(@RequestHeader Map<String,String> headers, @PathVariable Integer petId) {
+    public ResponseEntity<ResponseDto> getPetTreatment(@RequestHeader Map<String, String> headers,
+            @PathVariable Integer petId) {
         try {
             // Verificamos que el usuario este autenticado
             String jwt = AuthUtil.getTokenFromHeader(headers);
             AuthUtil.getUserNameFromToken(jwt);
-            List<PetTreatmentList> petTreatmentList = petTreatmentBl.findPetTreatmentByPetId(petId);
-            ResponseDto<List<PetTreatmentList>> responseDto = new ResponseDto<>(petTreatmentList, "SCTY-0000", null);
+            List<PetTreatmentDto> petTreatmentDtos = petTreatmentBl.findPetTreatmentByPetId(petId);
+            ResponseDto<List<PetTreatmentDto>> responseDto = new ResponseDto<>(petTreatmentDtos, "SCTY-0000", null);
             return new ResponseEntity<>(responseDto, HttpStatus.OK);
         } catch (BarkibuException e) {
             ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
@@ -61,12 +62,13 @@ public class PetTreatmentApi {
     }
 
     @PutMapping()
-    public ResponseEntity<ResponseDto<String>> updatePetTreatment(@RequestHeader Map<String, String> headers, @RequestBody  PetTreatmentDto petTreatmentDto) {
+    public ResponseEntity<ResponseDto<String>> updatePetTreatment(@RequestHeader Map<String, String> headers,
+            @RequestBody PetTreatmentDto petTreatmentDto) {
         if (petTreatmentDto.validate()) {
             try {
                 // Verificamos que el usuario este autenticado
                 String jwt = AuthUtil.getTokenFromHeader(headers);
-                String username = AuthUtil.getUserNameFromToken(jwt);
+                AuthUtil.getUserNameFromToken(jwt);
                 AuthUtil.verifyHasRole(jwt, "EDITAR TRATAMIENTOS DE LA MASCOTA");
                 petTreatmentBl.updatePetTreatmentDate(petTreatmentDto);
                 ResponseDto<String> responseDto = new ResponseDto<>("Treatment Updated", "SCTY-0000", null);
@@ -80,6 +82,23 @@ public class PetTreatmentApi {
             ResponseDto<String> responseDto = new ResponseDto<>(null, statusCode,
                     httpMessageUtilMap.get(statusCode).getMessage());
             return new ResponseEntity<>(responseDto, httpMessageUtilMap.get(statusCode).getHttpStatus());
+        }
+    }
+
+    @DeleteMapping("/{petTreatmentId}")
+    public ResponseEntity<ResponseDto<String>> deletePetTreatment(@RequestHeader Map<String, String> headers,
+            @PathVariable Integer petTreatmentId) {
+        try {
+            // Verificamos que el usuario este autenticado
+            String jwt = AuthUtil.getTokenFromHeader(headers);
+            AuthUtil.getUserNameFromToken(jwt);
+            AuthUtil.verifyHasRole(jwt, "EDITAR TRATAMIENTOS DE LA MASCOTA");
+            petTreatmentBl.deletePetTreatment(petTreatmentId);
+            ResponseDto<String> responseDto = new ResponseDto<>("Treatment Deleted", "SCTY-0000", null);
+            return new ResponseEntity<>(responseDto, HttpStatus.OK);
+        } catch (BarkibuException e) {
+            ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
+            return new ResponseEntity<>(responseDto, e.getHttpStatus());
         }
     }
 }

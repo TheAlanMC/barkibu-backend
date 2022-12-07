@@ -1,7 +1,6 @@
 package bo.edu.ucb.barkibu.api;
 
 import bo.edu.ucb.barkibu.bl.QuestionOwnerFilterBl;
-import bo.edu.ucb.barkibu.bl.QuestionVeterinarianFilterBl;
 import bo.edu.ucb.barkibu.dto.QuestionVeterinarianFilterDto;
 import bo.edu.ucb.barkibu.dto.ResponseDto;
 import bo.edu.ucb.barkibu.entity.PetQuestion;
@@ -38,7 +37,7 @@ public class QuestionOwnerFilterApi {
                 AuthUtil.getUserNameFromToken(jwt);
                 Pageable pageable = PageRequest.of(page - 1, pageSize);
                 List<PetQuestion> petQuestions = questionOwnerFilterBl
-                        .findPetQuestionByKeyWord(questionVeterinarianFilterDto,pageable);
+                        .findPetQuestionByKeyWord(questionVeterinarianFilterDto, pageable);
                 ResponseDto<List<PetQuestion>> responseDto = new ResponseDto<>(petQuestions, "SCTY-0000", null);
                 return new ResponseEntity<>(responseDto, HttpStatus.OK);
             } catch (BarkibuException e) {

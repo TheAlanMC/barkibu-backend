@@ -3,11 +3,7 @@ package bo.edu.ucb.barkibu.api;
 import bo.edu.ucb.barkibu.bl.UserBl;
 import bo.edu.ucb.barkibu.dto.ResponseDto;
 import bo.edu.ucb.barkibu.dto.UpdatePasswordDto;
-
-
 import bo.edu.ucb.barkibu.dto.UserDto;
-
-import bo.edu.ucb.barkibu.entity.Pet;
 import bo.edu.ucb.barkibu.entity.User;
 import bo.edu.ucb.barkibu.util.AuthUtil;
 import bo.edu.ucb.barkibu.util.BarkibuException;
@@ -31,7 +27,8 @@ public class UserApi {
 
     // Actualiza la contraseña de un usuario
     @PutMapping("/password")
-    public ResponseEntity<ResponseDto<String>> updatePassword(@RequestHeader Map<String,String> headers, @RequestBody UpdatePasswordDto updatePasswordDto) {
+    public ResponseEntity<ResponseDto<String>> updatePassword(@RequestHeader Map<String, String> headers,
+            @RequestBody UpdatePasswordDto updatePasswordDto) {
         if (updatePasswordDto.validate()) {
             try {
                 // Verificamos que el usuario este autenticado
@@ -44,17 +41,17 @@ public class UserApi {
                 ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
                 return new ResponseEntity<>(responseDto, e.getHttpStatus());
             }
-        }
-        else {
+        } else {
             String statusCode = "SCTY-1001";
-            ResponseDto<String> responseDto = new ResponseDto<>(null, statusCode, httpMessageUtilMap.get(statusCode).getMessage());
+            ResponseDto<String> responseDto = new ResponseDto<>(null, statusCode,
+                    httpMessageUtilMap.get(statusCode).getMessage());
             return new ResponseEntity<>(responseDto, httpMessageUtilMap.get(statusCode).getHttpStatus());
         }
     }
 
     // Obtiene la lista de grupos de un usuario
     @GetMapping("/group")
-    public ResponseEntity<ResponseDto> getGroups(@RequestHeader Map<String,String> headers) {
+    public ResponseEntity<ResponseDto> getGroups(@RequestHeader Map<String, String> headers) {
         try {
             // Verificamos que el usuario este autenticado
             String jwt = AuthUtil.getTokenFromHeader(headers);
@@ -66,8 +63,9 @@ public class UserApi {
             return new ResponseEntity<>(responseDto, e.getHttpStatus());
         }
     }
+
     @GetMapping()
-    public ResponseEntity<ResponseDto> getInfoUser(@RequestHeader Map<String,String> headers) {
+    public ResponseEntity<ResponseDto> getInfoUser(@RequestHeader Map<String, String> headers) {
         try {
             // Verificamos que el usuario este autenticado
             String jwt = AuthUtil.getTokenFromHeader(headers);
@@ -80,11 +78,11 @@ public class UserApi {
             return new ResponseEntity<>(responseDto, e.getHttpStatus());
         }
     }
-    //Eliminación de usuario por id
+
+    // Eliminación de usuario por id
     @PutMapping("/delete/{userName}")
     public ResponseEntity<ResponseDto<String>> deleteUser(@RequestHeader Map<String, String> headers,
-                                                          @RequestBody User DeleteUser, @PathVariable String userName
-    ) {
+            @RequestBody User DeleteUser, @PathVariable String userName) {
 
         try {
             // Verificamos que el usuario este autenticado

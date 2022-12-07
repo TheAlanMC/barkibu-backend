@@ -1,8 +1,6 @@
 package bo.edu.ucb.barkibu.api;
 
-import bo.edu.ucb.barkibu.bl.CategoryBl;
 import bo.edu.ucb.barkibu.bl.SymptomBl;
-import bo.edu.ucb.barkibu.dto.CategoryDto;
 import bo.edu.ucb.barkibu.dto.ResponseDto;
 import bo.edu.ucb.barkibu.dto.SymptomDto;
 import bo.edu.ucb.barkibu.util.AuthUtil;
@@ -28,7 +26,7 @@ public class SymptomApi {
     }
 
     @GetMapping()
-    public ResponseEntity<ResponseDto> getCategories(@RequestHeader Map<String,String> headers) {
+    public ResponseEntity<ResponseDto> getCategories(@RequestHeader Map<String, String> headers) {
         try {
             // Verificamos que el usuario este autenticado
             String jwt = AuthUtil.getTokenFromHeader(headers);

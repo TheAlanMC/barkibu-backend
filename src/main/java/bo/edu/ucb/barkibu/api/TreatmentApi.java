@@ -2,7 +2,6 @@ package bo.edu.ucb.barkibu.api;
 
 import bo.edu.ucb.barkibu.bl.TreatmentBl;
 import bo.edu.ucb.barkibu.dto.ResponseDto;
-import bo.edu.ucb.barkibu.dto.SymptomDto;
 import bo.edu.ucb.barkibu.dto.TreatmentDto;
 import bo.edu.ucb.barkibu.util.AuthUtil;
 import bo.edu.ucb.barkibu.util.BarkibuException;
@@ -27,7 +26,7 @@ public class TreatmentApi {
     }
 
     @GetMapping()
-    public ResponseEntity<ResponseDto> getTreatments(@RequestHeader Map<String,String> headers) {
+    public ResponseEntity<ResponseDto> getTreatments(@RequestHeader Map<String, String> headers) {
         try {
             // Verificamos que el usuario este autenticado
             String jwt = AuthUtil.getTokenFromHeader(headers);
@@ -40,6 +39,5 @@ public class TreatmentApi {
             return new ResponseEntity<>(responseDto, e.getHttpStatus());
         }
     }
-
 
 }

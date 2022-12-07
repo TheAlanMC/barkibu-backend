@@ -2,12 +2,10 @@ package bo.edu.ucb.barkibu.api;
 
 import bo.edu.ucb.barkibu.bl.PetBl;
 import bo.edu.ucb.barkibu.dto.*;
-import bo.edu.ucb.barkibu.entity.Pet;
 import bo.edu.ucb.barkibu.entity.PetData;
 import bo.edu.ucb.barkibu.entity.PetInfo;
 import bo.edu.ucb.barkibu.util.AuthUtil;
 import bo.edu.ucb.barkibu.util.BarkibuException;
-import org.apache.ibatis.annotations.Delete;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -71,7 +69,7 @@ public class PetApi {
     // Actualiza los datos de una mascota por id
     @PutMapping("/{pet_id}")
     public ResponseEntity<ResponseDto<String>> updatePet(@RequestHeader Map<String, String> headers,
-                                                         @RequestBody PetData updatePetData, @PathVariable Integer pet_id
+            @RequestBody PetData updatePetData, @PathVariable Integer pet_id
 
     ) {
         if (updatePetData.validate()) {
@@ -94,6 +92,7 @@ public class PetApi {
             return new ResponseEntity<>(responseDto, httpMessageUtilMap.get(statusCode).getHttpStatus());
         }
     }
+
     @GetMapping("/pet-info")
     public ResponseEntity<ResponseDto> getPetInfo(@RequestHeader Map<String, String> headers) {
         try {

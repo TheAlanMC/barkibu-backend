@@ -1,10 +1,7 @@
 package bo.edu.ucb.barkibu.bl;
 
-import bo.edu.ucb.barkibu.dao.CategoryDao;
 import bo.edu.ucb.barkibu.dao.SymptomDao;
-import bo.edu.ucb.barkibu.dto.CategoryDto;
 import bo.edu.ucb.barkibu.dto.SymptomDto;
-import bo.edu.ucb.barkibu.entity.Category;
 import bo.edu.ucb.barkibu.entity.Symptom;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +15,7 @@ public class SymptomBl {
     public SymptomBl(SymptomDao symptomDao) {
         this.symptomDao = symptomDao;
     }
+
     public List<SymptomDto> findAllSymptom() {
         List<Symptom> symptom = symptomDao.findAll();
         List<SymptomDto> symptomDto = new ArrayList<>();

@@ -1,10 +1,7 @@
 package bo.edu.ucb.barkibu.bl;
 
-import bo.edu.ucb.barkibu.dao.SymptomDao;
 import bo.edu.ucb.barkibu.dao.TreatmentDao;
-import bo.edu.ucb.barkibu.dto.SymptomDto;
 import bo.edu.ucb.barkibu.dto.TreatmentDto;
-import bo.edu.ucb.barkibu.entity.Symptom;
 import bo.edu.ucb.barkibu.entity.Treatment;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +20,8 @@ public class TreatmentBl {
         List<Treatment> treatment = treatmentDao.findAll();
         List<TreatmentDto> treatmentDto = new ArrayList<>();
         for (Treatment treatments : treatment) {
-            treatmentDto.add(new TreatmentDto(treatments.getTreatmentId(), treatments.getTreatment(), treatments.getDescription()));
+            treatmentDto.add(new TreatmentDto(treatments.getTreatmentId(), treatments.getTreatment(),
+                    treatments.getDescription()));
         }
         return treatmentDto;
     }

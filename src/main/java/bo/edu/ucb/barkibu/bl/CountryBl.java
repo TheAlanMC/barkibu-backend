@@ -1,7 +1,6 @@
 package bo.edu.ucb.barkibu.bl;
 
 import bo.edu.ucb.barkibu.dao.CountryDao;
-import bo.edu.ucb.barkibu.dto.CategoryDto;
 import bo.edu.ucb.barkibu.dto.CountryDto;
 import bo.edu.ucb.barkibu.entity.Country;
 import org.springframework.stereotype.Service;

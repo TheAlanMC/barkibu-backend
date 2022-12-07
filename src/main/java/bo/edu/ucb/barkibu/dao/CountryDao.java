@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-// TODO: RETURN ENTITY INSTED OF DTO
 public interface CountryDao {
     @Select("""
             SELECT country_id, country

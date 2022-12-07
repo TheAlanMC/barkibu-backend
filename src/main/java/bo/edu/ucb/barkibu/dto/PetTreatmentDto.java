@@ -3,6 +3,7 @@ package bo.edu.ucb.barkibu.dto;
 import java.util.Date;
 
 public class PetTreatmentDto {
+    private Integer petTreatmentId;
     private Integer treatmentId;
     private Integer petId;
     private Date treatmentLastDate;
@@ -11,7 +12,8 @@ public class PetTreatmentDto {
     public PetTreatmentDto() {
     }
 
-    public PetTreatmentDto(Integer treatmentId, Integer petId, Date treatmentLastDate, Date treatmentNextDate) {
+    public PetTreatmentDto(Integer petTreatmentId, Integer treatmentId, Integer petId, Date treatmentLastDate, Date treatmentNextDate) {
+        this.petTreatmentId = petTreatmentId;
         this.treatmentId = treatmentId;
         this.petId = petId;
         this.treatmentLastDate = treatmentLastDate;
@@ -20,6 +22,18 @@ public class PetTreatmentDto {
 
     public Integer getTreatmentId() {
         return treatmentId;
+    }
+
+    public Integer getPetTreatmentId() {
+        return petTreatmentId;
+    }
+
+    public void setPetTreatmentId(Integer petTreatmentId) {
+        this.petTreatmentId = petTreatmentId;
+    }
+
+    public void setTreatmentNextDate(Date treatmentNextDate) {
+        this.treatmentNextDate = treatmentNextDate;
     }
 
     public void setTreatmentId(Integer treatmentId) {

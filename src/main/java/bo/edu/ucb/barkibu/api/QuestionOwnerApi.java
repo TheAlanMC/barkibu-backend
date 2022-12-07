@@ -1,10 +1,7 @@
 package bo.edu.ucb.barkibu.api;
 
 import bo.edu.ucb.barkibu.bl.QuestionOwnerBl;
-import bo.edu.ucb.barkibu.bl.VeterinaryBl;
-import bo.edu.ucb.barkibu.dto.QuestionOwnerDto;
 import bo.edu.ucb.barkibu.dto.ResponseDto;
-import bo.edu.ucb.barkibu.dto.VeterinaryDto;
 import bo.edu.ucb.barkibu.entity.QuestionOwner;
 import bo.edu.ucb.barkibu.util.AuthUtil;
 import bo.edu.ucb.barkibu.util.BarkibuException;
@@ -25,10 +22,10 @@ public class QuestionOwnerApi {
     }
 
     @GetMapping()
-    public ResponseEntity<ResponseDto> getOwnerByUserName(@RequestHeader Map<String,String> headers) {
+    public ResponseEntity<ResponseDto> getOwnerByUserName(@RequestHeader Map<String, String> headers) {
         try {
             String jwt = AuthUtil.getTokenFromHeader(headers);
-            String userName= AuthUtil.getUserNameFromToken(jwt);
+            String userName = AuthUtil.getUserNameFromToken(jwt);
             List<QuestionOwner> questionOwner = questionOwnerBl.findOwnerByUserName(userName);
             ResponseDto<List<QuestionOwner>> responseDto = new ResponseDto<>(questionOwner, "SCTY-0000", null);
             return new ResponseEntity<>(responseDto, HttpStatus.OK);

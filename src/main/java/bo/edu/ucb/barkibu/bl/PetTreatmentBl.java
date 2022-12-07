@@ -4,10 +4,10 @@ import bo.edu.ucb.barkibu.dao.PetDao;
 import bo.edu.ucb.barkibu.dao.PetTreatmentDao;
 import bo.edu.ucb.barkibu.dto.PetTreatmentDto;
 import bo.edu.ucb.barkibu.entity.PetTreatment;
-import bo.edu.ucb.barkibu.entity.PetTreatmentList;
 import bo.edu.ucb.barkibu.util.BarkibuException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static bo.edu.ucb.barkibu.util.ValidationUtil.isTimeAfterNow;
@@ -41,17 +41,28 @@ public class PetTreatmentBl {
         this.petTreatmentDao.createPetTreatment(petTreatment);
     }
 
-    public List<PetTreatmentList> findPetTreatmentByPetId(Integer petId) {
+    public List<PetTreatmentDto> findPetTreatmentByPetId(Integer petId) {
         // Verificamos que la mascota exista
-        if(petDao.findPetByPetId(petId) == null) {
+        if (petDao.findPetByPetId(petId) == null) {
             throw new BarkibuException("SCTY-4008");
         }
-        List <PetTreatmentList> petTreatmentListLAstDate = petTreatmentDao.findTreatmentLastDateByPetId(petId);
-        List <PetTreatmentList> petTreatmentListNextDate = petTreatmentDao.findTreatmentNextDateByPetId(petId);
+        List<PetTreatment> petTreatmentListLAstDate = petTreatmentDao.findTreatmentLastDateByPetId(petId);
+        List<PetTreatment> petTreatmentListNextDate = petTreatmentDao.findTreatmentNextDateByPetId(petId);
         petTreatmentListNextDate.addAll(petTreatmentListLAstDate);
-        // Obtener la lista de tratamientos
-        return petTreatmentListNextDate;
+        List<PetTreatmentDto> petTreatmentDtos = new ArrayList<>();
+        for (PetTreatment petTreatment : petTreatmentListNextDate) {
+            PetTreatmentDto petTreatmentDto = new PetTreatmentDto();
+            petTreatmentDto.setPetTreatmentId(petTreatment.getPetTreatmentId());
+            petTreatmentDto.setTreatmentId(petTreatment.getTreatmentId());
+            petTreatmentDto.setPetId(petTreatment.getPetId());
+            petTreatmentDto.setTreatmentLastDate(petTreatment.getTreatmentLastDate());
+            petTreatmentDto.setTreatmentNextDate(petTreatment.getTreatmentNextDate());
+            petTreatmentDtos.add(petTreatmentDto);
+        }
+        return petTreatmentDtos;
     }
+
+
 
     public void updatePetTreatmentDate(PetTreatmentDto petTreatmentDto) {
         if(petDao.findPetByPetId(petTreatmentDto.getPetId()) == null) {
@@ -64,4 +75,10 @@ public class PetTreatmentBl {
         this.petTreatmentDao.updatePetTreatmentDate(petTreatment);
     }
 
+    public void deletePetTreatment(Integer petTreatmentId) {
+        if(petTreatmentDao.findPetTreatmentIdByPetTreatmentId(petTreatmentId) == null) {
+            throw new BarkibuException("SCTY-4013");
+        }
+        this.petTreatmentDao.deletePetTreatment(petTreatmentId);
+    }
 }

@@ -1,8 +1,6 @@
 package bo.edu.ucb.barkibu.api;
 
-import bo.edu.ucb.barkibu.bl.CountryBl;
 import bo.edu.ucb.barkibu.bl.StateBl;
-import bo.edu.ucb.barkibu.dto.CountryDto;
 import bo.edu.ucb.barkibu.dto.ResponseDto;
 import bo.edu.ucb.barkibu.dto.StateDto;
 import bo.edu.ucb.barkibu.util.AuthUtil;
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.Map;
 
-
 @RestController
 @RequestMapping("/v1/api/state")
 public class StateApi {
@@ -29,7 +26,7 @@ public class StateApi {
     }
 
     @GetMapping()
-    public ResponseEntity<ResponseDto> getStates(@RequestHeader Map<String,String> headers) {
+    public ResponseEntity<ResponseDto> getStates(@RequestHeader Map<String, String> headers) {
         try {
             // Verificamos que el usuario este autenticado
             String jwt = AuthUtil.getTokenFromHeader(headers);

@@ -1,10 +1,7 @@
 package bo.edu.ucb.barkibu.bl;
 
-import bo.edu.ucb.barkibu.dao.CityDao;
 import bo.edu.ucb.barkibu.dao.StateDao;
-import bo.edu.ucb.barkibu.dto.CityDto;
 import bo.edu.ucb.barkibu.dto.StateDto;
-import bo.edu.ucb.barkibu.entity.City;
 import bo.edu.ucb.barkibu.entity.State;
 import org.springframework.stereotype.Service;
 
