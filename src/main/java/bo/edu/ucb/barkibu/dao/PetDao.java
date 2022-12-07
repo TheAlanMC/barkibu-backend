@@ -45,6 +45,7 @@ public interface PetDao {
             UPDATE pet
             SET name = #{name}, gender = #{gender}, castrated = #{castrated},
             born_date = #{bornDate}, breed_id = #{breedId}, chip_number = #{chipNumber}
+            photo_path = #{photoPath}
             WHERE pet_id = #{petId}
             AND status = 'activo'
             """)

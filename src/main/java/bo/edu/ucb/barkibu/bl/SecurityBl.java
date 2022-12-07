@@ -22,8 +22,8 @@ import static bo.edu.ucb.barkibu.util.ValidationUtil.isTimeBeforeNow;
 public class SecurityBl {
     private final UserDao userDao;
     private final RoleDao roleDao;
-    static Integer tokenExpirationTime = 3000000;
-    // static Integer tokenExpirationTime = 60;
+    // static Integer tokenExpirationTime = 3000000;
+    static Integer tokenExpirationTime = 60*15;
 
     public SecurityBl(UserDao userDao, RoleDao roleDao) {
         this.userDao = userDao;
