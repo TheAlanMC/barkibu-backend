@@ -70,7 +70,7 @@ public class PetTreatmentApi {
                 String jwt = AuthUtil.getTokenFromHeader(headers);
                 AuthUtil.getUserNameFromToken(jwt);
                 AuthUtil.verifyHasRole(jwt, "EDITAR TRATAMIENTOS DE LA MASCOTA");
-                petTreatmentBl.updatePetTreatmentDate(petTreatmentDto);
+                petTreatmentBl.updatePetTreatment(petTreatmentDto);
                 ResponseDto<String> responseDto = new ResponseDto<>("Treatment Updated", "SCTY-0000", null);
                 return new ResponseEntity<>(responseDto, HttpStatus.OK);
             } catch (BarkibuException e) {

@@ -52,12 +52,15 @@ public interface PetTreatmentDao {
 
     @Update("""
             UPDATE pet_treatment
-            SET treatment_last_date = #{treatmentLastDate}
-            WHERE pet_id = #{petId}
-            AND treatment_id = #{treatmentId}
+            SET
+            treatment_id = #{treatmentId},
+            pet_id = #{petId},                   
+            treatment_last_date = #{treatmentLastDate}, 
+            treatment_next_date = #{treatmentNextDate} 
+            WHERE pet_treatment_id = #{petTreatmentId}
             AND status = 'activo'
             """)
-    void updatePetTreatmentDate(PetTreatment petTreatment);
+    void updatePetTreatment(PetTreatment petTreatment);
 
     @Select("""
             SELECT pet_treatment_id

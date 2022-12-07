@@ -64,15 +64,17 @@ public class PetTreatmentBl {
 
 
 
-    public void updatePetTreatmentDate(PetTreatmentDto petTreatmentDto) {
+    public void updatePetTreatment(PetTreatmentDto petTreatmentDto) {
         if(petDao.findPetByPetId(petTreatmentDto.getPetId()) == null) {
             throw new BarkibuException("SCTY-4008");
         }
         PetTreatment petTreatment = new PetTreatment();
+        petTreatment.setPetTreatmentId(petTreatmentDto.getPetTreatmentId());
         petTreatment.setPetId(petTreatmentDto.getPetId());
         petTreatment.setTreatmentId(petTreatmentDto.getTreatmentId());
         petTreatment.setTreatmentLastDate(petTreatmentDto.getTreatmentLastDate());
-        this.petTreatmentDao.updatePetTreatmentDate(petTreatment);
+        petTreatment.setTreatmentNextDate(petTreatmentDto.getTreatmentNextDate());
+        this.petTreatmentDao.updatePetTreatment(petTreatment);
     }
 
     public void deletePetTreatment(Integer petTreatmentId) {
